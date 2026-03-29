@@ -54,7 +54,7 @@ export default function ApplyButton({
           {cfg?.emoji} {cfg?.label ?? applicationStatus}
         </p>
         <p className="text-xs mt-1 text-gray-500">
-          You've already applied to this campaign.
+          You&apos;ve already applied to this campaign.
         </p>
       </div>
     )

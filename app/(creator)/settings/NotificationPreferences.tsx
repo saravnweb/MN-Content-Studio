@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
-type Prefs = {
+export type Prefs = {
   new_deals: boolean
   status_updates: boolean
   payout_updates: boolean

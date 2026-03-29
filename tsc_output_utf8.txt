@@ -1,0 +1,13 @@
+﻿app/(creator)/settings/page.tsx(39,54): error TS2739: Type 'Record<string, boolean>' is missing the following properties from type 'Prefs': new_deals, status_updates, payout_updates
+app/api/push/send/route.ts(3,21): error TS7016: Could not find a declaration file for module 'web-push'. 'D:/websites/MW Content Studio/node_modules/web-push/src/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/web-push` if it exists or add a new declaration (.d.ts) file containing `declare module 'web-push';`
+lib/supabase/middleware.ts(15,16): error TS7006: Parameter 'cookiesToSet' implicitly has an 'any' type.
+lib/supabase/middleware.ts(16,35): error TS7031: Binding element 'name' implicitly has an 'any' type.
+lib/supabase/middleware.ts(16,41): error TS7031: Binding element 'value' implicitly has an 'any' type.
+lib/supabase/middleware.ts(20,35): error TS7031: Binding element 'name' implicitly has an 'any' type.
+lib/supabase/middleware.ts(20,41): error TS7031: Binding element 'value' implicitly has an 'any' type.
+lib/supabase/middleware.ts(20,48): error TS7031: Binding element 'options' implicitly has an 'any' type.
+lib/supabase/server.ts(24,16): error TS7006: Parameter 'cookiesToSet' implicitly has an 'any' type.
+lib/supabase/server.ts(26,37): error TS7031: Binding element 'name' implicitly has an 'any' type.
+lib/supabase/server.ts(26,43): error TS7031: Binding element 'value' implicitly has an 'any' type.
+lib/supabase/server.ts(26,50): error TS7031: Binding element 'options' implicitly has an 'any' type.

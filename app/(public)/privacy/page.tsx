@@ -17,9 +17,9 @@ export default function PrivacyPage() {
 
         <div className="space-y-8 prose prose-invert prose-sm max-w-none prose-p:text-gray-400 prose-headings:text-gray-100 prose-strong:text-indigo-400">
           <section>
-            <h2 className="text-xl font-semibold">1. We Collect Only What's Needed</h2>
+            <h2 className="text-xl font-semibold">1. We Collect Only What&apos;s Needed</h2>
             <p>
-              We don't believe in unnecessary data hoarding. We collect your Google name, email, and social handles only for:
+              We don&apos;t believe in unnecessary data hoarding. We collect your Google name, email, and social handles only for:
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>Identifying you for brand deals and fulfillment orders.</li>
@@ -52,7 +52,7 @@ export default function PrivacyPage() {
           <section className="p-6 bg-gray-900 border border-gray-800 rounded-2xl border-l-4 border-l-indigo-500">
             <h2 className="text-lg font-bold text-gray-100 mb-4 italic">Kindness first. No lies.</h2>
             <p className="text-sm mb-4">
-              If you ever feel uncomfortable about how your data is being used, just reach out to us. We'll listen and fix it.
+              If you ever feel uncomfortable about how your data is being used, just reach out to us. We&apos;ll listen and fix it.
             </p>
             <div className="text-xs space-y-1 font-mono uppercase tracking-tight text-gray-300">
               <p>Email: privacy@mwcontentstudio.in</p>

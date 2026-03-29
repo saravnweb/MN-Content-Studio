@@ -19,7 +19,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold">1. Our Role</h2>
             <p>
-              MW Content Studio acts as a curated fulfillment network. We connect brands with Indian creators to execute specific content orders (the "Deals"). We are an intermediary platform as defined under the Information Technology Act, 2000.
+              MW Content Studio acts as a curated fulfillment network. We connect brands with Indian creators to execute specific content orders (the &quot;Deals&quot;). We are an intermediary platform as defined under the Information Technology Act, 2000.
             </p>
           </section>
 
@@ -34,7 +34,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold">3. Fulfillment & Payments</h2>
             <p>
-              Once a Deal is claimed and completed according to the brand's specifications, payment is processed. We aim for 100% transparency in our payout cycles. All commercials are inclusive of applicable Indian taxes unless stated otherwise.
+              Once a Deal is claimed and completed according to the brand&apos;s specifications, payment is processed. We aim for 100% transparency in our payout cycles. All commercials are inclusive of applicable Indian taxes unless stated otherwise.
             </p>
           </section>
 
@@ -58,9 +58,9 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold font-serif italic text-indigo-300">"Kindness is the ultimate sophistication."</h2>
+            <h2 className="text-xl font-semibold font-serif italic text-indigo-300">&quot;Kindness is the ultimate sophistication.&quot;</h2>
             <p>
-              By using this platform, you join a community that values craft over clout. Let's build something honest together.
+              By using this platform, you join a community that values craft over clout. Let&apos;s build something honest together.
             </p>
           </section>
         </div>

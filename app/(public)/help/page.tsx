@@ -19,11 +19,11 @@ export default function HelpPage() {
 
         <div className="space-y-8">
           <Section icon={<Hand className="w-5 h-5" />} title="How to Join">
-            To join, simply click on the "Get Started" button on the home page. You'll log in securely using Google OAuth. It's fast, simple, and you'll be ready to browse deals in seconds.
+            To join, simply click on the &quot;Get Started&quot; button on the home page. You&apos;ll log in securely using Google OAuth. It&apos;s fast, simple, and you&apos;ll be ready to browse deals in seconds.
           </Section>
 
           <Section icon={<Target className="w-5 h-5" />} title="How to Claim a Deal">
-            Browse our list of live campaigns. When you see a deal that matches your niche (e.g., Beauty, Fashion, Tech) and platform (Instagram, YouTube), click "View Full Details" and then claim your spot. We follow a direct fulfillment model—no long approval wait times for active spots.
+            Browse our list of live campaigns. When you see a deal that matches your niche (e.g., Beauty, Fashion, Tech) and platform (Instagram, YouTube), click &quot;View Full Details&quot; and then claim your spot. We follow a direct fulfillment model—no long approval wait times for active spots.
           </Section>
 
           <Section icon={<Banknote className="w-5 h-5" />} title="Payouts & Commercials">
@@ -31,7 +31,7 @@ export default function HelpPage() {
           </Section>
 
           <Section icon={<AlarmClock className="w-5 h-5" />} title="Deadlines & Fulfillment">
-            Each deal has an end date. Ensure you upload your deliverables (e.g., Reels, Videos) before the deadline to ensure smooth payment processing. If you run into issues, just communicate with us—we're human.
+            Each deal has an end date. Ensure you upload your deliverables (e.g., Reels, Videos) before the deadline to ensure smooth payment processing. If you run into issues, just communicate with us—we&apos;re human.
           </Section>
 
           <div className="p-8 bg-gray-900 border border-gray-800 rounded-3xl mt-12 shadow-2xl relative overflow-hidden group">

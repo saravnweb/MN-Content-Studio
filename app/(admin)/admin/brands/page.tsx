@@ -268,7 +268,7 @@ function CreateBrandDrawer({
               placeholder="Sports Nutrition · India"
               className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-indigo-500"
             />
-            <p className="text-gray-700 text-xs mt-1.5">Or pick industry tags below — they'll be used as tagline</p>
+            <p className="text-gray-700 text-xs mt-1.5">Or pick industry tags below — they&apos;ll be used as tagline</p>
           </div>
 
           {/* Industry tags */}

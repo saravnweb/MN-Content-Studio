@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import PushSetup from '../dashboard/PushSetup'
-import NotificationPreferences from './NotificationPreferences'
+import NotificationPreferences, { type Prefs } from './NotificationPreferences'
 import AccountSecurity from './AccountSecurity'
 import AppPreferences from './AppPreferences'
 
@@ -14,7 +14,7 @@ export default async function SettingsPage() {
     .eq('id', user!.id)
     .single()
 
-  const notifPrefs = (profile?.notification_preferences as Record<string, boolean> | null) ?? {
+  const notifPrefs = (profile?.notification_preferences as Prefs | null) ?? {
     new_deals: true,
     status_updates: true,
     payout_updates: true,
