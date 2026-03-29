@@ -37,7 +37,7 @@ export default function AdminSidebar({
       ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
       <div className="px-6 py-5 border-b border-gray-800">
         <p className="text-gray-100 font-bold text-base">MW Content Studio</p>
-        <p className="text-gray-500 text-xs mt-0.5">Admin Control</p>
+        <p className="text-gray-400 text-xs mt-0.5">Admin Control</p>
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-1">
@@ -58,7 +58,7 @@ export default function AdminSidebar({
       <div className="px-4 py-4 border-t border-gray-800">
         <p className="text-gray-400 text-xs px-2 mb-2 truncate">{name}</p>
         <button onClick={signOut}
-          className="w-full text-left px-3 py-2 text-sm text-gray-500 hover:text-red-400 rounded-lg hover:bg-gray-800 transition-colors">
+          className="w-full text-left px-3 py-2 text-sm text-gray-400 hover:text-red-400 rounded-lg hover:bg-gray-800 transition-colors">
           Sign out
         </button>
       </div>

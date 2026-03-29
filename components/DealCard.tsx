@@ -48,7 +48,7 @@ export default function DealCard({
           {c.brand_logo_url ? (
             <img src={c.brand_logo_url} alt={c.brand_name} className="w-full h-full object-cover" />
           ) : (
-            <span className="font-bold text-xs text-gray-500">
+            <span className="font-bold text-xs text-gray-400">
               {initials}
             </span>
           )}
@@ -58,7 +58,7 @@ export default function DealCard({
             {c.brand_name}
           </p>
           {c.platforms && c.platforms.length > 0 && (
-            <p className="text-xs capitalize text-gray-500">
+            <p className="text-xs capitalize text-gray-400">
               {c.platforms.join(' · ')}
             </p>
           )}
@@ -90,7 +90,7 @@ export default function DealCard({
       {/* Stats Row */}
       <div className="flex items-center gap-4 mt-4 text-xs">
         <div className="flex flex-col">
-          <p className="text-gray-500 mb-0.5">Budget</p>
+          <p className="text-gray-400 mb-0.5">Budget</p>
           <p className="font-semibold text-gray-200">
             {c.budget_min || c.budget_max
               ? <>₹{(c.budget_min ?? c.budget_max)!.toLocaleString('en-IN')}{c.budget_max && c.budget_max !== c.budget_min ? `–₹${c.budget_max.toLocaleString('en-IN')}` : ''}</>
@@ -99,13 +99,13 @@ export default function DealCard({
         </div>
         <div className="w-px h-6 bg-gray-800" />
         <div className="flex flex-col">
-          <p className="text-gray-500 mb-0.5">Spots Left</p>
+          <p className="text-gray-400 mb-0.5">Spots Left</p>
           <p className="font-semibold text-gray-200">
             {c.slots_total - c.slots_filled} / {c.slots_total}
           </p>
         </div>
         <div className="ml-auto flex flex-col items-end">
-          <p className="text-gray-500 mb-0.5">End Date</p>
+          <p className="text-gray-400 mb-0.5">End Date</p>
           <p className="font-semibold text-gray-200">
             {c.deadline
               ? new Date(c.deadline).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })
@@ -131,7 +131,7 @@ export default function DealCard({
           className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-800 bg-gray-800/50 transition-colors shrink-0 active:scale-95 disabled:opacity-60"
           aria-label="Bookmark deal"
         >
-          <Bookmark className={`w-4 h-4 transition-colors ${bookmarked ? 'text-indigo-400 fill-current' : 'text-gray-500 hover:text-gray-300'}`} />
+          <Bookmark className={`w-4 h-4 transition-colors ${bookmarked ? 'text-indigo-400 fill-current' : 'text-gray-400 hover:text-gray-300'}`} />
         </button>
         <button
           onClick={() => {
@@ -143,7 +143,7 @@ export default function DealCard({
               alert('Link copied to clipboard!')
             }
           }}
-          className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-800 bg-gray-800/50 text-gray-500 hover:text-gray-300 transition-colors shrink-0 active:scale-95"
+          className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-800 bg-gray-800/50 text-gray-400 hover:text-gray-300 transition-colors shrink-0 active:scale-95"
           aria-label="Share order"
         >
           <Share2 className="w-4 h-4" />
@@ -160,7 +160,7 @@ function AppliedBadge({ status }: { status: string }) {
     rejected:    'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
     negotiating: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
   }
-  const cls = s[status] ?? 'bg-gray-100 text-gray-600 dark:bg-gray-500/10 dark:text-gray-400'
+  const cls = s[status] ?? 'bg-gray-100 text-gray-400 dark:bg-gray-500/10 dark:text-gray-400'
   return (
     <span className={`text-[10px] font-medium px-2 py-1 rounded-full capitalize shrink-0 ${cls}`}>
       {status}

@@ -15,12 +15,12 @@ export default async function ApplicationsPage() {
     <div>
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-white">Applications</h2>
-        <p className="text-gray-500 text-sm mt-1">{pending.length} pending · {applications?.length ?? 0} total</p>
+        <p className="text-gray-400 text-sm mt-1">{pending.length} pending · {applications?.length ?? 0} total</p>
       </div>
 
       {!applications?.length ? (
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
-          <p className="text-gray-500 text-sm">No applications yet</p>
+          <p className="text-gray-400 text-sm">No applications yet</p>
         </div>
       ) : (
         <div className="space-y-6">
@@ -46,7 +46,7 @@ function Group({ title, apps }: { title: string; apps: any[] }) {
             className="flex items-center justify-between px-5 py-4 hover:bg-gray-800/50 transition-colors">
             <div>
               <p className="text-white text-sm font-medium">{app.creator?.full_name ?? '—'}</p>
-              <p className="text-gray-500 text-xs mt-0.5">
+              <p className="text-gray-400 text-xs mt-0.5">
                 {app.campaign?.brand_name} · {app.campaign?.title}
                 {app.creator?.platform ? ` · ${app.creator.platform}` : ''}
               </p>

@@ -205,7 +205,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-2xl font-bold text-white">{isEdit ? 'Edit Campaign' : 'New Campaign'}</h2>
-          <p className="text-gray-500 text-sm mt-1">{isEdit ? 'Update campaign details' : 'Post a brand deal for creators'}</p>
+          <p className="text-gray-400 text-sm mt-1">{isEdit ? 'Update campaign details' : 'Post a brand deal for creators'}</p>
         </div>
         {isEdit && (
           <StatusToggle value={status} onChange={setStatus} />
@@ -220,7 +220,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
               className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-left transition-colors ${
                 activeSection === step.id
                   ? 'bg-indigo-600/20 text-indigo-400'
-                  : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800/50'
+                  : 'text-gray-400 hover:text-gray-300 hover:bg-gray-800/50'
               }`}>
               <span>{step.icon}</span>
               {step.label}
@@ -228,7 +228,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
           ))}
           {/* Live preview card */}
           <div className="mt-4 bg-gray-900 border border-gray-800 rounded-xl p-3 space-y-2">
-            <p className="text-gray-600 text-[10px] uppercase tracking-wider font-medium">Preview</p>
+            <p className="text-gray-400 text-[10px] uppercase tracking-wider font-medium">Preview</p>
             {selectedBrand && (
               <div className="flex items-center gap-2">
                 <BrandAvatar brand={selectedBrand} size="sm" />
@@ -265,7 +265,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
 
               {brands.length === 0 ? (
                 <div className="border-2 border-dashed border-gray-700 rounded-xl p-8 text-center">
-                  <p className="text-gray-500 text-sm mb-3">No brands yet</p>
+                  <p className="text-gray-400 text-sm mb-3">No brands yet</p>
                   <button type="button" onClick={() => setShowAddBrand(true)}
                     className="text-sm bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors">
                     Add Your First Brand
@@ -283,7 +283,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                       <BrandAvatar brand={b} size="sm" />
                       <div className="min-w-0">
                         <p className="text-white text-xs font-medium truncate">{b.name}</p>
-                        {b.tagline && <p className="text-gray-500 text-[10px] truncate">{b.tagline}</p>}
+                        {b.tagline && <p className="text-gray-400 text-[10px] truncate">{b.tagline}</p>}
                       </div>
                       {selectedBrand?.id === b.id && (
                         <span className="ml-auto text-indigo-400 text-xs shrink-0">✓</span>
@@ -304,7 +304,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                 <textarea required rows={5} value={description} onChange={(e) => setDescription(e.target.value)}
                   placeholder="Describe who you're looking for, campaign goals, any requirements…"
                   className={`${inputCls} resize-none`} />
-                <p className="text-gray-600 text-xs mt-1 text-right">{description.length} chars</p>
+                <p className="text-gray-400 text-xs mt-1 text-right">{description.length} chars</p>
               </Field>
               <Field label="Deliverables">
                 <input value={deliverables} onChange={(e) => setDeliverables(e.target.value)}
@@ -321,9 +321,9 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                     <NextImage src={bannerPreview} alt="Banner" fill className="object-cover" />
                   ) : (
                     <div className="flex flex-col items-center justify-center py-10 gap-2">
-                      <ImageIcon className="w-8 h-8 text-gray-600" />
-                      <p className="text-gray-500 text-sm">Click to upload banner</p>
-                      <p className="text-gray-600 text-xs">Recommended: 1200×400px</p>
+                      <ImageIcon className="w-8 h-8 text-gray-400" />
+                      <p className="text-gray-400 text-sm">Click to upload banner</p>
+                      <p className="text-gray-400 text-xs">Recommended: 1200×400px</p>
                     </div>
                   )}
                   {bannerPreview && (
@@ -341,17 +341,17 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
               <Field label="Budget Range (INR)">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">₹</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">₹</span>
                     <input type="number" value={budgetMin} onChange={(e) => setBudgetMin(e.target.value)}
                       placeholder="15,000" className={`${inputCls} pl-7`} />
                   </div>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">₹</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">₹</span>
                     <input type="number" value={budgetMax} onChange={(e) => setBudgetMax(e.target.value)}
                       placeholder="40,000" className={`${inputCls} pl-7`} />
                   </div>
                 </div>
-                <p className="text-gray-600 text-xs mt-1">Min budget · Max budget</p>
+                <p className="text-gray-400 text-xs mt-1">Min budget · Max budget</p>
               </Field>
 
               <Field label="Niches * (select all that apply)">
@@ -452,7 +452,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
             <div className="flex items-center justify-between">
               <h3 className="text-white font-semibold">Add New Brand</h3>
               <button type="button" onClick={() => setShowAddBrand(false)}
-                className="text-gray-500 hover:text-gray-300 w-8 h-8 rounded-full hover:bg-gray-800 flex items-center justify-center transition-colors">
+                className="text-gray-400 hover:text-gray-300 w-8 h-8 rounded-full hover:bg-gray-800 flex items-center justify-center transition-colors">
                 ✕
               </button>
             </div>
@@ -462,11 +462,11 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                 className="w-20 h-20 rounded-2xl bg-gray-800 border-2 border-dashed border-gray-700 hover:border-indigo-500 flex items-center justify-center overflow-hidden shrink-0 transition-colors">
                 {newBrandLogoPreview
                   ? <NextImage src={newBrandLogoPreview} alt="logo" fill className="object-cover" />
-                  : <span className="text-gray-500 text-xs text-center leading-tight px-2">Upload Logo</span>
+                  : <span className="text-gray-400 text-xs text-center leading-tight px-2">Upload Logo</span>
                 }
               </button>
               <input ref={modalFileRef} type="file" accept="image/*" onChange={onModalLogoChange} className="hidden" />
-              <p className="text-gray-500 text-xs leading-relaxed">Upload the brand logo. It will be reused across campaigns.</p>
+              <p className="text-gray-400 text-xs leading-relaxed">Upload the brand logo. It will be reused across campaigns.</p>
             </div>
 
             <div className="space-y-3">
@@ -532,7 +532,7 @@ function StatusToggle({ value, onChange }: { value: string; onChange: (v: 'activ
       {opts.map((o) => (
         <button key={o.v} type="button" onClick={() => onChange(o.v)}
           className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-            value === o.v ? `${o.cls} border` : 'text-gray-600 hover:text-gray-400'
+            value === o.v ? `${o.cls} border` : 'text-gray-400 hover:text-gray-400'
           }`}>
           {o.label}
         </button>

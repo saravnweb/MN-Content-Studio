@@ -141,12 +141,12 @@ export default function HeaderNotificationBell({ userId }: { userId: string }) {
 
           <div className="overflow-y-auto flex-1">
             {loading ? (
-              <p className="text-center text-gray-500 text-sm py-8">Loading…</p>
+              <p className="text-center text-gray-400 text-sm py-8">Loading…</p>
             ) : notifications.length === 0 ? (
               <div className="text-center py-10 px-4">
                 <Bell className="w-8 h-8 mx-auto mb-2 opacity-40" />
                 <p className="text-sm text-gray-400">No notifications yet</p>
-                <p className="text-xs text-gray-600 mt-1">You&apos;ll hear here when brands respond</p>
+                <p className="text-xs text-gray-400 mt-1">You&apos;ll hear here when brands respond</p>
               </div>
             ) : (
               <div className="divide-y divide-gray-800">
@@ -162,7 +162,7 @@ export default function HeaderNotificationBell({ userId }: { userId: string }) {
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-medium text-gray-100 leading-snug">{n.title}</p>
                         <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{n.body}</p>
-                        <p className="text-[10px] text-gray-600 mt-1">
+                        <p className="text-[10px] text-gray-400 mt-1">
                           {new Date(n.created_at).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}
                         </p>
                       </div>

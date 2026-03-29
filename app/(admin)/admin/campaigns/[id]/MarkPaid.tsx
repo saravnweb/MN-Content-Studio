@@ -44,14 +44,14 @@ export default function MarkPaid({
           ✓ Paid{currentAmount ? ` ${fmt(currentAmount)}` : ''}
         </span>
         {currentRef && (
-          <span className="text-xs text-gray-500 font-mono">Ref: {currentRef}</span>
+          <span className="text-xs text-gray-400 font-mono">Ref: {currentRef}</span>
         )}
         {currentDate && (
-          <span className="text-xs text-gray-600">
+          <span className="text-xs text-gray-400">
             {new Date(currentDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
           </span>
         )}
-        <button onClick={() => setOpen(true)} className="text-xs text-gray-600 hover:text-gray-400 underline">Edit</button>
+        <button onClick={() => setOpen(true)} className="text-xs text-gray-400 hover:text-gray-400 underline">Edit</button>
       </div>
     )
   }
@@ -63,7 +63,7 @@ export default function MarkPaid({
         <span className="inline-flex items-center gap-1 text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1.5 rounded-full">
           ⏳ Processing
         </span>
-        <button onClick={() => setOpen(true)} className="text-xs text-gray-600 hover:text-gray-400 underline">Update</button>
+        <button onClick={() => setOpen(true)} className="text-xs text-gray-400 hover:text-gray-400 underline">Update</button>
       </div>
     )
   }
@@ -96,7 +96,7 @@ export default function MarkPaid({
     return (
       <button
         onClick={() => setOpen(true)}
-        className="mt-3 text-xs font-medium text-gray-500 hover:text-indigo-400 border border-dashed border-gray-700 hover:border-indigo-500/50 px-3 py-1.5 rounded-lg transition-colors"
+        className="mt-3 text-xs font-medium text-gray-400 hover:text-indigo-400 border border-dashed border-gray-700 hover:border-indigo-500/50 px-3 py-1.5 rounded-lg transition-colors"
       >
         + Record Payout
       </button>
@@ -110,7 +110,7 @@ export default function MarkPaid({
       <div className="grid grid-cols-2 gap-2.5">
         {/* Amount */}
         <div>
-          <label className="text-[10px] text-gray-500 uppercase tracking-wide mb-1 block">Amount (₹)</label>
+          <label className="text-[10px] text-gray-400 uppercase tracking-wide mb-1 block">Amount (₹)</label>
           <input
             type="number"
             value={amount}
@@ -122,7 +122,7 @@ export default function MarkPaid({
 
         {/* Status */}
         <div>
-          <label className="text-[10px] text-gray-500 uppercase tracking-wide mb-1 block">Status</label>
+          <label className="text-[10px] text-gray-400 uppercase tracking-wide mb-1 block">Status</label>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value as 'unpaid' | 'processing' | 'paid')}
@@ -137,7 +137,7 @@ export default function MarkPaid({
 
       {/* UTR / Ref */}
       <div>
-        <label className="text-[10px] text-gray-500 uppercase tracking-wide mb-1 block">UTR / Reference (optional)</label>
+        <label className="text-[10px] text-gray-400 uppercase tracking-wide mb-1 block">UTR / Reference (optional)</label>
         <input
           type="text"
           value={ref}
@@ -152,7 +152,7 @@ export default function MarkPaid({
       <div className="flex gap-2 pt-1">
         <button
           onClick={() => { setOpen(false); setError('') }}
-          className="px-3 py-2 text-xs text-gray-500 hover:text-gray-300 border border-gray-700 rounded-lg transition-colors"
+          className="px-3 py-2 text-xs text-gray-400 hover:text-gray-300 border border-gray-700 rounded-lg transition-colors"
         >
           Cancel
         </button>

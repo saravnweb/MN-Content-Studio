@@ -82,7 +82,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
     { n: 3, label: 'Your Niches' },
   ]
 
-  const inp = "w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+  const inp = "w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-500 transition-colors"
 
   return (
     <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-center px-4 py-12">
@@ -90,7 +90,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
       {/* Logo / brand */}
       <div className="mb-8 text-center">
         <p className="font-bold text-xl text-white">MW Content Studio</p>
-        <p className="text-sm mt-1 text-gray-500">Let&apos;s set up your creator profile</p>
+        <p className="text-sm mt-1 text-gray-400">Let&apos;s set up your creator profile</p>
       </div>
 
       {/* Step indicator */}
@@ -104,7 +104,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                 {step > s.n ? '✓' : s.n}
               </div>
               <p className={`text-[10px] mt-1 font-medium whitespace-nowrap ${
-                step >= s.n ? 'text-gray-300' : 'text-gray-500'
+                step >= s.n ? 'text-gray-300' : 'text-gray-400'
               }`}>{s.label}</p>
             </div>
             {i < steps.length - 1 && (
@@ -124,7 +124,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
           <div className="space-y-4">
             <div>
               <h2 className="text-lg font-bold text-white">Welcome! 👋</h2>
-              <p className="text-sm mt-1 text-gray-500">Tell us a bit about yourself to get started.</p>
+              <p className="text-sm mt-1 text-gray-400">Tell us a bit about yourself to get started.</p>
             </div>
 
             <Field label="Your Full Name *">
@@ -150,7 +150,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
 
             <Field label="Phone (optional)">
               <div className="flex">
-                <span className="bg-gray-800 border-gray-800 border border-r-0 rounded-l-lg px-3 flex items-center text-sm text-gray-500">+91</span>
+                <span className="bg-gray-800 border-gray-800 border border-r-0 rounded-l-lg px-3 flex items-center text-sm text-gray-400">+91</span>
                 <input type="tel" inputMode="numeric" value={phone}
                   onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
                   placeholder="9876543210" className={`${inp} rounded-l-none`} />
@@ -164,7 +164,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
           <div className="space-y-4">
             <div>
               <h2 className="text-lg font-bold text-white">Your Platform 📱</h2>
-              <p className="text-sm mt-1 text-gray-500">Where do you create content?</p>
+              <p className="text-sm mt-1 text-gray-400">Where do you create content?</p>
             </div>
 
             <Field label="Platform *">
@@ -208,7 +208,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
           <div className="space-y-4">
             <div>
               <h2 className="text-lg font-bold text-white">Your Niches 🎯</h2>
-              <p className="text-sm mt-1 text-gray-500">
+              <p className="text-sm mt-1 text-gray-400">
                 Pick your content categories — we&apos;ll match you to relevant brand deals.
               </p>
             </div>
@@ -263,7 +263,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
 
       {/* Skip */}
       <button onClick={() => { router.push('/deals') }}
-        className="mt-4 text-xs text-gray-500 underline underline-offset-2 hover:text-gray-300 transition-colors">
+        className="mt-4 text-xs text-gray-400 underline underline-offset-2 hover:text-gray-300 transition-colors">
         Skip for now
       </button>
     </div>
@@ -273,7 +273,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-xs font-medium mb-1.5 text-gray-500">{label}</label>
+      <label className="block text-xs font-medium mb-1.5 text-gray-400">{label}</label>
       {children}
     </div>
   )

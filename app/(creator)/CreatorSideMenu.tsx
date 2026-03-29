@@ -39,7 +39,7 @@ export default function CreatorSideMenu({
         <div className="px-4 py-4 border-b border-gray-800 flex items-center justify-between">
           <div className="min-w-0">
             <p className="text-gray-100 font-bold text-sm">MW Content Studio</p>
-            {name && <p className="text-gray-500 text-xs mt-0.5 truncate">{name}</p>}
+            {name && <p className="text-gray-400 text-xs mt-0.5 truncate">{name}</p>}
           </div>
           <button
             onClick={onClose}
@@ -62,7 +62,7 @@ export default function CreatorSideMenu({
 
         <div className="px-4 py-4 border-t border-gray-800">
           <button onClick={signOut}
-            className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-500 hover:text-red-400 rounded-lg hover:bg-gray-800 transition-colors">
+            className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-400 hover:text-red-400 rounded-lg hover:bg-gray-800 transition-colors">
             <LogOut className="w-4 h-4 shrink-0" />
             Sign out
           </button>

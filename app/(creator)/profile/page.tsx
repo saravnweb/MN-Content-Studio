@@ -15,7 +15,7 @@ export default async function ProfilePage() {
     <div>
       <div className="mb-6 pt-2">
         <h1 className="text-xl font-bold text-gray-100">My Profile</h1>
-        <p className="text-gray-500 text-sm mt-0.5">{user!.email}</p>
+        <p className="text-gray-400 text-sm mt-0.5">{user!.email}</p>
       </div>
       <ProfileForm
         profile={profile ?? { full_name: null, platform: null, platform_url: null, youtube_url: null, instagram_url: null, followers_count: null, niches: null, phone: null, whatsapp: null, age: null, gender: null }}

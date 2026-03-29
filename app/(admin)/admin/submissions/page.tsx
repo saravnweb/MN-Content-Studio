@@ -23,14 +23,14 @@ export default async function SubmissionsPage() {
     <div className="max-w-4xl">
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-white">Submissions</h2>
-        <p className="text-gray-500 text-sm mt-1">
+        <p className="text-gray-400 text-sm mt-1">
           {needsReview.length} needs review · {revisionRequested.length} revision requested · {approved.length} approved
         </p>
       </div>
 
       {!submissions?.length ? (
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
-          <p className="text-gray-500 text-sm">No content submissions yet</p>
+          <p className="text-gray-400 text-sm">No content submissions yet</p>
         </div>
       ) : (
         <div className="space-y-8">
@@ -72,7 +72,7 @@ function SubmissionCard({ submission: s }: { submission: any }) {
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-white font-medium text-sm">{s.creator?.full_name ?? '—'}</p>
-          <p className="text-gray-500 text-xs mt-0.5 capitalize">
+          <p className="text-gray-400 text-xs mt-0.5 capitalize">
             {s.creator?.platform}
             {s.creator?.followers_count ? ` · ${s.creator.followers_count.toLocaleString('en-IN')} followers` : ''}
           </p>
@@ -89,7 +89,7 @@ function SubmissionCard({ submission: s }: { submission: any }) {
             {s.campaign?.brand_name} · {s.campaign?.title}
           </Link>
           {submittedAt && (
-            <p className="text-gray-600 text-xs mt-0.5">{submittedAt}</p>
+            <p className="text-gray-400 text-xs mt-0.5">{submittedAt}</p>
           )}
         </div>
       </div>

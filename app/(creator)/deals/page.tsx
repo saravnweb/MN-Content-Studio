@@ -132,19 +132,19 @@ export default async function DealsPage({ searchParams }: { searchParams: Search
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-10 text-center mt-2">
           {tab === 'saved' ? (
             <>
-              <Bookmark className="w-8 h-8 mx-auto mb-3 text-gray-600" />
+              <Bookmark className="w-8 h-8 mx-auto mb-3 text-gray-400" />
               <p className="font-medium text-gray-100">No saved deals yet</p>
               <p className="text-sm mt-1 text-gray-400">Tap the bookmark icon on any deal to save it</p>
             </>
           ) : hasActiveFilters ? (
             <>
-              <Search className="w-8 h-8 mx-auto mb-3 text-gray-600" />
+              <Search className="w-8 h-8 mx-auto mb-3 text-gray-400" />
               <p className="font-medium text-gray-100">No deals match your filters</p>
               <p className="text-sm mt-1 text-gray-400">Try adjusting your search or clearing some filters</p>
             </>
           ) : (
             <>
-              <Inbox className="w-8 h-8 mx-auto mb-3 text-gray-600" />
+              <Inbox className="w-8 h-8 mx-auto mb-3 text-gray-400" />
               <p className="font-medium text-gray-100">No deals right now</p>
               <p className="text-sm mt-1 text-gray-400">Check back soon — new campaigns are posted regularly</p>
             </>

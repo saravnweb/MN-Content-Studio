@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   title: 'MW Content Studio | Direct Creator Orders',
   description: 'Hand-picked brand orders delivered directly to creators.',
   manifest: '/manifest.json',
+  icons: {
+    icon: '/icons/icon-192.png',
+    apple: '/icons/icon-192.png',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -31,7 +35,6 @@ export const viewport: Viewport = {
   themeColor: '#030712',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
 }
 
 export default function RootLayout({

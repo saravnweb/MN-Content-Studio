@@ -138,7 +138,7 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
 
         {/* Search */}
         <div className="relative flex-1">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-500">🔍</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-400">🔍</span>
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -147,7 +147,7 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
           />
           {query && (
             <button onClick={() => { setQuery(''); pushParams({ q: '' }) }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-xs px-1.5 py-0.5 rounded text-gray-500 hover:text-gray-100">
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-xs px-1.5 py-0.5 rounded text-gray-400 hover:text-gray-100">
               ✕
             </button>
           )}
@@ -159,7 +159,7 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
           className={`relative shrink-0 w-10 h-10 rounded-xl border flex items-center justify-center transition-colors ${
             showFilters || activeFilterCount > 0 
               ? 'bg-indigo-500/10 border-indigo-500 text-indigo-400' 
-              : 'bg-gray-900 border-gray-800 text-gray-500'
+              : 'bg-gray-900 border-gray-800 text-gray-400'
           }`}>
           ⚙
           {activeFilterCount > 0 && (
@@ -175,7 +175,7 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 mb-4 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
           {/* Platform */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-500">Platform</p>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Platform</p>
             <div className="flex gap-2 flex-wrap">
               {PLATFORMS.map((p) => (
                 <button key={p.value} onClick={() => setPlatformFilter(p.value)}
@@ -192,7 +192,7 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
 
           {/* Budget */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-500">Budget</p>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Budget</p>
             <div className="flex gap-2 flex-wrap">
               {BUDGET_PRESETS.map((b) => (
                 <button key={b.label} onClick={() => setBudget(b.label === 'Any' ? '' : b.label)}
@@ -209,7 +209,7 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
 
           {/* Niches */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-500">Niches</p>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Niches</p>
             <div className="flex flex-wrap gap-1.5">
               {NICHES.map((n) => (
                 <button key={n} onClick={() => toggleNiche(n)}
@@ -226,7 +226,7 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
 
           {/* Sort */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-500">Sort by</p>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Sort by</p>
             <div className="flex gap-2 flex-wrap">
               {SORT_OPTIONS.map((s) => (
                 <button key={s.value} onClick={() => setSort2(s.value)}
@@ -244,7 +244,7 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
           {/* Clear */}
           {activeFilterCount > 0 && (
             <button onClick={clearAll}
-              className="text-xs text-gray-500 hover:text-indigo-400 underline underline-offset-2 transition-colors">
+              className="text-xs text-gray-400 hover:text-indigo-400 underline underline-offset-2 transition-colors">
               Clear all filters
             </button>
           )}
@@ -264,7 +264,7 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
       )}
 
       {/* Results count + loading */}
-      <div className="flex items-center justify-between mb-3 text-xs text-gray-500">
+      <div className="flex items-center justify-between mb-3 text-xs text-gray-400">
         <p>
           {isPending ? 'Filtering…' : (
             activeFilterCount > 0 || query

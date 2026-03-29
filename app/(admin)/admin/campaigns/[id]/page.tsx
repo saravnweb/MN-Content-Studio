@@ -27,7 +27,7 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
   return (
     <div className="max-w-4xl">
       {/* Back */}
-      <Link href="/admin/campaigns" className="text-gray-500 text-sm hover:text-gray-300 mb-6 inline-block">← Campaigns</Link>
+      <Link href="/admin/campaigns" className="text-gray-400 text-sm hover:text-gray-300 mb-6 inline-block">← Campaigns</Link>
 
       {/* Campaign header */}
       <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 mb-6">
@@ -68,7 +68,7 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
         <h3 className="text-white font-semibold mb-4">Applications ({applications?.length ?? 0})</h3>
         {!applications?.length ? (
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center">
-            <p className="text-gray-500 text-sm">No applications yet</p>
+            <p className="text-gray-400 text-sm">No applications yet</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -77,7 +77,7 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-white font-medium text-sm">{app.creator?.full_name}</p>
-                    <p className="text-gray-500 text-xs mt-0.5 capitalize">
+                    <p className="text-gray-400 text-xs mt-0.5 capitalize">
                       {app.creator?.platform}
                       {app.creator?.followers_count ? ` · ${app.creator.followers_count.toLocaleString('en-IN')} followers` : ''}
                     </p>
@@ -140,7 +140,7 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-gray-500 text-xs mb-0.5">{label}</p>
+      <p className="text-gray-400 text-xs mb-0.5">{label}</p>
       <p className="text-white text-sm font-medium">{value}</p>
     </div>
   )

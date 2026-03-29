@@ -50,7 +50,7 @@ export default function PublicDealCard({
         <div className="min-w-0 flex-1">
           <p className="font-semibold text-sm leading-tight text-gray-100">{c.brand_name}</p>
           {c.platforms && c.platforms.length > 0 && (
-            <p className="text-xs capitalize text-gray-500">{c.platforms.join(' · ')}</p>
+            <p className="text-xs capitalize text-gray-400">{c.platforms.join(' · ')}</p>
           )}
         </div>
         <span className="text-[10px] px-2 py-1 rounded-full font-medium shrink-0 bg-emerald-500/10 text-emerald-400">Live</span>
@@ -70,7 +70,7 @@ export default function PublicDealCard({
       {/* Stats Row */}
       <div className="grid grid-cols-3 divide-x divide-gray-800 rounded-xl mt-4 text-xs overflow-hidden border border-gray-800">
         <div className="px-3 py-2.5">
-          <p className="text-gray-500 mb-0.5">Budget</p>
+          <p className="text-gray-400 mb-0.5">Budget</p>
           <p className="font-semibold text-gray-200">
             {(c.budget_min || c.budget_max)
               ? <>₹{(c.budget_min ?? c.budget_max)!.toLocaleString('en-IN')}{c.budget_max && c.budget_max !== c.budget_min ? `–₹${c.budget_max.toLocaleString('en-IN')}` : ''}</>
@@ -78,11 +78,11 @@ export default function PublicDealCard({
           </p>
         </div>
         <div className="px-3 py-2.5">
-          <p className="text-gray-500 mb-0.5">Spots Left</p>
+          <p className="text-gray-400 mb-0.5">Spots Left</p>
           <p className="font-semibold text-gray-200">{c.slots_total - c.slots_filled} / {c.slots_total}</p>
         </div>
         <div className="px-3 py-2.5">
-          <p className="text-gray-500 mb-0.5">End Date</p>
+          <p className="text-gray-400 mb-0.5">End Date</p>
           <p className="font-semibold text-gray-200">
             {c.deadline
               ? new Date(c.deadline).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })

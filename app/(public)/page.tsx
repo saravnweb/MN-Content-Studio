@@ -8,7 +8,7 @@ import GoogleOneTap from '@/components/GoogleOneTap'
 import ThemeToggle from '@/components/ThemeToggle'
 import NotificationBell from '@/components/NotificationBell'
 
-export const revalidate = 0
+export const revalidate = 60
 
 interface SearchParams {
   tab?: string
@@ -180,7 +180,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
           <div className="mt-8 bg-gray-900 border border-gray-800 rounded-2xl p-8 flex flex-col items-center text-center shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-50" />
             
-            <h3 className="font-bold text-xl text-gray-100">Ready to claim your next deal?</h3>
+            <h2 className="font-bold text-xl text-gray-100">Ready to claim your next deal?</h2>
             <p className="text-sm mt-2 mb-6 text-gray-400 max-w-xs mx-auto">
               Join Indian creators landing orders from top brands today.
             </p>

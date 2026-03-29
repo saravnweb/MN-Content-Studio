@@ -54,14 +54,14 @@ export default function CampaignsPage() {
     setDeletingId(null)
   }
 
-  if (loading) return <p className="text-gray-500 text-sm">Loading…</p>
+  if (loading) return <p className="text-gray-400 text-sm">Loading…</p>
 
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-2xl font-bold text-white">Campaigns</h2>
-          <p className="text-gray-500 text-sm mt-1">{campaigns.length} total</p>
+          <p className="text-gray-400 text-sm mt-1">{campaigns.length} total</p>
         </div>
         <Link href="/admin/campaigns/new"
           className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition-colors">
@@ -85,7 +85,7 @@ export default function CampaignsPage() {
                   <p className="text-white font-medium text-sm">{c.title}</p>
                   <StatusPill status={c.status} />
                 </div>
-                <p className="text-gray-500 text-xs mt-0.5">
+                <p className="text-gray-400 text-xs mt-0.5">
                   {c.brand_name} · {c.slots_filled}/{c.slots_total} slots
                   {c.deadline ? ` · Due ${new Date(c.deadline).toLocaleDateString('en-IN')}` : ''}
                 </p>
@@ -96,12 +96,12 @@ export default function CampaignsPage() {
                 </div>
               </Link>
               <div className="flex items-center gap-3 ml-4 shrink-0">
-                <span className="text-gray-600 text-sm">→</span>
+                <span className="text-gray-400 text-sm">→</span>
                 <button
                   onClick={(e) => handleDelete(e, c.id)}
                   disabled={deletingId === c.id}
                   title="Delete campaign"
-                  className="text-gray-600 hover:text-red-400 disabled:opacity-30 text-sm transition-colors"
+                  className="text-gray-400 hover:text-red-400 disabled:opacity-30 text-sm transition-colors"
                 >
                   {deletingId === c.id ? '…' : '✕'}
                 </button>
@@ -118,7 +118,7 @@ function StatusPill({ status }: { status: string }) {
   const s: Record<string, string> = {
     active: 'bg-green-500/10 text-green-400',
     paused: 'bg-yellow-500/10 text-yellow-400',
-    closed: 'bg-gray-700 text-gray-500',
+    closed: 'bg-gray-700 text-gray-400',
   }
   return (
     <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full capitalize ${s[status] ?? 'bg-gray-700 text-gray-400'}`}>

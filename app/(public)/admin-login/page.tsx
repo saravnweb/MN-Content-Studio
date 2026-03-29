@@ -39,11 +39,11 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+    <main className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-100">MW Content Studio</h1>
-          <p className="text-gray-500 text-sm mt-1">Admin Command</p>
+          <p className="text-gray-400 text-sm mt-1">Admin Command</p>
         </div>
 
         <div className="bg-gray-900 rounded-xl border border-gray-800 p-6 space-y-4">
@@ -81,11 +81,11 @@ export default function AdminLoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-gray-600 text-xs mt-4">
+        <p className="text-center text-gray-400 text-xs mt-4">
           Creator?{' '}
           <a href="/login" className="text-indigo-400 hover:underline">Log in here</a>
         </p>
       </div>
-    </div>
+    </main>
   )
 }

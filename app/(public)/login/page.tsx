@@ -47,7 +47,7 @@ export default function LoginPage() {
               {loading ? 'Please wait…' : 'Continue with Google'}
             </button>
 
-            <p className="text-center text-xs text-gray-500 pt-2 border-t border-gray-800">
+            <p className="text-center text-xs text-gray-400 pt-2 border-t border-gray-800">
               Admin?{' '}
               <a href="/admin-login" className="text-gray-400 hover:text-white transition-colors">Staff sign in</a>
             </p>

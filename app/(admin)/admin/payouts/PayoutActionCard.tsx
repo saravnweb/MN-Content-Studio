@@ -71,13 +71,13 @@ export default function PayoutActionCard({
         <div>
           <p className="text-gray-100 font-semibold text-sm">{creatorName}</p>
           <p className="text-indigo-400 text-xs mt-0.5 font-mono">{paymentLabel}</p>
-          <p className="text-gray-600 text-xs mt-0.5 truncate max-w-[200px]">{campaignTitle}</p>
+          <p className="text-gray-400 text-xs mt-0.5 truncate max-w-[200px]">{campaignTitle}</p>
         </div>
         <div className="text-right shrink-0">
-          <p className="text-xs text-gray-500 mb-1">
+          <p className="text-xs text-gray-400 mb-1">
             {new Date(requestedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
           </p>
-          <p className="text-xs text-gray-500 uppercase tracking-wider font-medium">Payout Amount</p>
+          <p className="text-xs text-gray-400 uppercase tracking-wider font-medium">Payout Amount</p>
           <p className="text-2xl font-bold text-gray-100">{fmt(amount)}</p>
         </div>
       </div>

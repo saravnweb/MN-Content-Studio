@@ -7,7 +7,7 @@ export default async function CreatorDetailPage({ params }: { params: { id: stri
 
   const { data: creator } = await supabase
     .from('profiles')
-    .select('id, full_name, bio, platform, platform_url, youtube_url, instagram_url, twitter_url, followers_count, niches, gender, age, phone, whatsapp, created_at')
+    .select('id, full_name, bio, platform, platform_url, youtube_url, instagram_url, twitter_url, followers_count, niches, gender, age, phone, whatsapp, created_at, account_holder_name, bank_name, account_number, ifsc_code, upi_id')
     .eq('id', params.id)
     .single()
 
@@ -21,14 +21,14 @@ export default async function CreatorDetailPage({ params }: { params: { id: stri
 
   return (
     <div className="max-w-3xl">
-      <Link href="/admin/creators" className="text-gray-500 text-sm hover:text-gray-300 mb-6 inline-block">← Creators</Link>
+      <Link href="/admin/creators" className="text-gray-400 text-sm hover:text-gray-300 mb-6 inline-block">← Creators</Link>
 
       {/* Profile card */}
       <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 mb-6">
         <div className="flex items-start justify-between gap-4 mb-4">
           <div>
             <h2 className="text-xl font-bold text-white">{creator.full_name ?? '—'}</h2>
-            <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
+            <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
               {creator.gender && <span className="capitalize">{creator.gender.replace('_', ' ')}</span>}
               {creator.age && <span>{creator.age} yrs</span>}
               {creator.followers_count && (
@@ -36,7 +36,7 @@ export default async function CreatorDetailPage({ params }: { params: { id: stri
               )}
             </div>
           </div>
-          <p className="text-gray-600 text-xs shrink-0">
+          <p className="text-gray-400 text-xs shrink-0">
             Joined {new Date(creator.created_at).toLocaleDateString('en-IN')}
           </p>
         </div>
@@ -94,12 +94,40 @@ export default async function CreatorDetailPage({ params }: { params: { id: stri
         )}
       </div>
 
+      {/* Payment details */}
+      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 mb-6">
+        <h3 className="text-white font-semibold mb-4">Payment Details</h3>
+        {!(creator.account_number || creator.upi_id) ? (
+          <p className="text-gray-400 text-sm">Creator has not saved payment details yet.</p>
+        ) : (
+          <div className="space-y-4">
+            {creator.account_number && (
+              <div>
+                <p className="text-gray-400 text-xs uppercase tracking-wide mb-2">Bank Account</p>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <PayField label="Account Holder" value={creator.account_holder_name} />
+                  <PayField label="Bank Name" value={creator.bank_name} />
+                  <PayField label="Account Number" value={creator.account_number} mono />
+                  <PayField label="IFSC Code" value={creator.ifsc_code} mono />
+                </div>
+              </div>
+            )}
+            {creator.upi_id && (
+              <div>
+                <p className="text-gray-400 text-xs uppercase tracking-wide mb-2">UPI</p>
+                <PayField label="UPI ID" value={creator.upi_id} mono />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
       {/* Campaign history */}
       <div>
         <h3 className="text-white font-semibold mb-4">Campaign Applications ({applications?.length ?? 0})</h3>
         {!applications?.length ? (
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center">
-            <p className="text-gray-500 text-sm">No applications yet</p>
+            <p className="text-gray-400 text-sm">No applications yet</p>
           </div>
         ) : (
           <div className="space-y-2">
@@ -108,17 +136,27 @@ export default async function CreatorDetailPage({ params }: { params: { id: stri
                 className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-xl p-4 hover:border-gray-700 transition-colors">
                 <div>
                   <p className="text-white text-sm font-medium">{app.campaign?.title}</p>
-                  <p className="text-gray-500 text-xs mt-0.5">{app.campaign?.brand_name}</p>
+                  <p className="text-gray-400 text-xs mt-0.5">{app.campaign?.brand_name}</p>
                 </div>
                 <div className="flex items-center gap-3 shrink-0">
                   <StatusBadge status={app.status} />
-                  <p className="text-gray-600 text-xs">{new Date(app.created_at).toLocaleDateString('en-IN')}</p>
+                  <p className="text-gray-400 text-xs">{new Date(app.created_at).toLocaleDateString('en-IN')}</p>
                 </div>
               </Link>
             ))}
           </div>
         )}
       </div>
+    </div>
+  )
+}
+
+function PayField({ label, value, mono }: { label: string; value: string | null | undefined; mono?: boolean }) {
+  if (!value) return null
+  return (
+    <div>
+      <p className="text-gray-400 text-xs">{label}</p>
+      <p className={`text-white text-sm mt-0.5 select-all ${mono ? 'font-mono tracking-wide' : ''}`}>{value}</p>
     </div>
   )
 }

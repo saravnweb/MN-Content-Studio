@@ -53,7 +53,7 @@ export default function ApplyButton({
         <p className="text-base font-bold" style={{ color: cfg?.color ?? '#f9fafb' }}>
           {cfg?.emoji} {cfg?.label ?? applicationStatus}
         </p>
-        <p className="text-xs mt-1 text-gray-500">
+        <p className="text-xs mt-1 text-gray-400">
           You&apos;ve already applied to this campaign.
         </p>
       </div>
@@ -112,14 +112,14 @@ export default function ApplyButton({
   return (
     <div className="rounded-2xl border border-gray-800 bg-gray-900 p-5 space-y-3 shadow-xl">
       <p className="font-semibold text-sm text-gray-100">
-        Your pitch <span className="font-normal text-gray-500">(optional)</span>
+        Your pitch <span className="font-normal text-gray-400">(optional)</span>
       </p>
       <textarea
         rows={3}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Why are you a great fit? Any relevant past brand deals?"
-        className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder:text-gray-600 resize-none focus:outline-none focus:border-indigo-500 transition-colors"
+        className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder:text-gray-400 resize-none focus:outline-none focus:border-indigo-500 transition-colors"
       />
       {error && <p className="text-xs text-red-400">{error}</p>}
       <div className="flex gap-2.5 pt-1">

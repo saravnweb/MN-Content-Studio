@@ -71,7 +71,7 @@ export default async function AdminDashboard() {
     <div>
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-100">Dashboard</h2>
-        <p className="text-gray-500 text-sm mt-1">Platform overview</p>
+        <p className="text-gray-400 text-sm mt-1">Platform overview</p>
       </div>
 
       {/* ── Stat Cards ── */}
@@ -96,14 +96,14 @@ export default async function AdminDashboard() {
         {/* Applications sparkline */}
         <div className="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-xl p-5">
           <p className="text-gray-100 font-semibold text-sm mb-1">Applications — Last 14 Days</p>
-          <p className="text-gray-500 text-xs mb-4">{(appsByDay?.length ?? 0)} applications in this period</p>
+          <p className="text-gray-400 text-xs mb-4">{(appsByDay?.length ?? 0)} applications in this period</p>
           <AdminCharts chartData={chartData} payoutCounts={payoutCounts} />
         </div>
 
         {/* Payout donut */}
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
           <p className="text-gray-100 font-semibold text-sm mb-1">Payout Status</p>
-          <p className="text-gray-500 text-xs mb-4">Approved content only</p>
+          <p className="text-gray-400 text-xs mb-4">Approved content only</p>
           <PayoutDonut counts={payoutCounts} />
         </div>
       </div>
@@ -116,7 +116,7 @@ export default async function AdminDashboard() {
         </div>
         {!recentApps?.length ? (
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center">
-            <p className="text-gray-500 text-sm">No applications yet</p>
+            <p className="text-gray-400 text-sm">No applications yet</p>
           </div>
         ) : (
           <div className="bg-gray-900 border border-gray-800 rounded-xl divide-y divide-gray-800">
@@ -125,7 +125,7 @@ export default async function AdminDashboard() {
                 className="px-5 py-4 flex items-center justify-between hover:bg-gray-800/50 transition-colors">
                 <div>
                   <p className="text-gray-100 text-sm font-medium">{app.creator?.full_name ?? '—'}</p>
-                  <p className="text-gray-500 text-xs mt-0.5">{app.campaign?.brand_name} · {app.campaign?.title}</p>
+                  <p className="text-gray-400 text-xs mt-0.5">{app.campaign?.brand_name} · {app.campaign?.title}</p>
                 </div>
                 <StatusBadge status={app.status} />
               </Link>
@@ -144,9 +144,9 @@ function StatCard({ label, value, sub, color, icon, isString }: {
     <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 flex items-start gap-4">
       <span className={`mt-0.5 shrink-0 ${color}`}>{icon}</span>
       <div className="min-w-0">
-        <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">{label}</p>
+        <p className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-1">{label}</p>
         <p className={`text-2xl font-bold ${color} truncate`}>{value}</p>
-        <p className="text-gray-600 text-xs mt-0.5">{sub}</p>
+        <p className="text-gray-400 text-xs mt-0.5">{sub}</p>
       </div>
     </div>
   )
@@ -154,7 +154,7 @@ function StatCard({ label, value, sub, color, icon, isString }: {
 
 function PayoutDonut({ counts }: { counts: { unpaid: number; processing: number; paid: number } }) {
   const total = counts.unpaid + counts.processing + counts.paid
-  if (total === 0) return <p className="text-gray-600 text-sm text-center py-8">No approved content yet</p>
+  if (total === 0) return <p className="text-gray-400 text-sm text-center py-8">No approved content yet</p>
 
   const segments = [
     { label: 'Unpaid', count: counts.unpaid, color: '#F87171' },
@@ -179,7 +179,7 @@ function PayoutDonut({ counts }: { counts: { unpaid: number; processing: number;
           </div>
         )
       })}
-      <p className="text-gray-600 text-xs pt-2 text-center">{total} total approved deliverables</p>
+      <p className="text-gray-400 text-xs pt-2 text-center">{total} total approved deliverables</p>
     </div>
   )
 }

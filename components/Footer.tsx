@@ -25,7 +25,7 @@ export default function Footer() {
           {/* Quick Links */}
           <div className="grid grid-cols-2 gap-x-12 gap-y-8 text-center">
             <div className="space-y-3">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Platform</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400">Platform</h3>
               <ul className="space-y-2">
                 <li><FooterLink href="/">Home</FooterLink></li>
                 <li><FooterLink href="/creators">For Creators</FooterLink></li>
@@ -33,7 +33,7 @@ export default function Footer() {
               </ul>
             </div>
             <div className="space-y-3">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Support</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400">Support</h3>
               <ul className="space-y-2">
                 <li><FooterLink href="/help">Help Center</FooterLink></li>
                 <li><FooterLink href="/terms">Terms</FooterLink></li>
@@ -45,7 +45,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-900 flex justify-center items-center gap-4 text-center">
-          <p className="text-[11px] text-gray-600 font-medium">
+          <p className="text-[11px] text-gray-400 font-medium">
             © {currentYear} MW Content Studio. All rights reserved.
           </p>
         </div>

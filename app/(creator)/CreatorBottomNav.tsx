@@ -21,7 +21,7 @@ export default function CreatorBottomNav() {
           return (
             <Link key={href} href={href}
               className={`flex-1 flex flex-col items-center gap-1 py-3 text-[10px] font-medium transition-colors ${
-                active ? 'text-indigo-400' : 'text-gray-500 hover:text-gray-300'
+                active ? 'text-indigo-400' : 'text-gray-400 hover:text-gray-300'
               }`}>
               <Icon className="w-5 h-5" />
               {label}

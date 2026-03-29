@@ -13,9 +13,10 @@ export default function GoogleOneTap() {
   )
 
   return (
-    <Script 
-      src="https://accounts.google.com/gsi/client" 
-      onLoad={initOneTap} 
+    <Script
+      src="https://accounts.google.com/gsi/client"
+      strategy="lazyOnload"
+      onLoad={initOneTap}
     />
   )
 }

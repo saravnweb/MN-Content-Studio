@@ -34,7 +34,7 @@ export default async function CreatorsPage() {
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-white">Creators</h2>
-        <p className="text-gray-500 text-sm mt-0.5">
+        <p className="text-gray-400 text-sm mt-0.5">
           <span className="text-indigo-400 font-semibold">{creators?.length ?? 0}</span> registered
         </p>
       </div>
@@ -43,7 +43,7 @@ export default async function CreatorsPage() {
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-12 text-center">
           <div className="w-14 h-14 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-4 text-2xl">👤</div>
           <p className="text-gray-300 font-medium">No creators yet</p>
-          <p className="text-gray-600 text-sm mt-1">Creators will appear here once they sign up</p>
+          <p className="text-gray-400 text-sm mt-1">Creators will appear here once they sign up</p>
         </div>
       ) : (
         <div className="space-y-2.5">
@@ -68,10 +68,10 @@ export default async function CreatorsPage() {
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
-                      <p className={`font-semibold text-sm truncate transition-colors ${hasName ? 'text-white group-hover:text-indigo-300' : 'text-gray-600 italic'}`}>
+                      <p className={`font-semibold text-sm truncate transition-colors ${hasName ? 'text-white group-hover:text-indigo-300' : 'text-gray-400 italic'}`}>
                         {c.full_name ?? 'No name provided'}
                       </p>
-                      <p className="text-gray-600 text-[11px] shrink-0 mt-0.5">
+                      <p className="text-gray-400 text-[11px] shrink-0 mt-0.5">
                         {new Date(c.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: '2-digit' })}
                       </p>
                     </div>
@@ -79,11 +79,11 @@ export default async function CreatorsPage() {
                     {/* Meta row */}
                     <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
                       {c.gender && (
-                        <span className="text-[11px] text-gray-500 capitalize">{c.gender.replace('_', ' ')}</span>
+                        <span className="text-[11px] text-gray-400 capitalize">{c.gender.replace('_', ' ')}</span>
                       )}
                       {c.age && c.gender && <span className="text-gray-700 text-[11px]">·</span>}
                       {c.age && (
-                        <span className="text-[11px] text-gray-500">{c.age} yrs</span>
+                        <span className="text-[11px] text-gray-400">{c.age} yrs</span>
                       )}
                       {c.followers_count && (c.gender || c.age) && <span className="text-gray-700 text-[11px]">·</span>}
                       {c.followers_count && (

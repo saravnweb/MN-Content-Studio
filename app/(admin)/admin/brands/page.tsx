@@ -56,7 +56,7 @@ export default function BrandsPage() {
     setShowCreate(false)
   }
 
-  if (loading) return <p className="text-gray-500 text-sm">Loading…</p>
+  if (loading) return <p className="text-gray-400 text-sm">Loading…</p>
 
   return (
     <div className="max-w-2xl">
@@ -64,7 +64,7 @@ export default function BrandsPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-2xl font-bold text-white">Brands</h2>
-          <p className="text-gray-500 text-sm mt-1">Upload a logo once — reused across all campaigns</p>
+          <p className="text-gray-400 text-sm mt-1">Upload a logo once — reused across all campaigns</p>
         </div>
         <button
           onClick={() => setShowCreate(true)}
@@ -78,7 +78,7 @@ export default function BrandsPage() {
       {/* Brand list */}
       {brands.length === 0 ? (
         <div className="text-center py-16 border border-dashed border-gray-800 rounded-2xl">
-          <p className="text-gray-600 text-sm">No brands yet.</p>
+          <p className="text-gray-400 text-sm">No brands yet.</p>
           <button onClick={() => setShowCreate(true)} className="mt-3 text-indigo-400 hover:text-indigo-300 text-sm">
             Add your first brand →
           </button>
@@ -116,11 +116,11 @@ export default function BrandsPage() {
 
               <div className="flex-1 min-w-0">
                 <p className="text-white font-medium text-sm">{brand.name}</p>
-                {brand.tagline && <p className="text-gray-500 text-xs mt-0.5">{brand.tagline}</p>}
+                {brand.tagline && <p className="text-gray-400 text-xs mt-0.5">{brand.tagline}</p>}
               </div>
 
               <span className={`shrink-0 text-xs px-2.5 py-1 rounded-full ${
-                brand.logo_url ? 'text-green-400 bg-green-500/10' : 'text-gray-600 bg-gray-800'
+                brand.logo_url ? 'text-green-400 bg-green-500/10' : 'text-gray-400 bg-gray-800'
               }`}>
                 {brand.logo_url ? 'Logo set' : 'No logo'}
               </span>
@@ -128,7 +128,7 @@ export default function BrandsPage() {
                 onClick={() => handleDelete(brand.id)}
                 disabled={deletingId === brand.id}
                 title="Delete brand"
-                className="text-gray-600 hover:text-red-400 disabled:opacity-30 text-sm transition-colors shrink-0"
+                className="text-gray-400 hover:text-red-400 disabled:opacity-30 text-sm transition-colors shrink-0"
               >
                 {deletingId === brand.id ? '…' : '✕'}
               </button>
@@ -216,7 +216,7 @@ function CreateBrandDrawer({
         {/* Drawer header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-gray-800">
           <h3 className="text-white font-semibold text-base">New Brand</h3>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-300 text-2xl leading-none">&times;</button>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-300 text-2xl leading-none">&times;</button>
         </div>
 
         <div className="flex-1 overflow-y-auto px-6 py-6 space-y-7">
@@ -236,7 +236,7 @@ function CreateBrandDrawer({
                   <div className="w-10 h-10 rounded-xl bg-gray-800 flex items-center justify-center mx-auto mb-3 group-hover:bg-indigo-600/20 transition-colors">
                     <span className="text-gray-400 text-lg group-hover:text-indigo-400">↑</span>
                   </div>
-                  <p className="text-gray-500 text-sm">Click to upload logo</p>
+                  <p className="text-gray-400 text-sm">Click to upload logo</p>
                   <p className="text-gray-700 text-xs mt-1">PNG, JPG, SVG — square works best</p>
                 </div>
               )}
@@ -244,7 +244,7 @@ function CreateBrandDrawer({
             <input ref={fileRef} type="file" accept="image/*" onChange={onFileChange} className="hidden" />
             {logoPreview && (
               <button onClick={() => { setLogoFile(null); setLogoPreview(null) }}
-                className="mt-2 text-xs text-gray-600 hover:text-red-400 transition-colors">
+                className="mt-2 text-xs text-gray-400 hover:text-red-400 transition-colors">
                 Remove logo
               </button>
             )}

@@ -103,7 +103,7 @@ export default function ReviewSubmission({ applicationId, submissionUrl, current
             </button>
             <button
               onClick={() => { setShowRevisionBox(false); setNote('') }}
-              className="px-3 py-2 text-gray-500 hover:text-gray-300 text-xs rounded-lg border border-gray-700 transition-colors"
+              className="px-3 py-2 text-gray-400 hover:text-gray-300 text-xs rounded-lg border border-gray-700 transition-colors"
             >
               Cancel
             </button>

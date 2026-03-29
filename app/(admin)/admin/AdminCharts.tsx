@@ -43,7 +43,7 @@ export default function AdminCharts({
         {chartData.map((d, i) => (
           <div key={d.date} className="flex-1 text-center">
             {i % 3 === 0 && (
-              <span className="text-[9px] text-gray-600">
+              <span className="text-[9px] text-gray-400">
                 {new Date(d.date + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
               </span>
             )}
@@ -51,7 +51,7 @@ export default function AdminCharts({
         ))}
       </div>
 
-      <p className="text-center text-gray-600 text-xs mt-2">{total} total applications in 14 days</p>
+      <p className="text-center text-gray-400 text-xs mt-2">{total} total applications in 14 days</p>
     </div>
   )
 }
