@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Bookmark, Share2 } from 'lucide-react'
 
 type Campaign = {
@@ -41,9 +42,9 @@ export default function PublicDealCard({
     <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
       {/* Brand row */}
       <div className="flex items-center gap-3 mb-3">
-        <div className="w-10 h-10 rounded-xl overflow-hidden shrink-0 bg-gray-800 flex items-center justify-center">
+        <div className="relative w-10 h-10 rounded-xl overflow-hidden shrink-0 bg-gray-800 flex items-center justify-center">
           {c.brand_logo_url
-            ? <img src={c.brand_logo_url} alt={c.brand_name} className="w-full h-full object-cover" />
+            ? <Image src={c.brand_logo_url} alt={c.brand_name} fill className="object-cover" />
             : <span className="font-bold text-xs text-gray-400">{initials}</span>
           }
         </div>

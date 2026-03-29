@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 import AuthButton from '@/components/AuthButton'
+import WhatsAppCTA from '@/components/WhatsAppCTA'
 
 export const metadata = {
   title: 'For Creators — MW Content Studio',
@@ -69,10 +70,16 @@ export default function ForCreatorsPage() {
           </p>
           <AuthButton
             label="Join as a Creator"
-            className="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm shadow-lg shadow-indigo-600/25 transition-colors"
+            className="mx-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm shadow-lg shadow-indigo-600/25 transition-colors"
             showIcon={false}
           />
         </div>
+
+        <WhatsAppCTA 
+          className="mt-14" 
+          title="Questions about work?" 
+          description="Speak with our team on WhatsApp for any help with your creator account or campaigns."
+        />
 
       </main>
 

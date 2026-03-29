@@ -35,13 +35,14 @@ export default function LoginPage() {
             <p className="text-sm mt-1 text-gray-400">Creator Platform</p>
           </div>
 
+
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-4 shadow-xl">
             {error && <p className="text-sm text-center text-red-400">{error}</p>}
 
             <button
               onClick={handleGoogle}
               disabled={loading}
-              className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-gray-950 disabled:opacity-50 font-bold py-3.5 rounded-xl text-sm transition-all hover:shadow-lg hover:shadow-white/5 active:scale-[0.98]"
+              className="w-full flex items-center justify-center gap-3 bg-gray-50 hover:bg-gray-200 text-gray-950 disabled:opacity-50 font-bold py-3.5 rounded-xl text-sm transition-all hover:shadow-lg hover:shadow-gray-500/10 active:scale-[0.98]"
             >
               <GoogleIcon />
               {loading ? 'Please wait…' : 'Continue with Google'}
@@ -49,7 +50,7 @@ export default function LoginPage() {
 
             <p className="text-center text-xs text-gray-400 pt-2 border-t border-gray-800">
               Admin?{' '}
-              <a href="/admin-login" className="text-gray-400 hover:text-white transition-colors">Staff sign in</a>
+              <a href="/admin-login" className="text-gray-400 hover:text-gray-100 transition-colors">Staff sign in</a>
             </p>
           </div>
         </div>

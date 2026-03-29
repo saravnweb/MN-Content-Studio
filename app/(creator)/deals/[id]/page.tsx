@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import ApplyButton from './ApplyButton'
 import Link from 'next/link'
-import { ChevronLeft, Banknote, Calendar, Package, CalendarDays, Users, Play, Camera, Megaphone } from 'lucide-react'
+import { ChevronLeft, Banknote, Calendar, Package, CalendarDays, Users, Play, Camera } from 'lucide-react'
 
 export default async function DealDetailPage({ params }: { params: { id: string } }) {
   const supabase = createClient()
@@ -13,17 +13,10 @@ export default async function DealDetailPage({ params }: { params: { id: string 
   const { data: campaign } = await supabase.from('campaigns').select('*').eq('id', params.id).single()
   if (!campaign) notFound()
 
-  let application: { id: string; status: string } | null = null
-  let profile: { platform: string; platform_url: string; niches: string[] } | null = null
-
-  if (user) {
-    const [{ data: app }, { data: prof }] = await Promise.all([
-      supabase.from('applications').select('id, status').eq('campaign_id', params.id).eq('creator_id', user.id).maybeSingle(),
-      supabase.from('profiles').select('platform, platform_url, niches').eq('id', user.id).single(),
-    ])
-    application = app
-    profile = prof
-  }
+  const [{ data: app }, { data: profile }] = await Promise.all([
+    supabase.from('applications').select('id, status').eq('campaign_id', params.id).eq('creator_id', user!.id).maybeSingle(),
+    supabase.from('profiles').select('platform, platform_url, niches').eq('id', user!.id).single(),
+  ])
 
   if (!campaign.brand_logo_url) {
     const { data: brand } = await supabase.from('brands').select('logo_url').eq('name', campaign.brand_name).maybeSingle()
@@ -38,9 +31,9 @@ export default async function DealDetailPage({ params }: { params: { id: string 
     p === 'instagram' ? <Camera className="w-3 h-3 inline-block mr-0.5" /> : null
 
   return (
-    <div className="max-w-lg mx-auto px-4 pt-4 pb-8">
+    <>
       {/* Back */}
-      <Link href="/" className="inline-flex items-center gap-1.5 text-sm mb-5 font-medium transition-colors"
+      <Link href="/deals" className="inline-flex items-center gap-1.5 text-sm mb-5 font-medium transition-colors"
         style={{ color: 'var(--color-text-muted)' }}>
         <ChevronLeft className="w-4 h-4" />
         Back
@@ -152,7 +145,7 @@ export default async function DealDetailPage({ params }: { params: { id: string 
       )}
 
       {/* ── Profile incomplete warning ── */}
-      {user && !profileComplete && !application && (
+      {!profileComplete && (
         <div className="rounded-2xl border px-4 py-3.5 mb-4 space-y-1.5"
           style={{ backgroundColor: '#FFFBEB', borderColor: '#FDE68A' }}>
           <p className="text-sm font-semibold" style={{ color: '#92400E' }}>Complete your profile to apply</p>
@@ -169,13 +162,13 @@ export default async function DealDetailPage({ params }: { params: { id: string 
       {/* ── Apply CTA ── */}
       <ApplyButton
         campaignId={campaign.id}
-        creatorId={user?.id ?? null}
-        alreadyApplied={!!application}
-        applicationStatus={application?.status}
+        creatorId={user!.id}
+        alreadyApplied={!!app}
+        applicationStatus={app?.status}
         profileComplete={profileComplete}
         slotsFull={slotsLeft <= 0}
       />
-    </div>
+    </>
   )
 }
 

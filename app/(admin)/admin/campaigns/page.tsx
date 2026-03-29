@@ -31,6 +31,7 @@ export default function CampaignsPage() {
         if (data) setCampaigns(data)
         setLoading(false)
       })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   async function handleDelete(e: React.MouseEvent, id: string) {

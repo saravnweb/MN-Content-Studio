@@ -37,6 +37,7 @@ export default function NotificationBell({ userId, href = '/admin' }: { userId: 
       .subscribe()
 
     return () => { supabase.removeChannel(channel) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]) // router intentionally omitted — stable enough, re-subscribing on router change causes loops
 
   return (

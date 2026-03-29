@@ -20,7 +20,7 @@ export default function ApplyButton({
   slotsFull,
 }: {
   campaignId: string
-  creatorId: string | null
+  creatorId: string
   alreadyApplied: boolean
   applicationStatus?: string
   profileComplete: boolean
@@ -31,18 +31,6 @@ export default function ApplyButton({
   const [showForm, setShowForm] = useState(false)
   const [error, setError] = useState('')
   const [isPending, startTransition] = useTransition()
-
-  // ── Guest user ───────────────────────────────────────────
-  if (!creatorId) {
-    return (
-      <a
-        href="/login"
-        className="mx-auto block w-fit px-8 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-xl text-sm font-semibold text-white transition-all shadow-md shadow-indigo-600/20 active:scale-[0.98] text-center"
-      >
-        Sign in to Apply
-      </a>
-    )
-  }
 
   // ── Already applied ──────────────────────────────────────
   if (alreadyApplied && applicationStatus) {

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import { Tag, BarChart2, User, type LucideIcon } from 'lucide-react'
 
 const NAV: { href: string; label: string; icon: LucideIcon }[] = [
@@ -10,16 +11,44 @@ const NAV: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/profile', label: 'Profile', icon: User },
 ]
 
-export default function CreatorBottomNav() {
+export default function CreatorBottomNav({ isGuest = false }: { isGuest?: boolean }) {
   const pathname = usePathname()
+  const supabase = createClient()
+
+  async function handleGoogleAuth() {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { 
+        redirectTo: `${window.location.origin}/api/auth/callback` 
+      },
+    })
+  }
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 bg-gray-950/80 backdrop-blur-md border-t border-gray-800 pb-safe">
+    <nav className="fixed bottom-0 inset-x-0 z-40 bg-gray-950/80 backdrop-blur-md border-t border-gray-800 pb-safe">
       <div className="max-w-lg mx-auto flex">
         {NAV.map(({ href, label, icon: Icon }) => {
-          const active = pathname.startsWith(href)
+          const isDeals = href === '/deals'
+          const isProtected = href === '/dashboard' || href === '/profile'
+          const active = (isGuest && isDeals && (pathname === '/' || pathname.startsWith('/deals'))) || (!isGuest && pathname.startsWith(href))
+          
+          if (isGuest && isProtected) {
+            return (
+              <button
+                key={href}
+                onClick={handleGoogleAuth}
+                className={`flex-1 flex flex-col items-center gap-1 py-3 text-[10px] font-medium transition-colors text-gray-400 hover:text-gray-300`}
+              >
+                <Icon className="w-5 h-5" />
+                {label}
+              </button>
+            )
+          }
+
+          const finalHref = isGuest && isDeals ? '/' : href
+          
           return (
-            <Link key={href} href={href}
+            <Link key={href} href={finalHref}
               className={`flex-1 flex flex-col items-center gap-1 py-3 text-[10px] font-medium transition-colors ${
                 active ? 'text-indigo-400' : 'text-gray-400 hover:text-gray-300'
               }`}>

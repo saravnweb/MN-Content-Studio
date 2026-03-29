@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 import { Hand, Target, Banknote, AlarmClock } from 'lucide-react'
+import WhatsAppCTA from '@/components/WhatsAppCTA'
 
 export default function HelpPage() {
   return (
@@ -34,21 +35,11 @@ export default function HelpPage() {
             Each deal has an end date. Ensure you upload your deliverables (e.g., Reels, Videos) before the deadline to ensure smooth payment processing. If you run into issues, just communicate with us—we&apos;re human.
           </Section>
 
-          <div className="p-8 bg-gray-900 border border-gray-800 rounded-3xl mt-12 shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
-            
-            <h2 className="text-xl font-bold text-gray-100 mb-2">Need more help?</h2>
-            <p className="text-sm text-gray-400 mb-6">
-              Our support team is here for you. We aim to respond to all inquiries within 24 hours.
-            </p>
-            
-            <a 
-              href="mailto:help@mwcontentstudio.in" 
-              className="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl text-sm transition-all shadow-lg shadow-indigo-600/20"
-            >
-              Contact Support
-            </a>
-          </div>
+          <WhatsAppCTA 
+            className="mt-12"
+            title="Need more help?"
+            description="Our support team is here for you on WhatsApp. We aim to respond to all inquiries as quickly as possible."
+          />
         </div>
       </main>
 

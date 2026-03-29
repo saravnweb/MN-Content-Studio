@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Footer from '@/components/Footer'
+import WhatsAppCTA from '@/components/WhatsAppCTA'
 
 export default function TermsPage() {
   return (
@@ -64,6 +65,12 @@ export default function TermsPage() {
             </p>
           </section>
         </div>
+
+        <WhatsAppCTA 
+          className="mt-16"
+          title="Questions about our terms?"
+          description="If you need clarification on any of our terms or legal policies, chat with us on WhatsApp."
+        />
       </main>
 
       <Footer />

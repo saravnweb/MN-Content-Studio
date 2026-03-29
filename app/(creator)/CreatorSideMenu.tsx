@@ -13,12 +13,23 @@ export default function CreatorSideMenu({
   isOpen,
   onClose,
   name,
+  isGuest = false,
 }: {
   isOpen: boolean
   onClose: () => void
   name?: string
+  isGuest?: boolean
 }) {
   const supabase = createClient()
+
+  async function handleGoogleAuth() {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { 
+        redirectTo: `${window.location.origin}/api/auth/callback` 
+      },
+    })
+  }
 
   async function signOut() {
     await supabase.auth.signOut()
@@ -51,22 +62,38 @@ export default function CreatorSideMenu({
         </div>
 
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-          {NAV.map(({ href, label, icon: Icon }) => (
-            <Link key={href} href={href} onClick={onClose}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
-              <Icon className="w-4 h-4 shrink-0" />
-              {label}
-            </Link>
-          ))}
+          {NAV.map(({ href, label, icon: Icon }) => {
+            if (isGuest) {
+              return (
+                <button
+                  key={href}
+                  onClick={handleGoogleAuth}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition-colors text-left"
+                >
+                  <Icon className="w-4 h-4 shrink-0" />
+                  {label}
+                </button>
+              )
+            }
+            return (
+              <Link key={href} href={href} onClick={onClose}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
+                <Icon className="w-4 h-4 shrink-0" />
+                {label}
+              </Link>
+            )
+          })}
         </nav>
 
-        <div className="px-4 py-4 border-t border-gray-800">
-          <button onClick={signOut}
-            className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-400 hover:text-red-400 rounded-lg hover:bg-gray-800 transition-colors">
-            <LogOut className="w-4 h-4 shrink-0" />
-            Sign out
-          </button>
-        </div>
+        {!isGuest && (
+          <div className="px-4 py-4 border-t border-gray-800">
+            <button onClick={signOut}
+              className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-400 hover:text-red-400 rounded-lg hover:bg-gray-800 transition-colors">
+              <LogOut className="w-4 h-4 shrink-0" />
+              Sign out
+            </button>
+          </div>
+        )}
       </aside>
     </>
   )

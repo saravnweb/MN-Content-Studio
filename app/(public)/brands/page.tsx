@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Footer from '@/components/Footer'
+import WhatsAppCTA from '@/components/WhatsAppCTA'
 
 export const metadata = {
   title: 'For Brands — MW Content Studio',
@@ -61,15 +62,21 @@ export default function ForBrandsPage() {
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
           <h2 className="text-xl font-bold text-gray-100 mb-2">Interested in listing a campaign?</h2>
           <p className="text-sm text-gray-400 mb-6">
-            Reach out and we will get back to you within 24 hours to discuss your campaign requirements.
+            Tell us about your brand and campaign requirements. We review every submission personally and follow up within 24 hours.
           </p>
-          <a
-            href="mailto:brands@mwcontentstudio.in"
+          <Link
+            href="/brands/signup"
             className="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm shadow-lg shadow-indigo-600/25 transition-colors"
           >
-            Get in Touch
-          </a>
+            List Your Campaign
+          </Link>
         </div>
+
+        <WhatsAppCTA 
+          className="mt-14"
+          title="Interested in working with us?"
+          description="Brands can chat with our team directly on WhatsApp to discuss campaign requirements and custom plans."
+        />
 
       </main>
 

@@ -27,7 +27,7 @@ export default function CreatorShell({
   }, [pathname])
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100">
+    <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
       <PWAInstallBanner />
       <CreatorSideMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} name={name} />
       <header className="sticky top-0 z-10 border-b border-gray-800 bg-gray-950/80 backdrop-blur-md">
@@ -45,7 +45,7 @@ export default function CreatorShell({
           <HeaderNotificationBell userId={userId} />
         </div>
       </header>
-      <main className="max-w-lg mx-auto pb-24 px-4 pt-4">
+      <main className="max-w-lg mx-auto w-full flex-1 flex flex-col px-4 pt-4 pb-24">
         {children}
       </main>
       <Footer />

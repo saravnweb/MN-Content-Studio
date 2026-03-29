@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
 const ADMIN_PATHS = ['/admin']
-const CREATOR_PATHS = ['/dashboard', '/notifications', '/profile', '/deals', '/onboarding']
+const CREATOR_PATHS = ['/dashboard', '/notifications', '/profile', '/deals', '/onboarding', '/settings', '/earnings']
 const PUBLIC_ONLY = ['/login', '/admin-login']
 
 export async function middleware(request: NextRequest) {

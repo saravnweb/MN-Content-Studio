@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Footer from '@/components/Footer'
+import WhatsAppCTA from '@/components/WhatsAppCTA'
 
 export default function PrivacyPage() {
   return (
@@ -60,6 +61,12 @@ export default function PrivacyPage() {
             </div>
           </section>
         </div>
+
+        <WhatsAppCTA 
+          className="mt-16"
+          title="Privacy concerns?"
+          description="Your privacy is important to us. If you have any questions about how we handle your data, let's chat on WhatsApp."
+        />
       </main>
 
       <Footer />

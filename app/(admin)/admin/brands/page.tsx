@@ -20,6 +20,7 @@ export default function BrandsPage() {
       if (data) setBrands(data)
       setLoading(false)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   async function handleLogoUpload(brand: Brand, file: File) {
