@@ -3,6 +3,7 @@ import Link from 'next/link'
 import ThemeToggle from '@/components/ThemeToggle'
 import RoleSelector from '@/components/landing/RoleSelector'
 import ActivityTicker from '@/components/landing/ActivityTicker'
+import ScrollHint from '@/components/landing/ScrollHint'
 import CreatorMarquee from '@/components/landing/CreatorMarquee'
 import BrandLogo from '@/components/BrandLogo'
 
@@ -58,7 +59,7 @@ export default async function LandingPage() {
           HERO  — targets one viewport tall
       ══════════════════════════════════ */}
       <main id="main-content">
-      <section aria-label="Hero" className="relative z-10 min-h-[calc(100svh-52px)] flex flex-col items-center justify-center px-5 pt-8 pb-16 sm:pt-10 sm:pb-20 gap-4 sm:gap-6">
+      <section aria-label="Hero" className="relative z-10 min-h-[calc(100svh-52px)] flex flex-col items-center justify-center px-5 pt-6 pb-14 sm:pt-10 sm:pb-20 gap-3 sm:gap-6">
 
         {/* Live pill */}
         <div
@@ -79,15 +80,15 @@ export default async function LandingPage() {
         </div>
 
         {/* Headline */}
-        <div className="text-center max-w-2xl mb-4 sm:mb-6">
-          <h1 className="text-5xl sm:text-7xl font-bold tracking-tight leading-[1.02] mb-6 sm:mb-10">
+        <div className="text-center max-w-2xl mb-2 sm:mb-6">
+          <h1 className="text-4xl sm:text-7xl font-bold tracking-tight leading-[1.02] mb-4 sm:mb-10">
             <span className="bg-gradient-to-br from-indigo-950 via-indigo-900 to-violet-900 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent drop-shadow-sm">
               Crafting Legacies
             </span>
             <br />
             <span className="text-gray-100">through Excellence.</span>
           </h1>
-          <p className="text-sm sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl mx-auto font-medium px-4">
+          <p className="text-xs sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl mx-auto font-medium px-4">
             The premier network connecting distinguished creators with iconic brands. 
             Built for those who value artistry and the pursuit of a lasting legacy.
           </p>
@@ -108,6 +109,8 @@ export default async function LandingPage() {
 
         {/* Activity ticker */}
         <ActivityTicker />
+
+        <ScrollHint />
 
       </section>
 
