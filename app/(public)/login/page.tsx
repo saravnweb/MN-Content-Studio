@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useState } from 'react'
 import Script from 'next/script'
 import { createClient } from '@/lib/supabase/client'
-
 import { useGoogleOneTap } from '@/lib/hooks/useGoogleOneTap'
+import BrandLogo from '@/components/BrandLogo'
 
 export default function LoginPage() {
   const supabase = createClient()
@@ -30,11 +30,10 @@ export default function LoginPage() {
 
       <div className="min-h-screen flex items-center justify-center px-4 bg-gray-950">
         <div className="w-full max-w-sm">
-          <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-100">MW Content Studio</h1>
+          <div className="flex flex-col items-center mb-8">
+            <BrandLogo withLink={true} size={40} textClassName="text-2xl font-bold text-gray-100" className="flex-col !gap-3" />
             <p className="text-sm mt-1 text-gray-400">Creator Platform</p>
           </div>
-
 
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-4 shadow-xl">
             {error && <p className="text-sm text-center text-red-400">{error}</p>}

@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 import WhatsAppCTA from '@/components/WhatsAppCTA'
+import BrandLogo from '@/components/BrandLogo'
 
 export const metadata = {
-  title: 'For Brands — MW Content Studio',
+  title: 'For Brands — MN Content Studio',
   description: 'List your campaign and get real content from Indian creators.',
 }
 
@@ -11,7 +12,7 @@ export default function ForBrandsPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 selection:bg-indigo-500/30">
       <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur border-b border-gray-800 px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="font-bold text-base tracking-tight text-gray-100">MW Content Studio</Link>
+        <BrandLogo withLink={true} size={28} textClassName="font-bold text-base tracking-tight text-gray-100" />
         <Link href="/" className="text-sm text-gray-400 hover:text-gray-100 transition-colors">Back to Home</Link>
       </header>
 
@@ -26,7 +27,7 @@ export default function ForBrandsPage() {
             Get real content<br />from real creators.
           </h1>
           <p className="text-gray-400 leading-relaxed">
-            MW Content Studio is a fulfillment network for Indian brands. You tell us what you need, we connect you with creators who match your niche, and they deliver the content. Simple, direct, no agency overhead.
+            MN Content Studio is a fulfillment network for Indian brands. You tell us what you need, we connect you with creators who match your niche, and they deliver the content. Simple, direct, no agency overhead.
           </p>
         </div>
 

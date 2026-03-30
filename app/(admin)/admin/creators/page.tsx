@@ -33,7 +33,7 @@ export default async function CreatorsPage() {
     <div>
       {/* Header */}
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-white">Creators</h2>
+        <h2 className="text-2xl font-bold text-gray-100">Creators</h2>
         <p className="text-gray-400 text-sm mt-0.5">
           <span className="text-indigo-400 font-semibold">{creators?.length ?? 0}</span> registered
         </p>
@@ -68,7 +68,7 @@ export default async function CreatorsPage() {
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
-                      <p className={`font-semibold text-sm truncate transition-colors ${hasName ? 'text-white group-hover:text-indigo-300' : 'text-gray-400 italic'}`}>
+                      <p className={`font-semibold text-sm truncate transition-colors ${hasName ? 'text-gray-100 group-hover:text-indigo-400' : 'text-gray-400 italic'}`}>
                         {c.full_name ?? 'No name provided'}
                       </p>
                       <p className="text-gray-400 text-[11px] shrink-0 mt-0.5">
@@ -81,18 +81,18 @@ export default async function CreatorsPage() {
                       {c.gender && (
                         <span className="text-[11px] text-gray-400 capitalize">{c.gender.replace('_', ' ')}</span>
                       )}
-                      {c.age && c.gender && <span className="text-gray-700 text-[11px]">·</span>}
+                      {c.age && c.gender && <span className="text-gray-400 text-[11px]">·</span>}
                       {c.age && (
                         <span className="text-[11px] text-gray-400">{c.age} yrs</span>
                       )}
-                      {c.followers_count && (c.gender || c.age) && <span className="text-gray-700 text-[11px]">·</span>}
+                      {c.followers_count && (c.gender || c.age) && <span className="text-gray-400 text-[11px]">·</span>}
                       {c.followers_count && (
                         <span className="text-[11px] text-indigo-400 font-medium">
                           {formatFollowers(c.followers_count)} followers
                         </span>
                       )}
                       {!c.gender && !c.age && !c.followers_count && (
-                        <span className="text-[11px] text-gray-700">Profile incomplete</span>
+                        <span className="text-[11px] text-gray-400">Profile incomplete</span>
                       )}
                     </div>
                   </div>

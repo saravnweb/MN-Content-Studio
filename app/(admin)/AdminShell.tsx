@@ -37,7 +37,7 @@ export default function AdminShell({
       <div className="flex-1 md:ml-64 flex flex-col min-h-screen">
         <header className="h-12 border-b border-gray-800 flex items-center px-4 gap-2 bg-gray-950 shrink-0">
           <button
-            className="md:hidden p-1.5 text-gray-400 hover:text-white rounded-md hover:bg-gray-800 transition-colors"
+            className="md:hidden p-1.5 text-gray-400 hover:text-gray-100 rounded-md hover:bg-gray-800 transition-colors"
             onClick={() => setSidebarOpen(true)}
             aria-label="Open menu"
           >

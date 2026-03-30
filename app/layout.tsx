@@ -17,7 +17,7 @@ const bricolage = Bricolage_Grotesque({
 })
 
 export const metadata: Metadata = {
-  title: 'MW Content Studio | Direct Creator Orders',
+  title: 'MN Content Studio | Direct Creator Orders',
   description: 'Hand-picked brand orders delivered directly to creators.',
   manifest: '/manifest.json',
   icons: {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'MW Content Studio',
+    title: 'MN Content Studio',
   },
 }
 

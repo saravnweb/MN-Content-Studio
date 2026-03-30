@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { Camera, X, Link2 } from 'lucide-react'
+import BrandLogo from './BrandLogo'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -11,7 +12,7 @@ export default function Footer() {
         <div className="flex flex-col items-center space-y-12 mb-12">
           {/* Brand Section */}
           <div className="space-y-4 flex flex-col items-center text-center">
-            <h2 className="text-xl font-bold tracking-tight text-gray-100">MW Content Studio</h2>
+            <BrandLogo withLink={true} size={32} textClassName="text-xl font-bold tracking-tight text-gray-100" />
             <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
               India&apos;s creator-to-brand fulfillment network. Real orders, real brands.
             </p>
@@ -38,6 +39,7 @@ export default function Footer() {
               <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400">Platform</h3>
               <ul className="space-y-2">
                 <li><FooterLink href="/">Home</FooterLink></li>
+                <li><FooterLink href="/explore">Browse Deals</FooterLink></li>
                 <li><FooterLink href="/creators">For Creators</FooterLink></li>
                 <li><FooterLink href="/brands">For Brands</FooterLink></li>
               </ul>
@@ -56,7 +58,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-900 flex justify-center items-center gap-4 text-center">
           <p className="text-[11px] text-gray-400 font-medium">
-            © {currentYear} MW Content Studio. All rights reserved.
+            © {currentYear} MN Content Studio. All rights reserved.
           </p>
         </div>
       </div>

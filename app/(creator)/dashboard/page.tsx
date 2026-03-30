@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import Linkify from '@/components/Linkify'
 import Link from 'next/link'
 import SubmitContentForm from './SubmitContentForm'
 
@@ -122,7 +123,9 @@ export default async function DashboardPage() {
                       <div className="mb-3 p-3 rounded-lg border"
                         style={{ backgroundColor: '#FFF7ED', borderColor: '#FED7AA' }}>
                         <p className="text-xs font-medium mb-1" style={{ color: '#C2410C' }}>Revision requested</p>
-                        <p className="text-xs leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>{app.admin_submission_note}</p>
+                        <p className="text-xs leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--color-text-secondary)' }}>
+                          <Linkify text={app.admin_submission_note} />
+                        </p>
                       </div>
                     )}
                     <SubmitContentForm

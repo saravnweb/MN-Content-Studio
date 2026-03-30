@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { LayoutDashboard, Megaphone, ClipboardList, FileCheck, User, Tag, Banknote, type LucideIcon } from 'lucide-react'
+import BrandLogo from '@/components/BrandLogo'
 
 const NAV: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
@@ -36,7 +37,7 @@ export default function AdminSidebar({
     <aside className={`w-64 fixed inset-y-0 left-0 z-30 bg-gray-900 border-r border-gray-800 flex flex-col transition-transform duration-200 ease-in-out
       ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
       <div className="px-6 py-5 border-b border-gray-800">
-        <p className="text-gray-100 font-bold text-base">MW Content Studio</p>
+        <BrandLogo size={24} textClassName="text-gray-100 font-bold text-base" />
         <p className="text-gray-400 text-xs mt-0.5">Admin Control</p>
       </div>
 
@@ -46,7 +47,7 @@ export default function AdminSidebar({
           return (
             <Link key={href} href={href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                active ? 'bg-indigo-600/20 text-indigo-400' : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                active ? 'bg-indigo-600/20 text-indigo-400' : 'text-gray-400 hover:text-gray-100 hover:bg-gray-800'
               }`}>
               <Icon className="w-4 h-4 shrink-0" />
               {label}

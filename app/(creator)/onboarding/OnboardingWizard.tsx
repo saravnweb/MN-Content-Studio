@@ -82,14 +82,14 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
     { n: 3, label: 'Your Niches' },
   ]
 
-  const inp = "w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:border-indigo-500 transition-colors"
+  const inp = "w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-gray-100 placeholder:text-gray-400 focus:outline-none focus:border-indigo-500 transition-colors"
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center py-4 px-2">
 
       {/* Header section */}
       <div className="mb-8 text-center px-4">
-        <h2 className="text-xl font-black text-white tracking-tight">Complete Your Profile</h2>
+        <h2 className="text-xl font-black text-gray-100 tracking-tight">Complete Your Profile</h2>
         <p className="text-xs mt-1.5 text-gray-500 font-bold uppercase tracking-widest">3 Quick Steps</p>
       </div>
 
@@ -112,12 +112,12 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                   ? 'bg-emerald-500 text-white' 
                   : step === s.n 
                     ? 'bg-indigo-600 text-white ring-indigo-500/20 scale-110 shadow-lg shadow-indigo-600/30' 
-                    : 'bg-gray-800 text-gray-500'
+                    : 'bg-gray-800 text-gray-400'
               }`}>
                 {step > s.n ? '✓' : s.n}
               </div>
               <p className={`text-[10px] mt-3 font-bold uppercase tracking-widest ${
-                step >= s.n ? 'text-gray-200' : 'text-gray-600'
+                step >= s.n ? 'text-gray-100' : 'text-gray-500'
               }`}>{s.label}</p>
             </div>
           ))}
@@ -133,7 +133,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
         {step === 1 && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-gray-100 flex items-center gap-2">
                 Welcome! <span className="animate-bounce-short">👋</span>
               </h2>
               <p className="text-sm mt-2 text-gray-400 leading-relaxed">Tell us a bit about yourself to get started.</p>
@@ -177,7 +177,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
         {step === 2 && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-gray-100 flex items-center gap-2">
                 Your Platform 📱
               </h2>
               <p className="text-sm mt-2 text-gray-400">Where do you create content?</p>
@@ -232,7 +232,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
         {step === 3 && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-gray-100 flex items-center gap-2">
                 Your Niches 🎯
               </h2>
               <p className="text-sm mt-2 text-gray-400 leading-relaxed">
@@ -276,7 +276,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
         <div className="flex gap-4 mt-8">
           {step > 1 && (
             <button onClick={() => { setStep((s) => (s - 1) as Step); setError('') }}
-              className="px-6 py-4 rounded-2xl text-sm font-bold border border-gray-800 text-gray-400 hover:bg-gray-800 hover:text-white transition-all">
+              className="px-6 py-4 rounded-2xl text-sm font-bold border border-gray-800 text-gray-400 hover:bg-gray-800 hover:text-gray-100 transition-all">
               Back
             </button>
           )}

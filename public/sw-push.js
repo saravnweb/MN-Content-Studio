@@ -1,4 +1,4 @@
-// Service Worker — MW Content Studio Push Notifications
+// Service Worker — MN Content Studio Push Notifications
 // This file is served from /sw-push.js (referenced from PushSetup component)
 
 self.addEventListener('push', function (event) {
@@ -8,15 +8,15 @@ self.addEventListener('push', function (event) {
   try {
     data = event.data.json();
   } catch {
-    data = { title: 'MW Content Studio', body: event.data.text() };
+    data = { title: 'MN Content Studio', body: event.data.text() };
   }
 
-  const title = data.title || 'MW Content Studio';
+  const title = data.title || 'MN Content Studio';
   const options = {
     body: data.body || 'New update available',
     icon: '/icons/icon-192.png',
     badge: '/icons/icon-192.png',
-    tag: data.tag || 'mw-notification',
+    tag: data.tag || 'mn-notification',
     data: { url: data.url || '/deals' },
     actions: [
       { action: 'view', title: 'View Deal' },

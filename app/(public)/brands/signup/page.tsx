@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import BrandLogo from '@/components/BrandLogo'
 
 const NICHES = ['Fashion', 'Beauty', 'Fitness', 'Food & Beverage', 'Tech & Gadgets', 'Travel', 'Gaming', 'Finance', 'Lifestyle', 'Education', 'Other']
 const BUDGET_RANGES = ['Under ₹25,000', '₹25,000 – ₹50,000', '₹50,000 – ₹1,00,000', '₹1,00,000 – ₹5,00,000', '₹5,00,000+']
@@ -78,7 +79,7 @@ export default function BrandSignupPage() {
     return (
       <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
         <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur border-b border-gray-800 px-4 py-3 flex items-center justify-between">
-          <Link href="/" className="font-bold text-base tracking-tight text-gray-100">MW Content Studio</Link>
+          <BrandLogo withLink={true} size={28} textClassName="font-bold text-base tracking-tight text-gray-100" />
           <Link href="/brands" className="text-sm text-gray-400 hover:text-gray-100 transition-colors">For Brands</Link>
         </header>
         <div className="flex-1 flex items-center justify-center px-4 py-16">
@@ -107,7 +108,7 @@ export default function BrandSignupPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 selection:bg-indigo-500/30">
       <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur border-b border-gray-800 px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="font-bold text-base tracking-tight text-gray-100">MW Content Studio</Link>
+        <BrandLogo withLink={true} size={28} textClassName="font-bold text-base tracking-tight text-gray-100" />
         <Link href="/brands" className="text-sm text-gray-400 hover:text-gray-100 transition-colors">Back</Link>
       </header>
 

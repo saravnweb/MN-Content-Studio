@@ -64,7 +64,7 @@ export default function BrandsPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-2xl font-bold text-white">Brands</h2>
+          <h2 className="text-2xl font-bold text-gray-100">Brands</h2>
           <p className="text-gray-400 text-sm mt-1">Upload a logo once — reused across all campaigns</p>
         </div>
         <button
@@ -116,7 +116,7 @@ export default function BrandsPage() {
               />
 
               <div className="flex-1 min-w-0">
-                <p className="text-white font-medium text-sm">{brand.name}</p>
+                <p className="text-gray-100 font-medium text-sm">{brand.name}</p>
                 {brand.tagline && <p className="text-gray-400 text-xs mt-0.5">{brand.tagline}</p>}
               </div>
 
@@ -216,7 +216,7 @@ function CreateBrandDrawer({
       <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-gray-950 border-l border-gray-800 flex flex-col shadow-2xl">
         {/* Drawer header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-gray-800">
-          <h3 className="text-white font-semibold text-base">New Brand</h3>
+          <h3 className="text-gray-100 font-semibold text-base">New Brand</h3>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-300 text-2xl leading-none">&times;</button>
         </div>
 
@@ -238,7 +238,7 @@ function CreateBrandDrawer({
                     <span className="text-gray-400 text-lg group-hover:text-indigo-400">↑</span>
                   </div>
                   <p className="text-gray-400 text-sm">Click to upload logo</p>
-                  <p className="text-gray-700 text-xs mt-1">PNG, JPG, SVG — square works best</p>
+                  <p className="text-gray-400 text-xs mt-1">PNG, JPG, SVG — square works best</p>
                 </div>
               )}
             </button>
@@ -257,7 +257,7 @@ function CreateBrandDrawer({
             <input
               value={name} onChange={(e) => setName(e.target.value)}
               placeholder="MuscleBlaze"
-              className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-indigo-500"
+              className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-gray-100 placeholder-gray-600 text-sm focus:outline-none focus:border-indigo-500"
             />
           </div>
 

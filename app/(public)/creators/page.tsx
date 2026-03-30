@@ -2,9 +2,10 @@ import Link from 'next/link'
 import Footer from '@/components/Footer'
 import AuthButton from '@/components/AuthButton'
 import WhatsAppCTA from '@/components/WhatsAppCTA'
+import BrandLogo from '@/components/BrandLogo'
 
 export const metadata = {
-  title: 'For Creators — MW Content Studio',
+  title: 'For Creators — MN Content Studio',
   description: 'Browse real brand campaigns, claim deals, and get paid for your content.',
 }
 
@@ -12,7 +13,7 @@ export default function ForCreatorsPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 selection:bg-indigo-500/30">
       <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur border-b border-gray-800 px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="font-bold text-base tracking-tight text-gray-100">MW Content Studio</Link>
+        <BrandLogo withLink={true} size={28} textClassName="font-bold text-base tracking-tight text-gray-100" />
         <Link href="/" className="text-sm text-gray-400 hover:text-gray-100 transition-colors">Back to Home</Link>
       </header>
 
@@ -27,7 +28,7 @@ export default function ForCreatorsPage() {
             Real brand orders,<br />delivered to you.
           </h1>
           <p className="text-gray-400 leading-relaxed">
-            MW Content Studio connects Indian content creators with brands that need real content. You browse live campaigns, claim a spot, create the content, and get paid. No pitching, no chasing.
+            MN Content Studio connects Indian content creators with brands that need real content. You browse live campaigns, claim a spot, create the content, and get paid. No pitching, no chasing.
           </p>
         </div>
 

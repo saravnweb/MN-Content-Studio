@@ -93,4 +93,87 @@
   .pb-nav {
     padding-bottom: calc(5rem + env(safe-area-inset-bottom));
   }
+
+  /* Landing page — animated gradient text */
+  .animate-gradient-text {
+    background-size: 200% auto;
+    animation: gradient-pan 4s ease-in-out infinite;
+  }
+}
+
+/* Landing page marquee */
+@keyframes marquee-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Landing page background orb animations */
+@keyframes float-orb-1 {
+  0%, 100% { transform: translate(0px, 0px); }
+  33%       { transform: translate(-50px, -70px); }
+  66%       { transform: translate(40px, 30px); }
+}
+
+@keyframes float-orb-2 {
+  0%, 100% { transform: translate(0px, 0px); }
+  33%       { transform: translate(70px, 40px); }
+  66%       { transform: translate(-30px, -60px); }
+}
+
+@keyframes float-orb-3 {
+  0%, 100% { transform: translate(0px, 0px); }
+  50%       { transform: translate(-60px, 50px); }
+}
+
+@keyframes gradient-pan {
+  0%, 100% { background-position: 0% center; }
+  50%       { background-position: 100% center; }
+}
+
+/* ── WCAG 2.1 — Respect user motion preference (SC 2.3.3 / 2.2.2) ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visually hidden — accessible to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip-to-content link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background: #6366f1;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0 0 0.5rem 0;
+  text-decoration: none;
+  transition: top 0.1s;
+}
+.skip-link:focus {
+  top: 0;
 }

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import ApplyButton from './ApplyButton'
 import Link from 'next/link'
+import Linkify from '@/components/Linkify'
 import { ChevronLeft, Banknote, Calendar, Package, CalendarDays, Users, Play, Camera } from 'lucide-react'
 
 export default async function DealDetailPage({ params }: { params: { id: string } }) {
@@ -132,7 +133,7 @@ export default async function DealDetailPage({ params }: { params: { id: string 
         style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)' }}>
         <h2 className="font-semibold text-sm mb-2" style={{ color: 'var(--color-text-primary)' }}>About this Campaign</h2>
         <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--color-text-secondary)' }}>
-          {campaign.description}
+          <Linkify text={campaign.description} />
         </p>
       </div>
 

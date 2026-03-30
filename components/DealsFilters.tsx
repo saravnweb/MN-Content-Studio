@@ -126,10 +126,10 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
       <div className="flex gap-2 mb-4 items-center">
         {/* Tab switcher */}
         {!hideTabs && (
-          <div className="flex gap-0.5 p-1 rounded-xl bg-gray-900 border border-gray-800 shrink-0">
+          <div className="flex gap-0.5 p-1 rounded-xl bg-gray-900 border border-gray-800 shrink-0" role="tablist" aria-label="Campaign view">
             <TabBtn label="All" active={tab === 'all'} href={buildHref(pathname, searchParams, 'tab', '')} />
             <TabBtn
-              label={`🔖${bookmarkCount > 0 ? ` ${bookmarkCount}` : ''}`}
+              label={bookmarkCount > 0 ? `Saved (${bookmarkCount})` : 'Saved'}
               active={tab === 'saved'}
               href={buildHref(pathname, searchParams, 'tab', 'saved')}
             />
@@ -138,17 +138,23 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
 
         {/* Search */}
         <div className="relative flex-1">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-400">🔍</span>
+          {/* Search icon — decorative */}
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-400" aria-hidden="true">🔍</span>
+          <label htmlFor="campaign-search" className="sr-only">Search campaigns</label>
           <input
+            id="campaign-search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search orders…"
+            placeholder="Search campaigns…"
             className="w-full pl-8 pr-3 py-2.5 bg-gray-900 border border-gray-800 rounded-xl text-sm focus:outline-none focus:border-indigo-500/50 text-gray-100 transition-colors"
           />
           {query && (
-            <button onClick={() => { setQuery(''); pushParams({ q: '' }) }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-xs px-1.5 py-0.5 rounded text-gray-400 hover:text-gray-100">
-              ✕
+            <button
+              onClick={() => { setQuery(''); pushParams({ q: '' }) }}
+              aria-label="Clear search"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-xs px-1.5 py-0.5 rounded text-gray-400 hover:text-gray-100"
+            >
+              <span aria-hidden="true">✕</span>
             </button>
           )}
         </div>
@@ -156,14 +162,17 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
         {/* Filter toggle */}
         <button
           onClick={() => setShowFilters((v) => !v)}
+          aria-label={showFilters ? 'Close filters' : `Open filters${activeFilterCount > 0 ? ` (${activeFilterCount} active)` : ''}`}
+          aria-expanded={showFilters}
+          aria-controls="filter-panel"
           className={`relative shrink-0 w-10 h-10 rounded-xl border flex items-center justify-center transition-colors ${
-            showFilters || activeFilterCount > 0 
-              ? 'bg-indigo-500/10 border-indigo-500 text-indigo-400' 
+            showFilters || activeFilterCount > 0
+              ? 'bg-indigo-500/10 border-indigo-500 text-indigo-400'
               : 'bg-gray-900 border-gray-800 text-gray-400'
           }`}>
-          ⚙
+          <span aria-hidden="true">⚙</span>
           {activeFilterCount > 0 && (
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full text-[9px] font-bold text-white flex items-center justify-center bg-indigo-500">
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full text-[9px] font-bold text-white flex items-center justify-center bg-indigo-500" aria-hidden="true">
               {activeFilterCount}
             </span>
           )}
@@ -172,74 +181,78 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
 
       {/* ── Filter panel ── */}
       {showFilters && (
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 mb-4 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div id="filter-panel" className="bg-gray-900 border border-gray-800 rounded-2xl p-4 mb-4 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
           {/* Platform */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Platform</p>
+          <fieldset>
+            <legend className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Platform</legend>
             <div className="flex gap-2 flex-wrap">
               {PLATFORMS.map((p) => (
                 <button key={p.value} onClick={() => setPlatformFilter(p.value)}
+                  aria-pressed={platform === p.value}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                    platform === p.value 
-                      ? 'bg-indigo-600 text-white' 
+                    platform === p.value
+                      ? 'bg-indigo-600 text-white'
                       : 'bg-gray-800 text-gray-400 hover:text-gray-100'
                   }`}>
                   {p.label}
                 </button>
               ))}
             </div>
-          </div>
+          </fieldset>
 
           {/* Budget */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Budget</p>
+          <fieldset>
+            <legend className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Budget</legend>
             <div className="flex gap-2 flex-wrap">
               {BUDGET_PRESETS.map((b) => (
                 <button key={b.label} onClick={() => setBudget(b.label === 'Any' ? '' : b.label)}
+                  aria-pressed={budgetPreset === (b.label === 'Any' ? '' : b.label)}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                     budgetPreset === (b.label === 'Any' ? '' : b.label)
-                      ? 'bg-indigo-600 text-white' 
+                      ? 'bg-indigo-600 text-white'
                       : 'bg-gray-800 text-gray-400 hover:text-gray-100'
                   }`}>
                   {b.label}
                 </button>
               ))}
             </div>
-          </div>
+          </fieldset>
 
           {/* Niches */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Niches</p>
+          <fieldset>
+            <legend className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Niches</legend>
             <div className="flex flex-wrap gap-1.5">
               {NICHES.map((n) => (
                 <button key={n} onClick={() => toggleNiche(n)}
+                  aria-pressed={selectedNiches.includes(n)}
                   className={`px-2.5 py-1 rounded-full text-xs font-medium capitalize transition-all ${
                     selectedNiches.includes(n)
-                      ? 'bg-indigo-600 text-white' 
+                      ? 'bg-indigo-600 text-white'
                       : 'bg-gray-800 text-gray-400 hover:text-gray-100'
                   }`}>
                   {n}
                 </button>
               ))}
             </div>
-          </div>
+          </fieldset>
 
           {/* Sort */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Sort by</p>
+          <fieldset>
+            <legend className="text-xs font-semibold uppercase tracking-wider mb-2 text-gray-400">Sort by</legend>
             <div className="flex gap-2 flex-wrap">
               {SORT_OPTIONS.map((s) => (
                 <button key={s.value} onClick={() => setSort2(s.value)}
+                  aria-pressed={sort === s.value}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                    sort === s.value 
-                      ? 'bg-indigo-600 text-white' 
+                    sort === s.value
+                      ? 'bg-indigo-600 text-white'
                       : 'bg-gray-800 text-gray-400 hover:text-gray-100'
                   }`}>
                   {s.label}
                 </button>
               ))}
             </div>
-          </div>
+          </fieldset>
 
           {/* Clear */}
           {activeFilterCount > 0 && (
@@ -253,27 +266,27 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
 
       {/* Active filter chips */}
       {activeFilterCount > 0 && !showFilters && (
-        <div className="flex flex-wrap gap-2 mb-3">
-          {query && <ActiveChip label={`"${query}"`} onRemove={() => { setQuery(''); pushParams({ q: '' }) }} />}
-          {platform && <ActiveChip label={platform} onRemove={() => setPlatformFilter('')} />}
-          {budgetPreset && <ActiveChip label={budgetPreset} onRemove={() => setBudget('')} />}
+        <div className="flex flex-wrap gap-2 mb-3" role="group" aria-label="Active filters">
+          {query && <ActiveChip label={`"${query}"`} onRemove={() => { setQuery(''); pushParams({ q: '' }) }} removeLabel={`Remove search filter: ${query}`} />}
+          {platform && <ActiveChip label={platform} onRemove={() => setPlatformFilter('')} removeLabel={`Remove platform filter: ${platform}`} />}
+          {budgetPreset && <ActiveChip label={budgetPreset} onRemove={() => setBudget('')} removeLabel={`Remove budget filter: ${budgetPreset}`} />}
           {selectedNiches.map((n) => (
-            <ActiveChip key={n} label={n} onRemove={() => toggleNiche(n)} />
+            <ActiveChip key={n} label={n} onRemove={() => toggleNiche(n)} removeLabel={`Remove niche filter: ${n}`} />
           ))}
         </div>
       )}
 
       {/* Results count + loading */}
-      <div className="flex items-center justify-between mb-3 text-xs text-gray-400">
+      <div className="flex items-center justify-between mb-3 text-xs text-gray-400" role="status" aria-live="polite" aria-atomic="true">
         <p>
           {isPending ? 'Filtering…' : (
             activeFilterCount > 0 || query
-              ? <>{filteredCount} of {totalCount} orders</>
-              : <>{filteredCount} orders</>
+              ? <>{filteredCount} of {totalCount} campaigns</>
+              : <>{filteredCount} campaigns</>
           )}
         </p>
         {isPending && (
-          <span className="animate-spin text-indigo-400">↻</span>
+          <span className="animate-spin text-indigo-400" aria-hidden="true">↻</span>
         )}
       </div>
     </div>
@@ -283,19 +296,23 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
 function TabBtn({ label, active, href }: { label: string; active: boolean; href: string }) {
   return (
     <Link href={href}
+      role="tab"
+      aria-selected={active}
       className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap ${
-        active ? 'bg-indigo-600 text-white shadow-sm' : 'text-gray-400 hover:text-white hover:bg-gray-800'
+        active ? 'bg-indigo-600 text-white shadow-sm' : 'text-gray-400 hover:text-gray-100 hover:bg-gray-800'
       }`}>
       {label}
     </Link>
   )
 }
 
-function ActiveChip({ label, onRemove }: { label: string; onRemove: () => void }) {
+function ActiveChip({ label, onRemove, removeLabel }: { label: string; onRemove: () => void; removeLabel: string }) {
   return (
     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium capitalize bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
       {label}
-      <button onClick={onRemove} className="opacity-60 hover:opacity-100 leading-none">✕</button>
+      <button onClick={onRemove} aria-label={removeLabel} className="opacity-60 hover:opacity-100 leading-none">
+        <span aria-hidden="true">✕</span>
+      </button>
     </span>
   )
 }

@@ -30,7 +30,7 @@ export default function CreatorBottomNav({ isGuest = false }: { isGuest?: boolea
         {NAV.map(({ href, label, icon: Icon }) => {
           const isDeals = href === '/deals'
           const isProtected = href === '/dashboard' || href === '/profile'
-          const active = (isGuest && isDeals && (pathname === '/' || pathname.startsWith('/deals'))) || (!isGuest && pathname.startsWith(href))
+          const active = (isGuest && isDeals && pathname.startsWith('/explore')) || (!isGuest && pathname.startsWith(href))
           
           if (isGuest && isProtected) {
             return (
@@ -45,7 +45,7 @@ export default function CreatorBottomNav({ isGuest = false }: { isGuest?: boolea
             )
           }
 
-          const finalHref = isGuest && isDeals ? '/' : href
+          const finalHref = isGuest && isDeals ? '/explore' : href
           
           return (
             <Link key={href} href={finalHref}

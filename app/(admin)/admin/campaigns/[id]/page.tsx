@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import ApplicationActions from './ApplicationActions'
 import ReviewSubmission from './ReviewSubmission'
 import MarkPaid from './MarkPaid'
+import Linkify from '@/components/Linkify'
 import Link from 'next/link'
 
 export default async function CampaignDetailPage({ params }: { params: { id: string } }) {
@@ -45,7 +46,7 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
           </div>
         </div>
 
-        <p className="text-gray-300 text-sm mt-4 leading-relaxed">{campaign.description}</p>
+        <p className="text-gray-300 text-sm mt-4 leading-relaxed whitespace-pre-wrap"><Linkify text={campaign.description} /></p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
           {campaign.budget_min && (
@@ -102,7 +103,7 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
                   </div>
                 </div>
                 {app.message && (
-                  <p className="text-gray-400 text-sm mt-3 bg-gray-800 rounded-lg p-3 leading-relaxed">{app.message}</p>
+                  <p className="text-gray-400 text-sm mt-3 bg-gray-800 rounded-lg p-3 leading-relaxed whitespace-pre-wrap"><Linkify text={app.message} /></p>
                 )}
                 <div className="mt-4">
                   <ApplicationActions applicationId={app.id} currentStatus={app.status} />

@@ -6,7 +6,7 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 selection:bg-indigo-500/30">
       <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur border-b border-gray-800 px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="font-bold text-base tracking-tight text-gray-100">MW Content Studio</Link>
+        <Link href="/" className="font-bold text-base tracking-tight text-gray-100">MN Content Studio</Link>
         <Link href="/" className="text-sm text-gray-400 hover:text-gray-100 transition-colors">Back to Home</Link>
       </header>
 
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold">3. Security is Paramount</h2>
             <p>
-              We use Supabase and Google OAuth for industry-standard security. Your connection to MW Content Studio is encrypted.
+              We use Supabase and Google OAuth for industry-standard security. Your connection to MN Content Studio is encrypted.
             </p>
           </section>
 
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
               If you ever feel uncomfortable about how your data is being used, just reach out to us. We&apos;ll listen and fix it.
             </p>
             <div className="text-xs space-y-1 font-mono uppercase tracking-tight text-gray-300">
-              <p>Email: privacy@mwcontentstudio.in</p>
+              <p>Email: privacy@mncontentstudio.in</p>
               <p>Subject: Privacy Inquiry</p>
             </div>
           </section>

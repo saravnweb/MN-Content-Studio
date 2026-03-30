@@ -6,11 +6,11 @@
 2. Create a new project (or use existing)
 3. Go to **APIs & Services → OAuth consent screen**
    - User type: External
-   - App name: MW Content Studio
+   - App name: MN Content Studio
    - Add your email as test user
 4. Go to **APIs & Services → Credentials → Create Credentials → OAuth 2.0 Client ID**
    - Application type: Web application
-   - Name: MW Content Studio
+   - Name: MN Content Studio
    - **Authorized JavaScript origins** — add (required for Google One Tap):
 
      ```text

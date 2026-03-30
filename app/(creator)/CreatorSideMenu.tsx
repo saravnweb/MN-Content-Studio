@@ -2,7 +2,12 @@
 
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import { Banknote, Settings, LogOut, X, type LucideIcon } from 'lucide-react'
+import { Banknote, Settings, LogOut, X, Tag, type LucideIcon } from 'lucide-react'
+import BrandLogo from '@/components/BrandLogo'
+
+const PUBLIC_NAV: { href: string; label: string; icon: LucideIcon }[] = [
+  { href: '/explore', label: 'Browse Deals', icon: Tag },
+]
 
 const NAV: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/earnings', label: 'Earnings & Payouts', icon: Banknote },
@@ -49,12 +54,12 @@ export default function CreatorSideMenu({
       }`}>
         <div className="px-4 py-4 border-b border-gray-800 flex items-center justify-between">
           <div className="min-w-0">
-            <p className="text-gray-100 font-bold text-sm">MW Content Studio</p>
+            <BrandLogo size={20} textClassName="text-gray-100 font-bold text-sm" />
             {name && <p className="text-gray-400 text-xs mt-0.5 truncate">{name}</p>}
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-gray-400 hover:text-white rounded-md hover:bg-gray-800 transition-colors shrink-0 ml-2"
+            className="p-1.5 text-gray-400 hover:text-gray-100 rounded-md hover:bg-gray-800 transition-colors shrink-0 ml-2"
             aria-label="Close menu"
           >
             <X className="w-4 h-4" />
@@ -62,13 +67,21 @@ export default function CreatorSideMenu({
         </div>
 
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+          {PUBLIC_NAV.map(({ href, label, icon: Icon }) => (
+            <Link key={href} href={href} onClick={onClose}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">
+              <Icon className="w-4 h-4 shrink-0" />
+              {label}
+            </Link>
+          ))}
+          {PUBLIC_NAV.length > 0 && <div className="my-2 border-t border-gray-800" />}
           {NAV.map(({ href, label, icon: Icon }) => {
             if (isGuest) {
               return (
                 <button
                   key={href}
                   onClick={handleGoogleAuth}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition-colors text-left"
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors text-left"
                 >
                   <Icon className="w-4 h-4 shrink-0" />
                   {label}
@@ -77,7 +90,7 @@ export default function CreatorSideMenu({
             }
             return (
               <Link key={href} href={href} onClick={onClose}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">
                 <Icon className="w-4 h-4 shrink-0" />
                 {label}
               </Link>

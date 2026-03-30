@@ -99,7 +99,7 @@ export default function PublicDealCard({
           View Full Details
         </Link>
         <button
-          className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-800 bg-gray-800/50 text-gray-400 hover:text-white transition-colors shrink-0"
+          className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-800 bg-gray-800/50 text-gray-400 hover:text-gray-100 transition-colors shrink-0"
           aria-label="Bookmark order"
           onClick={() => {
             if (!isCreator) {
@@ -111,7 +111,7 @@ export default function PublicDealCard({
         </button>
         <button
           onClick={handleShare}
-          className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-800 bg-gray-800/50 text-gray-400 hover:text-white transition-colors shrink-0 active:scale-95"
+          className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-800 bg-gray-800/50 text-gray-400 hover:text-gray-100 transition-colors shrink-0 active:scale-95"
           aria-label="Share order"
         >
           <Share2 className="w-4 h-4" />

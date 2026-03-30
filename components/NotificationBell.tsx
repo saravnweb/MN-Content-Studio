@@ -43,7 +43,7 @@ export default function NotificationBell({ userId, href = '/admin' }: { userId: 
   return (
     <button
       onClick={() => router.push(href)}
-      className="relative p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors"
+      className="relative p-2 text-gray-400 hover:text-gray-100 rounded-lg hover:bg-gray-800 transition-colors"
       title="Notifications"
     >
       <Bell className="w-5 h-5" />

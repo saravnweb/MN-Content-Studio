@@ -17,7 +17,7 @@ export function GuestHamburger({ isGuest = true }: { isGuest?: boolean }) {
   return (
     <>
       <button
-        className="p-1.5 text-gray-400 hover:text-white rounded-md hover:bg-gray-800 transition-colors mr-2"
+        className="p-1.5 text-gray-400 hover:text-gray-100 rounded-md hover:bg-gray-800 transition-colors mr-2"
         onClick={() => setMenuOpen(true)}
         aria-label="Open menu"
       >
