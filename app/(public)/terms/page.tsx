@@ -20,7 +20,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold">1. Our Role</h2>
             <p>
-              MN Content Studio acts as a curated fulfillment network. We connect brands with Indian creators to execute specific content orders (the &quot;Deals&quot;). We are an intermediary platform as defined under the Information Technology Act, 2000.
+              MN Content Studio acts as a curated fulfillment network. We connect brands with Tamil Nadu creators to execute specific content orders (the &quot;Deals&quot;). We are an intermediary platform as defined under the Information Technology Act, 2000.
             </p>
           </section>
 

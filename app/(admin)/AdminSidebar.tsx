@@ -30,12 +30,13 @@ export default function AdminSidebar({
 
   async function signOut() {
     await supabase.auth.signOut()
-    window.location.href = '/login'
+    window.location.href = '/'
   }
 
   return (
-    <aside className={`w-64 fixed inset-y-0 left-0 z-30 bg-gray-900 border-r border-gray-800 flex flex-col transition-transform duration-200 ease-in-out
+    <aside className={`w-64 fixed inset-y-0 left-0 z-50 bg-gray-900 border-r border-gray-800 flex flex-col transition-transform duration-200 ease-in-out
       ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+
       <div className="px-6 py-5 border-b border-gray-800">
         <BrandLogo size={24} textClassName="text-gray-100 font-bold text-base" />
         <p className="text-gray-400 text-xs mt-0.5">Admin Control</p>

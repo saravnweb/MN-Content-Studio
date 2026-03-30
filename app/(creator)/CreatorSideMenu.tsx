@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Banknote, Settings, LogOut, X, Tag, type LucideIcon } from 'lucide-react'
@@ -26,32 +27,46 @@ export default function CreatorSideMenu({
   isGuest?: boolean
 }) {
   const supabase = createClient()
+  const [hasSession, setHasSession] = useState(false)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setHasSession(!!data.session))
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setHasSession(!!session)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [supabase])
+
 
   async function handleGoogleAuth() {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { 
-        redirectTo: `${window.location.origin}/api/auth/callback` 
+        redirectTo: `${window.location.origin}/api/auth/callback`,
+        queryParams: { prompt: 'select_account' }
       },
     })
   }
 
   async function signOut() {
     await supabase.auth.signOut()
-    window.location.href = '/login'
+    window.location.href = '/'
   }
 
   return (
     <>
       {isOpen && (
         <div
-          className="fixed inset-0 z-20 bg-black/60"
+          className="fixed inset-0 z-50 bg-black/60"
           onClick={onClose}
         />
       )}
-      <aside className={`w-64 fixed inset-y-0 left-0 z-30 bg-gray-900 border-r border-gray-800 flex flex-col transition-transform duration-200 ease-in-out ${
+      <aside className={`w-64 fixed inset-y-0 left-0 z-50 bg-gray-900 border-r border-gray-800 flex flex-col transition-transform duration-200 ease-in-out ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
+
         <div className="px-4 py-4 border-b border-gray-800 flex items-center justify-between">
           <div className="min-w-0">
             <BrandLogo size={20} textClassName="text-gray-100 font-bold text-sm" />
@@ -98,7 +113,7 @@ export default function CreatorSideMenu({
           })}
         </nav>
 
-        {!isGuest && (
+        {hasSession && (
           <div className="px-4 py-4 border-t border-gray-800">
             <button onClick={signOut}
               className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-400 hover:text-red-400 rounded-lg hover:bg-gray-800 transition-colors">

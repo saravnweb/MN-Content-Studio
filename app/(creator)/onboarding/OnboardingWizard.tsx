@@ -142,7 +142,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
             <div className="space-y-5">
               <Field label="Your Full Name *">
                 <input value={fullName} onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Rahul Sharma" className={inp} autoFocus />
+                  placeholder="Karthik Raja" className={inp} autoFocus />
               </Field>
 
               <div className="grid grid-cols-2 gap-4">

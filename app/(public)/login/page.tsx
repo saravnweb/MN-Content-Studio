@@ -1,33 +1,27 @@
 'use client'
 
 import { useState } from 'react'
-import Script from 'next/script'
 import { createClient } from '@/lib/supabase/client'
-import { useGoogleOneTap } from '@/lib/hooks/useGoogleOneTap'
+
 import BrandLogo from '@/components/BrandLogo'
 
 export default function LoginPage() {
   const supabase = createClient()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-
-  const { initOneTap } = useGoogleOneTap(
-    () => setLoading(true),
-    (msg) => { setError(msg); setLoading(false); }
-  )
-
   async function handleGoogle() {
     setLoading(true)
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/api/auth/callback` },
+      options: { 
+        redirectTo: `${window.location.origin}/api/auth/callback`,
+        queryParams: { prompt: 'select_account' }
+      },
     })
   }
 
   return (
     <>
-      <Script src="https://accounts.google.com/gsi/client" onLoad={initOneTap} />
-
       <div className="min-h-screen flex items-center justify-center px-4 bg-gray-950">
         <div className="w-full max-w-sm">
           <div className="flex flex-col items-center mb-8">
@@ -46,11 +40,6 @@ export default function LoginPage() {
               <GoogleIcon />
               {loading ? 'Please wait…' : 'Continue with Google'}
             </button>
-
-            <p className="text-center text-xs text-gray-400 pt-2 border-t border-gray-800">
-              Admin?{' '}
-              <a href="/admin-login" className="text-gray-400 hover:text-gray-100 transition-colors">Staff sign in</a>
-            </p>
           </div>
         </div>
       </div>

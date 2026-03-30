@@ -133,7 +133,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: Sear
             Back to home
           </Link>
           <h1 className="text-2xl font-bold text-gray-100">Browse Live Deals</h1>
-          <p className="text-sm text-gray-400 mt-1">Real campaigns from Indian brands, updated continuously.</p>
+          <p className="text-sm text-gray-400 mt-1">Real campaigns from Tamil Nadu brands, updated continuously.</p>
         </div>
 
         <Suspense fallback={<FilterSkeleton />}>
@@ -179,7 +179,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: Sear
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-50" />
             <h2 className="font-bold text-xl text-gray-100">Ready to claim your next deal?</h2>
             <p className="text-sm mt-2 mb-6 text-gray-400 max-w-xs mx-auto">
-              Join Indian creators landing orders from top brands today.
+              Join Tamil Nadu creators landing orders from top brands today.
             </p>
             <AuthButton
               label="Get Started Now"

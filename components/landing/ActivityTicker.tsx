@@ -33,7 +33,7 @@ export default function ActivityTicker() {
       role="status"
       aria-live="polite"
       aria-atomic="true"
-      className="flex items-center gap-2 text-xs text-gray-400 transition-opacity duration-300"
+      className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 font-medium transition-opacity duration-300"
       style={{ opacity: show ? 1 : 0 }}
     >
       <span className="text-sm" aria-hidden="true">{item.emoji}</span>

@@ -104,7 +104,7 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
 
   async function signOut() {
     await supabase.auth.signOut()
-    window.location.href = '/login'
+    window.location.href = '/'
   }
 
   return (
@@ -128,7 +128,7 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
       {/* Basic info */}
       <Section>
         <Field label="Full Name">
-          <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Rahul Sharma" className={inp} />
+          <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Karthik Raja" className={inp} />
         </Field>
         <div className="flex gap-3">
           <div className="flex-1">

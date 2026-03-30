@@ -10,7 +10,7 @@ export default async function CreatorLayout({
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) redirect('/login')
+  if (!user) redirect('/')
 
   const { data: profile } = await supabase
     .from('profiles')
@@ -18,9 +18,9 @@ export default async function CreatorLayout({
     .eq('id', user.id)
     .single()
 
-  if (!profile) redirect('/login')
+  if (!profile) redirect('/')
   if (profile.role === 'admin') redirect('/admin')
-  if (profile.role !== 'creator') redirect('/login')
+  if (profile.role !== 'creator') redirect('/')
 
   return (
     <CreatorShell userId={user.id} name={profile.full_name}>

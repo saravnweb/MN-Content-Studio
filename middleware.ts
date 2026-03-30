@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
   const isPublicOnly = PUBLIC_ONLY.some((p) => pathname === p)
 
   if (!user && isProtected) {
-    const dest = isAdminPath ? '/admin-login' : '/login'
+    const dest = isAdminPath ? '/admin-login' : '/'
     return NextResponse.redirect(new URL(dest, request.url))
   }
 

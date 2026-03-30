@@ -6,7 +6,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) redirect('/login')
+  if (!user) redirect('/')
 
   const { data: profile } = await supabase
     .from('profiles')
@@ -14,9 +14,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     .eq('id', user.id)
     .single()
 
-  if (!profile) redirect('/login')
+  if (!profile) redirect('/')
   if (profile.role === 'creator') redirect('/deals')
-  if (profile.role !== 'admin') redirect('/login')
+  if (profile.role !== 'admin') redirect('/')
 
   return (
     <AdminShell name={profile.full_name ?? user.email ?? 'Admin'} userId={user.id}>

@@ -29,14 +29,14 @@ export default function AccountSecurity({ email }: { email: string }) {
   async function signOutAll() {
     const supabase = createClient()
     await supabase.auth.signOut({ scope: 'global' })
-    window.location.href = '/login'
+    window.location.href = '/'
   }
 
   async function deleteAccount() {
     setDeleting(true)
     const res = await fetch('/api/account/delete', { method: 'DELETE' })
     if (res.ok) {
-      window.location.href = '/login'
+      window.location.href = '/'
     } else {
       setDeleting(false)
     }

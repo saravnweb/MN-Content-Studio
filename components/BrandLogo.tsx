@@ -11,7 +11,7 @@ export default function BrandLogo({
   className = '', 
   size = 24, 
   withLink = true,
-  textClassName = 'font-bold text-sm tracking-tight text-gray-200'
+  textClassName = 'font-bold text-sm tracking-tight text-gray-100'
 }: BrandLogoProps) {
   const content = (
     <div className={`flex items-center ${className}`}>

@@ -103,7 +103,7 @@ export default function PublicDealCard({
           aria-label="Bookmark order"
           onClick={() => {
             if (!isCreator) {
-              window.location.href = '/login'
+              window.location.href = '/'
             }
           }}
         >
