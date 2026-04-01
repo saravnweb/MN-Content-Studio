@@ -17,6 +17,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
   // Step 1 — Identity
   const [fullName, setFullName] = useState(name ?? '')
   const [age, setAge] = useState('')
+  const [city, setCity] = useState('')
   const [gender, setGender] = useState('')
   const [isWhatsapp, setIsWhatsapp] = useState(false)
 
@@ -67,6 +68,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
     setError('')
     if (step === 1) {
       if (!fullName.trim()) { setError('Please enter your name'); return }
+      if (!city.trim()) { setError('Please enter the city you live in'); return }
       if (phone.replace(/\D/g, '').length !== 10) { setError('Please enter a valid 10-digit phone number'); return }
       setStep(2)
     } else if (step === 2) {
@@ -95,6 +97,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
         niches: selectedNiches,
         phone: phone.replace(/\D/g, '').slice(0, 10) || null,
         is_whatsapp: isWhatsapp,
+        city: city.trim() || null,
         age: age ? parseInt(age) : null,
         gender: gender || null,
       }).eq('id', userId)
@@ -179,6 +182,11 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                     </span>
                   )}
                 </div>
+              </Field>
+
+              <Field label="City *">
+                <input value={city} onChange={(e) => setCity(e.target.value)}
+                  placeholder="Mumbai, Maharashtra" className={inp} />
               </Field>
 
               <div className="grid grid-cols-2 gap-4">

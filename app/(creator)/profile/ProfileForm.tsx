@@ -16,6 +16,7 @@ type Profile = {
   whatsapp: string | null
   age: number | null
   gender: string | null
+  city: string | null
 }
 
 export default function ProfileForm({ profile, userId }: { profile: Profile; userId: string }) {
@@ -45,6 +46,7 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
   )
   const [age, setAge] = useState(profile.age?.toString() ?? '')
   const [gender, setGender] = useState(profile.gender ?? '')
+  const [city, setCity] = useState(profile.city ?? '')
 
   function toggleNiche(n: string) {
     if (hasValidSingleNiche) return
@@ -73,6 +75,7 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
     niches.length === 0 && 'Niche',
     !age && 'Age',
     !gender && 'Gender',
+    !city && 'City',
   ].filter(Boolean) as string[]
 
   async function save(e: React.FormEvent) {
@@ -96,6 +99,7 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
       niches,
       phone: phone || null,
       whatsapp: finalWhatsapp || null,
+      city: city || null,
       age: age ? parseInt(age) : null,
       gender: gender || null,
     }).eq('id', userId)
@@ -156,6 +160,9 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
             </Field>
           </div>
         </div>
+        <Field label={<Required>City</Required>}>
+          <input value={city} onChange={(e) => setCity(e.target.value)} placeholder="Mumbai, Maharashtra" className={inp} />
+        </Field>
       </Section>
 
       {/* Platform */}

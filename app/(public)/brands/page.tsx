@@ -4,7 +4,7 @@ import WhatsAppCTA from '@/components/WhatsAppCTA'
 import BrandLogo from '@/components/BrandLogo'
 
 export const metadata = {
-  title: 'For Brands — MN Content Studio',
+  title: 'For Brands — MW Content Studio',
   description: 'List your campaign and get real content from Tamil Nadu creators.',
 }
 
@@ -27,7 +27,7 @@ export default function ForBrandsPage() {
             Get real content<br />from real creators.
           </h1>
           <p className="text-gray-400 leading-relaxed">
-            MN Content Studio is a fulfillment network for Tamil Nadu brands. You tell us what you need, we connect you with creators who match your niche, and they deliver the content. Simple, direct, no agency overhead.
+            MW Content Studio is a fulfillment network for Tamil Nadu brands. You tell us what you need, we connect you with creators who match your niche, and they deliver the content. Simple, direct, no agency overhead.
           </p>
         </div>
 

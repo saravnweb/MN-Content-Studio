@@ -5,7 +5,7 @@ import WhatsAppCTA from '@/components/WhatsAppCTA'
 import BrandLogo from '@/components/BrandLogo'
 
 export const metadata = {
-  title: 'For Creators — MN Content Studio',
+  title: 'For Creators — MW Content Studio',
   description: 'Browse real brand campaigns, claim deals, and get paid for your content.',
 }
 
@@ -28,7 +28,7 @@ export default function ForCreatorsPage() {
             Real brand orders,<br />delivered to you.
           </h1>
           <p className="text-gray-400 leading-relaxed">
-            MN Content Studio connects Tamil Nadu content creators with brands that need real content. You browse live campaigns, claim a spot, create the content, and get paid. No pitching, no chasing.
+            MW Content Studio connects Tamil Nadu content creators with brands that need real content. You browse live campaigns, claim a spot, create the content, and get paid. No pitching, no chasing.
           </p>
         </div>
 

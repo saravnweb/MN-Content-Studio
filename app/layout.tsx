@@ -17,8 +17,9 @@ const bricolage = Bricolage_Grotesque({
 })
 
 export const metadata: Metadata = {
-  title: 'MN Content Studio | Direct Creator Orders',
+  title: 'MW Content Studio | Direct Creator Orders',
   description: 'Hand-picked brand orders delivered directly to creators.',
+  metadataBase: new URL('https://mn-content-studio.vercel.app'),
   manifest: '/manifest.json',
   icons: {
     icon: [
@@ -32,7 +33,29 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'MN Content Studio',
+    title: 'MW Content Studio',
+  },
+  openGraph: {
+    title: 'MW Content Studio | Direct Creator Orders',
+    description: 'Hand-picked brand orders delivered directly to creators.',
+    url: 'https://mn-content-studio.vercel.app',
+    siteName: 'MW Content Studio',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'MW Content Studio Logo',
+      },
+    ],
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'MW Content Studio | Direct Creator Orders',
+    description: 'Hand-picked brand orders delivered directly to creators.',
+    images: ['/og-image.png'],
   },
 }
 

@@ -21,7 +21,7 @@ export default async function CreatorDetailPage({ params }: { params: { id: stri
 
   const { data: creator } = await supabase
     .from('profiles')
-    .select('id, full_name, bio, platform, platform_url, youtube_url, instagram_url, twitter_url, followers_count, niches, gender, age, phone, whatsapp, created_at, account_holder_name, bank_name, account_number, ifsc_code, upi_id')
+    .select('id, full_name, bio, platform, platform_url, youtube_url, instagram_url, twitter_url, followers_count, niches, city, gender, age, phone, whatsapp, created_at, account_holder_name, bank_name, account_number, ifsc_code, upi_id')
     .eq('id', params.id)
     .single()
 
@@ -92,6 +92,17 @@ export default async function CreatorDetailPage({ params }: { params: { id: stri
                     {creator.age ? `, ${creator.age}y` : ''}
                   </p>
                 </div>
+                {creator.city && (
+                  <div className="bg-gray-800/40 border border-gray-700/50 rounded-xl p-4 transition-all hover:border-indigo-500/30 hover:bg-gray-800/60 group">
+                    <div className="flex items-center gap-2 text-emerald-400 mb-1">
+                      <Globe className="w-4 h-4" />
+                      <span className="text-xs font-bold uppercase tracking-wider">City</span>
+                    </div>
+                    <p className="text-lg font-bold text-white leading-none truncate">
+                      {creator.city}
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Status Section (Optional/Future) */}

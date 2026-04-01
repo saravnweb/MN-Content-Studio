@@ -1,11 +1,11 @@
-# MN Content Studio — Product Requirements Document
+# MW Content Studio — Product Requirements Document
 > Paste this file into Antigravity IDE as context before prompting Claude to build.
 
 ---
 
 ## What is this?
 
-MN Content Studio is a **brand deal management platform** for a talent manager / influencer marketing agent. The admin (your friend) acts as a middleman between brands and content creators (YouTubers, Instagram influencers). Instead of calling every creator manually, creators sign up on this platform, browse brand campaign deals, and express interest. The admin gets notified and negotiates from there.
+MW Content Studio is a **brand deal management platform** for a talent manager / influencer marketing agent. The admin (your friend) acts as a middleman between brands and content creators (YouTubers, Instagram influencers). Instead of calling every creator manually, creators sign up on this platform, browse brand campaign deals, and express interest. The admin gets notified and negotiates from there.
 
 **Live Lovable prototype:** https://connectinfluencer.lovable.app/
 

@@ -6,13 +6,16 @@ import Link from 'next/link'
 export default async function EditCampaignPage({ params }: { params: { id: string } }) {
   const supabase = createClient()
 
-  const { data: campaign } = await supabase
+  const { data: campaign, error } = await supabase
     .from('campaigns')
-    .select('id, title, description, budget_min, budget_max, deliverables, niches, platforms, deadline, slots_total, status, image_url, video_url, brand_name, brand_logo_url, visibility, visible_to, target_niches')
+    .select('*')
     .eq('id', params.id)
     .single()
 
-  if (!campaign) notFound()
+  if (error || !campaign) {
+    if (error) console.error('Error fetching campaign:', error)
+    notFound()
+  }
 
   return (
     <div>

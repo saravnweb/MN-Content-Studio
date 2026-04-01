@@ -1,5 +1,5 @@
 -- ============================================================
--- MN Content Studio — Sample Data Seeds
+-- MW Content Studio — Sample Data Seeds
 -- Paste into Supabase SQL Editor and run.
 -- ============================================================
 

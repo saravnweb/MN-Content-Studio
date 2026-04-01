@@ -14,8 +14,8 @@ import BrandLogo from '@/components/BrandLogo'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'Live Brand Campaigns — MN Content Studio',
-  description: 'Browse active brand campaigns on MN Content Studio. Filter by niche, platform, and budget.',
+  title: 'Live Brand Campaigns — MW Content Studio',
+  description: 'Browse active brand campaigns on MW Content Studio. Filter by niche, platform, and budget.',
 }
 
 interface SearchParams {

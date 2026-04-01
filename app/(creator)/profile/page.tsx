@@ -7,7 +7,7 @@ export default async function ProfilePage() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('full_name, platform, platform_url, youtube_url, instagram_url, followers_count, niches, phone, whatsapp, age, gender')
+    .select('full_name, platform, platform_url, youtube_url, instagram_url, followers_count, niches, phone, whatsapp, age, gender, city')
     .eq('id', user!.id)
     .single()
 
@@ -18,7 +18,7 @@ export default async function ProfilePage() {
         <p className="text-gray-400 text-sm mt-0.5">{user!.email}</p>
       </div>
       <ProfileForm
-        profile={profile ?? { full_name: null, platform: null, platform_url: null, youtube_url: null, instagram_url: null, followers_count: null, niches: null, phone: null, whatsapp: null, age: null, gender: null }}
+        profile={profile ?? { full_name: null, platform: null, platform_url: null, youtube_url: null, instagram_url: null, followers_count: null, niches: null, phone: null, whatsapp: null, age: null, gender: null, city: null }}
         userId={user!.id}
       />
     </div>

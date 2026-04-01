@@ -12,7 +12,7 @@ const TESTIMONIALS = [
     niche: 'Tech Creator',
   },
   {
-    quote: "I was skeptical but the payout actually came through within days of approval. MN Content Studio is the real deal for Indian creators.",
+    quote: "I was skeptical but the payout actually came through within days of approval. MW Content Studio is the real deal for Indian creators.",
     name: 'Priya K.',
     handle: '@priyaeats',
     niche: 'Food Creator',

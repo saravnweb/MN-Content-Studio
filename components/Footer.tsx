@@ -58,7 +58,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-900 flex justify-center items-center gap-4 text-center">
           <p className="text-[11px] text-gray-400 font-medium">
-            © {currentYear} MN Content Studio. All rights reserved.
+            © {currentYear} MW Content Studio. All rights reserved.
           </p>
         </div>
       </div>

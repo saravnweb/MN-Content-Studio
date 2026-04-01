@@ -6,7 +6,7 @@ export default function TermsPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 selection:bg-indigo-500/30">
       <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur border-b border-gray-800 px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="font-bold text-base tracking-tight text-gray-100">MN Content Studio</Link>
+        <Link href="/" className="font-bold text-base tracking-tight text-gray-100">MW Content Studio</Link>
         <Link href="/" className="text-sm text-gray-400 hover:text-gray-100 transition-colors">Back to Home</Link>
       </header>
 
@@ -20,7 +20,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold">1. Our Role</h2>
             <p>
-              MN Content Studio acts as a curated fulfillment network. We connect brands with Tamil Nadu creators to execute specific content orders (the &quot;Deals&quot;). We are an intermediary platform as defined under the Information Technology Act, 2000.
+              MW Content Studio acts as a curated fulfillment network. We connect brands with Tamil Nadu creators to execute specific content orders (the &quot;Deals&quot;). We are an intermediary platform as defined under the Information Technology Act, 2000.
             </p>
           </section>
 
@@ -53,7 +53,7 @@ export default function TermsPage() {
             </p>
             <div className="text-xs space-y-1 font-mono uppercase tracking-tight text-gray-300">
               <p>Officer: Suburaj</p>
-              <p>Email: legal@mncontentstudio.in</p>
+              <p>Email: legal@mwcontentstudio.in</p>
               <p>Address: Chennai, Tamil Nadu, India</p>
             </div>
           </section>

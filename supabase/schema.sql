@@ -1,6 +1,5 @@
 -- ============================================================
 -- MW Content Studio — Supabase Schema
--- MN Content Studio — Supabase Schema
 -- Paste this entire file into the Supabase SQL Editor and run.
 -- ============================================================
 

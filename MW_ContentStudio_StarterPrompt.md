@@ -1,10 +1,10 @@
-# MASTER PROMPT — MN Content Studio
+# MASTER PROMPT — MW Content Studio
 
 > Paste this into Antigravity IDE (Claude Sonnet 4.6) to start building
 
 ---
 
-You are helping me build **MN Content Studio** — a brand deal management platform for an influencer marketing talent manager.
+You are helping me build **MW Content Studio** — a brand deal management platform for an influencer marketing talent manager.
 
 ## Context
 
@@ -66,7 +66,7 @@ My friend manages 100+ YouTube/Instagram creators. Brands contact him (offline, 
 
 ## Folder structure to build
 
-```
+```text
 app/
 ├── (public)/page.tsx          ← landing page
 ├── (public)/login/page.tsx    ← creator magic link login  

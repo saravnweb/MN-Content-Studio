@@ -1,4 +1,6 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createAdminClient } from '@/lib/supabase/server'
+import { unstable_cache } from 'next/cache'
+
 import Link from 'next/link'
 import ThemeToggle from '@/components/ThemeToggle'
 import RoleSelector from '@/components/landing/RoleSelector'
@@ -8,9 +10,13 @@ import CreatorMarquee from '@/components/landing/CreatorMarquee'
 import BrandLogo from '@/components/BrandLogo'
 
 
+
 export const metadata = {
-  title: "MN Content Studio — Crafting Creative Legacies",
-  description: "The premier network for Tamil Nadu's elite creators and visionary brands. Join a community dedicated to professional excellence and distinguished creative partnerships.",
+  title: "Tamil Nadu's Top Creator Network",
+  description: "Connecting Tamil Nadu's elite creators with visionary brands. Join MW Content Studio for exclusive brand orders, professional partnerships, and premium creative opportunities.",
+  alternates: {
+    canonical: '/',
+  },
 }
 
 const STATS = [
@@ -19,16 +25,25 @@ const STATS = [
   { value: '100%',  label: 'Verified Brands' },
 ]
 
+export const revalidate = 3600 // Cache for 1 hour
+
+// Cached function to get campaign count to avoid database hits on every request
+const getLiveCampaignCount = unstable_cache(
+  async () => {
+    const adminSupabase = createAdminClient()
+    const { count } = await adminSupabase
+      .from('campaigns')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'active')
+    return count ?? 0
+  },
+  ['live-campaign-count'],
+  { revalidate: 3600, tags: ['campaigns'] }
+)
+
 export default async function LandingPage() {
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const liveCount = await getLiveCampaignCount()
 
-
-
-  const { count: liveCount } = await supabase
-    .from('campaigns')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'active')
 
   return (
     <div className="bg-gray-950 text-gray-100 relative overflow-x-hidden">
