@@ -21,10 +21,16 @@ export default async function OnboardingPage() {
     redirect('/deals')
   }
 
+  const googleName =
+    user.user_metadata?.full_name ??
+    user.user_metadata?.name ??
+    user.email?.split('@')[0] ??
+    ''
+
   return (
     <OnboardingWizard
       userId={user.id}
-      name={profile.full_name ?? user.email?.split('@')[0] ?? ''}
+      name={profile.full_name || googleName}
     />
   )
 }

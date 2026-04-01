@@ -1,13 +1,10 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
-
-const NICHES = [
-  'fitness', 'food', 'tech', 'fashion', 'travel', 'beauty',
-  'gaming', 'finance', 'lifestyle', 'wellness', 'education', 'entertainment',
-]
+import { NICHES } from '@/lib/constants'
 
 type Step = 1 | 2 | 3
 
@@ -21,25 +18,56 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
   const [fullName, setFullName] = useState(name ?? '')
   const [age, setAge] = useState('')
   const [gender, setGender] = useState('')
+  const [isWhatsapp, setIsWhatsapp] = useState(false)
 
   // Step 2 — Platform
   const [platform, setPlatform] = useState<'youtube' | 'instagram' | 'both'>('youtube')
   const [youtubeUrl, setYoutubeUrl] = useState('')
   const [instagramUrl, setInstagramUrl] = useState('')
   const [followersCount, setFollowersCount] = useState('')
+  const [ytFetching, setYtFetching] = useState(false)
+  const [ytPreview, setYtPreview] = useState<{ name: string; thumbnail?: string } | null>(null)
+  const [ytError, setYtError] = useState('')
 
   // Step 3 — Niches & contact
   const [selectedNiches, setSelectedNiches] = useState<string[]>([])
   const [phone, setPhone] = useState('')
 
+  const MAX_NICHES = 1
+
+  async function fetchYoutubeStats(url: string) {
+    if (!url.trim()) return
+    setYtFetching(true)
+    setYtError('')
+    setYtPreview(null)
+    try {
+      const res = await fetch(`/api/social/youtube?url=${encodeURIComponent(url.trim())}`)
+      const data = await res.json()
+      if (!res.ok) { setYtError(data.error ?? 'Could not fetch channel info'); return }
+      setYtPreview({ name: data.name, thumbnail: data.thumbnail })
+      if (data.subscribers) setFollowersCount(String(data.subscribers))
+    } catch {
+      setYtError('Network error — please check the URL')
+    } finally {
+      setYtFetching(false)
+    }
+  }
+
   function toggleNiche(n: string) {
-    setSelectedNiches((p) => p.includes(n) ? p.filter((x) => x !== n) : [...p, n])
+    if (selectedNiches.includes(n)) {
+      // Always allow deselecting
+      setSelectedNiches((p) => p.filter((x) => x !== n))
+    } else if (selectedNiches.length < MAX_NICHES) {
+      // Only allow selecting if under limit
+      setSelectedNiches((p) => [...p, n])
+    }
   }
 
   function nextStep() {
     setError('')
     if (step === 1) {
       if (!fullName.trim()) { setError('Please enter your name'); return }
+      if (phone.replace(/\D/g, '').length !== 10) { setError('Please enter a valid 10-digit phone number'); return }
       setStep(2)
     } else if (step === 2) {
       const hasUrl = (platform === 'youtube' || platform === 'both') ? !!youtubeUrl.trim() :
@@ -50,7 +78,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
   }
 
   async function finish() {
-    if (selectedNiches.length === 0) { setError('Pick at least one niche'); return }
+    if (selectedNiches.length === 0) { setError('Please pick a topic'); return }
     setError('')
 
     startTransition(async () => {
@@ -66,6 +94,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
         followers_count: followersCount ? parseInt(followersCount) : null,
         niches: selectedNiches,
         phone: phone.replace(/\D/g, '').slice(0, 10) || null,
+        is_whatsapp: isWhatsapp,
         age: age ? parseInt(age) : null,
         gender: gender || null,
       }).eq('id', userId)
@@ -79,7 +108,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
   const steps = [
     { n: 1, label: 'About You' },
     { n: 2, label: 'Your Platform' },
-    { n: 3, label: 'Your Niches' },
+    { n: 3, label: 'Your Topic' },
   ]
 
   const inp = "w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-gray-100 placeholder:text-gray-400 focus:outline-none focus:border-indigo-500 transition-colors"
@@ -141,8 +170,15 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
 
             <div className="space-y-5">
               <Field label="Your Full Name *">
-                <input value={fullName} onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Karthik Raja" className={inp} autoFocus />
+                <div className="relative">
+                  <input value={fullName} onChange={(e) => setFullName(e.target.value)}
+                    placeholder="Karthik Raja" className={inp} autoFocus />
+                  {name && (
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-indigo-400/70 pointer-events-none">
+                      from Google
+                    </span>
+                  )}
+                </div>
               </Field>
 
               <div className="grid grid-cols-2 gap-4">
@@ -161,13 +197,22 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                 </Field>
               </div>
 
-              <Field label="Phone (optional)">
+              <Field label="Phone Number *">
                 <div className="flex group/phone focus-within:ring-1 focus-within:ring-indigo-500 rounded-xl overflow-hidden transition-all">
                   <span className="bg-gray-800/80 border-r border-gray-700/50 px-4 flex items-center text-sm font-semibold text-gray-400">+91</span>
                   <input type="tel" inputMode="numeric" value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
                     placeholder="9876543210" className={`${inp} rounded-l-none border-0 focus:ring-0`} />
                 </div>
+                <label className="flex items-center gap-2.5 mt-3 cursor-pointer select-none w-fit">
+                  <div onClick={() => setIsWhatsapp(v => !v)}
+                    className={`w-4 h-4 rounded-sm border flex items-center justify-center transition-all flex-shrink-0 ${
+                      isWhatsapp ? 'bg-emerald-500 border-emerald-500' : 'bg-gray-800 border-gray-600'
+                    }`}>
+                    {isWhatsapp && <span className="text-white text-[10px] font-bold leading-none">✓</span>}
+                  </div>
+                  <span className="text-xs text-gray-400 font-medium">This is my WhatsApp number</span>
+                </label>
               </Field>
             </div>
           </div>
@@ -189,8 +234,8 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                   {(['youtube', 'instagram', 'both'] as const).map((p) => (
                     <button key={p} type="button" onClick={() => setPlatform(p)}
                       className={`py-3 rounded-xl text-xs font-bold capitalize transition-all border ${
-                        platform === p 
-                          ? 'bg-indigo-600/20 border-indigo-500 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.15)]' 
+                        platform === p
+                          ? 'bg-indigo-600/20 border-indigo-500 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.15)]'
                           : 'bg-gray-800/40 border-gray-800 text-gray-500 hover:text-gray-300 hover:border-gray-700'
                       }`}>
                       {p === 'both' ? 'Both' : p === 'youtube' ? 'YouTube' : 'Instagram'}
@@ -202,26 +247,63 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
               <div className="space-y-4">
                 {(platform === 'youtube' || platform === 'both') && (
                   <Field label="YouTube Channel URL *">
-                    <input value={youtubeUrl} onChange={(e) => setYoutubeUrl(e.target.value)}
-                      placeholder="youtube.com/c/yourchannel" className={inp} />
+                    <input
+                      value={youtubeUrl}
+                      onChange={(e) => { setYoutubeUrl(e.target.value); setYtPreview(null); setYtError('') }}
+                      onBlur={() => fetchYoutubeStats(youtubeUrl)}
+                      placeholder="youtube.com/@yourchannel"
+                      className={inp}
+                    />
+                    {ytFetching && (
+                      <p className="text-[11px] text-indigo-400 mt-2 pl-1 flex items-center gap-1.5">
+                        <span className="inline-block w-3 h-3 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                        Fetching channel info…
+                      </p>
+                    )}
+                    {ytPreview && !ytFetching && (
+                      <div className="mt-2 flex items-center gap-2.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-3 py-2">
+                        {ytPreview.thumbnail && (
+                          <Image
+                            src={ytPreview.thumbnail}
+                            alt=""
+                            width={28}
+                            height={28}
+                            className="w-7 h-7 rounded-full object-cover flex-shrink-0"
+                            unoptimized
+                          />
+                        )}
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold text-emerald-400 truncate">{ytPreview.name}</p>
+                          <p className="text-[10px] text-emerald-600">Subscriber count auto-filled</p>
+                        </div>
+                      </div>
+                    )}
+                    {ytError && !ytFetching && (
+                      <p className="text-[11px] text-amber-400 mt-2 pl-1">{ytError} — enter count manually below</p>
+                    )}
                   </Field>
                 )}
                 {(platform === 'instagram' || platform === 'both') && (
                   <Field label="Instagram Profile URL *">
                     <input value={instagramUrl} onChange={(e) => setInstagramUrl(e.target.value)}
                       placeholder="instagram.com/yourhandle" className={inp} />
+                    <p className="text-[10px] text-gray-600 mt-1.5 pl-1">
+                      Instagram doesn&apos;t allow public follower lookups — enter count manually below.
+                    </p>
                   </Field>
                 )}
               </div>
 
-              <Field label="Followers / Subscribers">
+              <Field label={platform === 'youtube' ? 'Subscribers' : platform === 'instagram' ? 'Followers' : 'Total Followers'}>
                 <div className="relative">
                   <input type="number" value={followersCount}
                     onChange={(e) => setFollowersCount(e.target.value)}
                     placeholder="e.g. 50000" className={inp} />
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                     <span className="text-xs font-bold text-gray-600">Total Followers</span>
-                  </div>
+                  {ytPreview && platform !== 'instagram' && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                      <span className="text-[10px] font-bold text-emerald-500">auto-filled</span>
+                    </div>
+                  )}
                 </div>
               </Field>
             </div>
@@ -233,20 +315,30 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
           <div className="space-y-6">
             <div>
               <h2 className="text-2xl font-bold text-gray-100 flex items-center gap-2">
-                Your Niches 🎯
+                What do you post about? 🎯
               </h2>
               <p className="text-sm mt-2 text-gray-400 leading-relaxed">
-                Pick your content categories — we&apos;ll match you to relevant brand deals.
+                Pick the one topic that best describes your content.
               </p>
+              <div className="mt-3 flex items-start gap-2 bg-amber-500/10 border border-amber-500/20 rounded-xl px-3 py-2.5">
+                <span className="text-amber-400 text-sm mt-0.5 shrink-0">⚠</span>
+                <p className="text-xs text-amber-300/80 leading-relaxed">
+                  <span className="font-bold text-amber-300">This cannot be changed later.</span> Choose carefully — your niche determines which brand deals you see.
+                </p>
+              </div>
             </div>
 
             <div className="flex flex-wrap gap-2.5">
               {NICHES.map((n) => (
-                <button key={n} type="button" onClick={() => toggleNiche(n)}
+                <button key={n} type="button" 
+                  onClick={() => toggleNiche(n)}
+                  disabled={selectedNiches.length >= MAX_NICHES && !selectedNiches.includes(n)}
                   className={`px-4 py-2.5 rounded-2xl text-xs capitalize font-bold transition-all border ${
                     selectedNiches.includes(n)
                       ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/20 scale-105' 
-                      : 'bg-gray-800/40 border-gray-800 text-gray-500 hover:text-gray-300 hover:bg-gray-800'
+                      : selectedNiches.length >= MAX_NICHES && !selectedNiches.includes(n)
+                        ? 'bg-gray-800/20 border-gray-800 text-gray-600 cursor-not-allowed opacity-50'
+                        : 'bg-gray-800/40 border-gray-800 text-gray-500 hover:text-gray-300 hover:bg-gray-800'
                   }`}>
                   {n}
                 </button>
@@ -257,7 +349,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 flex items-center gap-3">
                 <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] text-white font-bold">✓</div>
                 <p className="text-xs font-bold text-emerald-400">
-                  {selectedNiches.length} niches selected — great choices!
+                  {selectedNiches[0]} — selected!
                 </p>
               </div>
             )}

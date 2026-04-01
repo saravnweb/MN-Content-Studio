@@ -2,7 +2,7 @@ import React from 'react'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import AdminCharts from './AdminCharts'
-import { User, Megaphone, Clock, ClipboardList, CheckCircle, Banknote } from 'lucide-react'
+import { User, Megaphone, Clock, ClipboardList, CheckCircle, Banknote, ChevronRight } from 'lucide-react'
 
 export default async function AdminDashboard() {
   const supabase = createClient()
@@ -13,12 +13,16 @@ export default async function AdminDashboard() {
     { count: pendingApplications },
     { count: totalApplications },
     { count: approvedContent },
+    { count: submissionsNeedingReview },
+    { count: pendingPayouts },
   ] = await Promise.all([
     supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'creator'),
     supabase.from('campaigns').select('*', { count: 'exact', head: true }).eq('status', 'active'),
     supabase.from('applications').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
     supabase.from('applications').select('*', { count: 'exact', head: true }),
     supabase.from('applications').select('*', { count: 'exact', head: true }).eq('submission_status', 'approved'),
+    supabase.from('applications').select('*', { count: 'exact', head: true }).eq('submission_status', 'submitted'),
+    supabase.from('applications').select('*', { count: 'exact', head: true }).eq('status', 'accepted').eq('submission_status', 'approved').in('payout_status', ['unpaid', 'processing']),
   ])
 
   // Revenue: sum all paid payouts
@@ -67,25 +71,50 @@ export default async function AdminDashboard() {
     .order('created_at', { ascending: false })
     .limit(6)
 
+  const attentionItems = [
+    { count: pendingApplications ?? 0, label: 'Pending Applications', href: '/admin/applications', color: 'text-yellow-400', border: 'border-yellow-500/20', bg: 'bg-yellow-500/5' },
+    { count: submissionsNeedingReview ?? 0, label: 'Awaiting Content Review', href: '/admin/submissions', color: 'text-yellow-400', border: 'border-yellow-500/20', bg: 'bg-yellow-500/5' },
+    { count: pendingPayouts ?? 0, label: 'Payouts Due', href: '/admin/payouts', color: 'text-red-400', border: 'border-red-500/20', bg: 'bg-red-500/5' },
+  ].filter((item) => item.count > 0)
+
   return (
     <div>
-      <div className="mb-8">
+      <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-100">Dashboard</h2>
         <p className="text-gray-400 text-sm mt-1">Platform overview</p>
       </div>
 
+      {/* ── Needs Attention ── */}
+      {attentionItems.length > 0 && (
+        <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4 mb-6">
+          <p className="text-amber-400 text-xs font-semibold uppercase tracking-wider mb-3">Needs Attention</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {attentionItems.map((item) => (
+              <Link key={item.href} href={item.href}
+                className={`flex items-center justify-between ${item.bg} border ${item.border} rounded-xl px-4 py-3 hover:opacity-90 transition-opacity`}>
+                <div>
+                  <p className={`text-2xl font-bold ${item.color}`}>{item.count}</p>
+                  <p className="text-gray-300 text-xs mt-0.5">{item.label}</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-gray-500" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* ── Stat Cards ── */}
       <div className="grid grid-cols-2 xl:grid-cols-3 gap-4 mb-6">
-        <StatCard label="Total Creators" value={totalCreators ?? 0} sub="registered" color="text-indigo-400" icon={<User className="w-6 h-6" />} />
+        <StatCard label="Total Creators" value={totalCreators ?? 0} sub="registered" color="text-gray-400" icon={<User className="w-6 h-6" />} />
         <StatCard label="Active Campaigns" value={activeCampaigns ?? 0} sub="live now" color="text-green-400" icon={<Megaphone className="w-6 h-6" />} />
         <StatCard label="Pending Review" value={pendingApplications ?? 0} sub="applications" color="text-yellow-400" icon={<Clock className="w-6 h-6" />} />
-        <StatCard label="Total Applications" value={totalApplications ?? 0} sub="all time" color="text-blue-400" icon={<ClipboardList className="w-6 h-6" />} />
-        <StatCard label="Content Approved" value={approvedContent ?? 0} sub="deliverables" color="text-emerald-400" icon={<CheckCircle className="w-6 h-6" />} />
+        <StatCard label="Total Applications" value={totalApplications ?? 0} sub="all time" color="text-gray-400" icon={<ClipboardList className="w-6 h-6" />} />
+        <StatCard label="Content Approved" value={approvedContent ?? 0} sub="deliverables" color="text-green-400" icon={<CheckCircle className="w-6 h-6" />} />
         <StatCard
           label="Total Paid Out"
           value={`₹${totalRevenue.toLocaleString('en-IN')}`}
           sub="to creators"
-          color="text-pink-400"
+          color="text-gray-300"
           icon={<Banknote className="w-6 h-6" />}
           isString
         />
@@ -112,7 +141,7 @@ export default async function AdminDashboard() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-gray-100 font-semibold">Recent Applications</h3>
-          <Link href="/admin/applications" className="text-indigo-400 text-sm hover:underline">View all</Link>
+          <Link href="/admin/applications" className="text-gray-400 hover:text-white text-sm hover:underline transition-colors">View all</Link>
         </div>
         {!recentApps?.length ? (
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center">
@@ -158,8 +187,8 @@ function PayoutDonut({ counts }: { counts: { unpaid: number; processing: number;
 
   const segments = [
     { label: 'Unpaid', count: counts.unpaid, color: '#F87171' },
-    { label: 'Processing', count: counts.processing, color: '#60A5FA' },
-    { label: 'Paid', count: counts.paid, color: '#34D399' },
+    { label: 'Processing', count: counts.processing, color: '#FBBF24' },
+    { label: 'Paid', count: counts.paid, color: '#4ADE80' },
   ]
 
   // Simple bar chart instead of SVG donut
@@ -189,7 +218,7 @@ function StatusBadge({ status }: { status: string }) {
     pending: 'bg-yellow-500/10 text-yellow-400',
     accepted: 'bg-green-500/10 text-green-400',
     rejected: 'bg-red-500/10 text-red-400',
-    negotiating: 'bg-blue-500/10 text-blue-400',
+    negotiating: 'bg-yellow-500/10 text-yellow-400',
   }
   return (
     <span className={`text-xs font-medium px-2.5 py-1 rounded-full shrink-0 ${styles[status] ?? 'bg-gray-800 text-gray-400'}`}>

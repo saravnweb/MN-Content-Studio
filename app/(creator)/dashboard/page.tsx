@@ -36,19 +36,19 @@ export default async function DashboardPage() {
         <div className="rounded-2xl border my-5 overflow-hidden"
           style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)' }}>
           <div className="px-4 py-3 border-b" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface-alt)' }}>
-            <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--color-text-muted)' }}>💸 Earnings</p>
+            <p className="text-sm font-semibold uppercase tracking-wide" style={{ color: 'var(--color-text-muted)' }}>💸 Earnings</p>
           </div>
           <div className="grid grid-cols-2 divide-x" style={{ borderColor: 'var(--color-border)' }}>
             <div className="px-4 py-4">
-              <p className="text-xs mb-1" style={{ color: 'var(--color-text-muted)' }}>Total Earned</p>
+              <p className="text-sm mb-1" style={{ color: 'var(--color-text-muted)' }}>Total Earned</p>
               <p className="text-xl font-bold" style={{ color: 'var(--color-accent)' }}>₹{earnings.total.toLocaleString('en-IN')}</p>
-              <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-muted)' }}>{earnings.paidCount} payout{earnings.paidCount !== 1 ? 's' : ''}</p>
+              <p className="text-sm mt-0.5" style={{ color: 'var(--color-text-muted)' }}>{earnings.paidCount} payout{earnings.paidCount !== 1 ? 's' : ''}</p>
             </div>
             {earnings.processing > 0 && (
               <div className="px-4 py-4">
-                <p className="text-xs mb-1" style={{ color: 'var(--color-text-muted)' }}>Processing</p>
+                <p className="text-sm mb-1" style={{ color: 'var(--color-text-muted)' }}>Processing</p>
                 <p className="text-xl font-bold" style={{ color: '#2563EB' }}>₹{earnings.processing.toLocaleString('en-IN')}</p>
-                <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-muted)' }}>on its way</p>
+                <p className="text-sm mt-0.5" style={{ color: 'var(--color-text-muted)' }}>on its way</p>
               </div>
             )}
           </div>
@@ -95,14 +95,14 @@ export default async function DashboardPage() {
                       style={{ color: 'var(--color-text-primary)' }}>
                       {app.campaign?.title}
                     </Link>
-                    <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-muted)' }}>{app.campaign?.brand_name}</p>
+                    <p className="text-sm mt-0.5" style={{ color: 'var(--color-text-muted)' }}>{app.campaign?.brand_name}</p>
                     {app.campaign?.budget_min && (
-                      <p className="text-xs mt-1" style={{ color: 'var(--color-text-secondary)' }}>
+                      <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>
                         ₹{app.campaign.budget_min.toLocaleString('en-IN')}
                         {app.campaign.budget_max ? `–${app.campaign.budget_max.toLocaleString('en-IN')}` : ''}
                       </p>
                     )}
-                    <p className="text-xs mt-1" style={{ color: 'var(--color-text-muted)' }}>
+                    <p className="text-sm mt-1" style={{ color: 'var(--color-text-muted)' }}>
                       Applied {new Date(app.created_at).toLocaleDateString('en-IN')}
                     </p>
                   </div>
@@ -148,7 +148,7 @@ function StatCard({ label, value, colorHex }: { label: string; value: number; co
     <div className="border rounded-xl p-3 text-center"
       style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)' }}>
       <p className="text-2xl font-bold" style={{ color: colorHex }}>{value}</p>
-      <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-muted)' }}>{label}</p>
+      <p className="text-sm mt-0.5" style={{ color: 'var(--color-text-muted)' }}>{label}</p>
     </div>
   )
 }
@@ -162,7 +162,7 @@ function StatusBadge({ status }: { status: string }) {
   }
   const style = s[status] ?? { bg: 'var(--color-surface-alt)', color: 'var(--color-text-muted)' }
   return (
-    <span className="text-[10px] font-medium px-2 py-1 rounded-full capitalize shrink-0"
+    <span className="text-xs font-medium px-2 py-1 rounded-full capitalize shrink-0"
       style={{ backgroundColor: style.bg, color: style.color }}>
       {status}
     </span>
@@ -182,7 +182,7 @@ function SubmissionBadge({ status }: { status: string }) {
   }
   const style = s[status] ?? { bg: 'var(--color-surface-alt)', color: 'var(--color-text-muted)' }
   return (
-    <span className="text-[10px] font-medium px-2 py-1 rounded-full shrink-0"
+    <span className="text-xs font-medium px-2 py-1 rounded-full shrink-0"
       style={{ backgroundColor: style.bg, color: style.color }}>
       {labels[status] ?? status}
     </span>
@@ -193,14 +193,14 @@ function PayoutBadge({ status, amount }: { status: string; amount?: number | nul
   const fmt = (n: number) => `₹${n.toLocaleString('en-IN')}`
   if (status === 'paid') {
     return (
-      <span className="text-[10px] font-semibold px-2 py-1 rounded-full shrink-0"
+      <span className="text-xs font-semibold px-2 py-1 rounded-full shrink-0"
         style={{ backgroundColor: '#D1FAE5', color: '#065F46' }}>
         Paid {amount ? fmt(amount) : '✓'}
       </span>
     )
   }
   return (
-    <span className="text-[10px] font-medium px-2 py-1 rounded-full shrink-0"
+    <span className="text-xs font-medium px-2 py-1 rounded-full shrink-0"
       style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8' }}>
       Payment Processing
     </span>

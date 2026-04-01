@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
+import { NICHES } from '@/lib/constants'
+import { toast } from 'sonner'
 
 type Brand = { id: string; name: string; tagline: string | null; logo_url: string | null }
 
@@ -29,7 +31,7 @@ export default function BrandsPage() {
     if (!logo_url) { setUploadingId(null); return }
 
     const { error } = await supabase.from('brands').update({ logo_url }).eq('id', brand.id)
-    if (error) { alert('Save failed: ' + error.message); setUploadingId(null); return }
+    if (error) { toast.error('Save failed: ' + error.message); setUploadingId(null); return }
 
     setBrands((prev) => prev.map((b) => b.id === brand.id ? { ...b, logo_url } : b))
     setUploadingId(null)
@@ -39,7 +41,7 @@ export default function BrandsPage() {
     const ext = file.name.split('.').pop()
     const path = `brand-logos/${brandName.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}.${ext}`
     const { error } = await supabase.storage.from('campaign-assets').upload(path, file, { upsert: true })
-    if (error) { alert('Upload failed: ' + error.message); return null }
+    if (error) { toast.error('Upload failed: ' + error.message); return null }
     return supabase.storage.from('campaign-assets').getPublicUrl(path).data.publicUrl
   }
 
@@ -47,7 +49,7 @@ export default function BrandsPage() {
     if (!confirm('Delete this brand? This cannot be undone.')) return
     setDeletingId(id)
     const { error } = await supabase.from('brands').delete().eq('id', id)
-    if (error) { alert('Delete failed: ' + error.message); setDeletingId(null); return }
+    if (error) { toast.error('Delete failed: ' + error.message); setDeletingId(null); return }
     setBrands((prev) => prev.filter((b) => b.id !== id))
     setDeletingId(null)
   }
@@ -152,8 +154,6 @@ export default function BrandsPage() {
 }
 
 // ─── Create Brand Drawer ──────────────────────────────────────────────────────
-
-const NICHE_TAGS = ['fitness', 'beauty', 'tech', 'food', 'fashion', 'travel', 'gaming', 'finance', 'lifestyle', 'health']
 
 function CreateBrandDrawer({
   onClose, onCreated, uploadLogo, supabase,
@@ -276,7 +276,7 @@ function CreateBrandDrawer({
           <div>
             <label className="block text-xs text-gray-400 mb-2.5">Industry Tags</label>
             <div className="flex flex-wrap gap-2">
-              {NICHE_TAGS.map((t) => (
+              {NICHES.map((t) => (
                 <button
                   key={t} type="button" onClick={() => toggleTag(t)}
                   className={`px-3 py-1.5 rounded-full text-xs capitalize transition-colors ${

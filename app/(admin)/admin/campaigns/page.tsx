@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { ChevronRight, Trash2 } from 'lucide-react'
 
 type Campaign = {
   id: string
@@ -16,11 +17,16 @@ type Campaign = {
   created_at: string
 }
 
+const STATUS_FILTERS = ['all', 'active', 'paused', 'closed'] as const
+type StatusFilter = typeof STATUS_FILTERS[number]
+
 export default function CampaignsPage() {
   const supabase = createClient()
   const [campaigns, setCampaigns] = useState<Campaign[]>([])
   const [loading, setLoading] = useState(true)
   const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
 
   useEffect(() => {
     supabase
@@ -33,6 +39,20 @@ export default function CampaignsPage() {
       })
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const filtered = useMemo(() => {
+    let result = campaigns
+    if (search.trim()) {
+      const q = search.toLowerCase()
+      result = result.filter((c) =>
+        c.title.toLowerCase().includes(q) || c.brand_name.toLowerCase().includes(q)
+      )
+    }
+    if (statusFilter !== 'all') {
+      result = result.filter((c) => c.status === statusFilter)
+    }
+    return result
+  }, [campaigns, search, statusFilter])
 
   async function handleDelete(e: React.MouseEvent, id: string) {
     e.preventDefault()
@@ -59,27 +79,54 @@ export default function CampaignsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold text-white">Campaigns</h2>
           <p className="text-gray-400 text-sm mt-1">{campaigns.length} total</p>
         </div>
         <Link href="/admin/campaigns/new"
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition-colors">
+          className="bg-white hover:bg-gray-100 text-gray-950 font-medium px-4 py-2 rounded-lg text-sm transition-colors">
           + New Campaign
         </Link>
+      </div>
+
+      {/* Search + filter */}
+      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search by title or brand…"
+          className="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
+        />
+        <div className="flex gap-1.5">
+          {STATUS_FILTERS.map((f) => (
+            <button key={f} onClick={() => setStatusFilter(f)}
+              className={`px-3 py-2 rounded-lg text-xs font-medium capitalize transition-colors ${
+                statusFilter === f
+                  ? 'bg-gray-700 text-white border border-gray-600'
+                  : 'bg-gray-900 text-gray-400 border border-gray-800 hover:text-gray-300'
+              }`}>
+              {f}
+            </button>
+          ))}
+        </div>
       </div>
 
       {!campaigns.length ? (
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
           <p className="text-gray-400 font-medium">No campaigns yet</p>
-          <Link href="/admin/campaigns/new" className="inline-block mt-4 bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm">
+          <Link href="/admin/campaigns/new" className="inline-block mt-4 bg-white hover:bg-gray-100 text-gray-950 px-4 py-2 rounded-lg text-sm transition-colors">
             Create Campaign
           </Link>
         </div>
+      ) : !filtered.length ? (
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
+          <p className="text-gray-400 text-sm">No campaigns match your search</p>
+        </div>
       ) : (
         <div className="bg-gray-900 border border-gray-800 rounded-xl divide-y divide-gray-800">
-          {campaigns.map((c) => (
+          {filtered.map((c) => (
             <div key={c.id} className="flex items-center justify-between px-6 py-4 hover:bg-gray-800/50 transition-colors group">
               <Link href={`/admin/campaigns/${c.id}`} className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
@@ -97,14 +144,14 @@ export default function CampaignsPage() {
                 </div>
               </Link>
               <div className="flex items-center gap-3 ml-4 shrink-0">
-                <span className="text-gray-400 text-sm">→</span>
+                <ChevronRight className="w-4 h-4 text-gray-600" />
                 <button
                   onClick={(e) => handleDelete(e, c.id)}
                   disabled={deletingId === c.id}
                   title="Delete campaign"
-                  className="text-gray-400 hover:text-red-400 disabled:opacity-30 text-sm transition-colors"
+                  className="text-gray-500 hover:text-red-400 disabled:opacity-30 transition-colors p-0.5"
                 >
-                  {deletingId === c.id ? '…' : '✕'}
+                  {deletingId === c.id ? '…' : <Trash2 className="w-3.5 h-3.5" />}
                 </button>
               </div>
             </div>

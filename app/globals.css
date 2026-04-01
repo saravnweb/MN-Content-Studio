@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    font-size: 105%;
     color-scheme: dark;
 
     /* Gray scale — stored as RGB channels so Tailwind opacity modifiers (bg-gray-900/50) work */
@@ -83,7 +84,7 @@
 
 @layer utilities {
   .btn-accent {
-    @apply bg-indigo-600 text-white hover:bg-indigo-700 transition-colors;
+    @apply bg-white text-gray-950 hover:bg-gray-100 transition-colors;
   }
 
   /* Safe area for PWA bottom nav on iOS */
@@ -168,7 +169,7 @@
   left: 0;
   z-index: 9999;
   padding: 0.75rem 1.5rem;
-  background: #6366f1;
+  background: rgb(var(--gray-800));
   color: #fff;
   font-weight: 600;
   font-size: 0.875rem;

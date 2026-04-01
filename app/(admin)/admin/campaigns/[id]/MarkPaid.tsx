@@ -3,6 +3,8 @@
 import { useState, useTransition } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import { Check, Clock } from 'lucide-react'
 
 interface MarkPaidProps {
   applicationId: string
@@ -40,8 +42,8 @@ export default function MarkPaid({
   if (currentStatus === 'paid' && !open) {
     return (
       <div className="mt-3 flex items-center gap-3 flex-wrap">
-        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full">
-          ✓ Paid{currentAmount ? ` ${fmt(currentAmount)}` : ''}
+        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-400 bg-green-500/10 border border-green-500/20 px-3 py-1.5 rounded-full">
+          <Check className="w-3 h-3" /> Paid{currentAmount ? ` ${fmt(currentAmount)}` : ''}
         </span>
         {currentRef && (
           <span className="text-xs text-gray-400 font-mono">Ref: {currentRef}</span>
@@ -60,8 +62,8 @@ export default function MarkPaid({
   if (currentStatus === 'processing' && !open) {
     return (
       <div className="mt-3 flex items-center gap-2 flex-wrap">
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1.5 rounded-full">
-          ⏳ Processing
+        <span className="inline-flex items-center gap-1 text-xs font-semibold text-yellow-400 bg-yellow-500/10 border border-yellow-500/20 px-3 py-1.5 rounded-full">
+          <Clock className="w-3 h-3" /> Processing
         </span>
         <button onClick={() => setOpen(true)} className="text-xs text-gray-400 hover:text-gray-400 underline">Update</button>
       </div>
@@ -85,24 +87,17 @@ export default function MarkPaid({
         })
         .eq('id', applicationId)
 
-      if (dbErr) { setError('Failed to save. Try again.'); return }
+      if (dbErr) {
+        toast.error(dbErr.message)
+        return
+      }
+      toast.success('Payout recorded')
       setOpen(false)
       router.refresh()
     })
   }
 
-  // ── Unpaid / form open ───────────────────────────────────────
-  if (!open) {
-    return (
-      <button
-        onClick={() => setOpen(true)}
-        className="mt-3 text-xs font-medium text-gray-400 hover:text-indigo-400 border border-dashed border-gray-700 hover:border-indigo-500/50 px-3 py-1.5 rounded-lg transition-colors"
-      >
-        + Record Payout
-      </button>
-    )
-  }
-
+  // ── Form — shown immediately for unpaid, or when editing ────
   return (
     <div className="mt-3 bg-gray-800/50 border border-gray-700 rounded-xl p-4 space-y-3">
       <p className="text-xs font-semibold text-gray-300">Record Payout</p>
@@ -116,7 +111,7 @@ export default function MarkPaid({
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder={budgetMin ? String(budgetMin) : '0'}
-            className="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-indigo-500 transition-colors"
+            className="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500 transition-colors"
           />
         </div>
 
@@ -126,7 +121,7 @@ export default function MarkPaid({
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value as 'unpaid' | 'processing' | 'paid')}
-            className="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-indigo-500 transition-colors"
+            className="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500 transition-colors"
           >
             <option value="processing">Processing</option>
             <option value="paid">Paid ✓</option>
@@ -143,23 +138,25 @@ export default function MarkPaid({
           value={ref}
           onChange={(e) => setRef(e.target.value)}
           placeholder="e.g. HDFC0012345678"
-          className="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-indigo-500 transition-colors font-mono"
+          className="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500 transition-colors font-mono"
         />
       </div>
 
       {error && <p className="text-red-400 text-xs">{error}</p>}
 
       <div className="flex gap-2 pt-1">
-        <button
-          onClick={() => { setOpen(false); setError('') }}
-          className="px-3 py-2 text-xs text-gray-400 hover:text-gray-300 border border-gray-700 rounded-lg transition-colors"
-        >
-          Cancel
-        </button>
+        {open && (
+          <button
+            onClick={() => { setOpen(false); setError('') }}
+            className="px-3 py-2 text-xs text-gray-400 hover:text-gray-300 border border-gray-700 rounded-lg transition-colors"
+          >
+            Cancel
+          </button>
+        )}
         <button
           onClick={save}
           disabled={isPending}
-          className="flex-1 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white text-xs font-semibold py-2 rounded-lg transition-colors"
+          className="flex-1 bg-white hover:bg-gray-100 disabled:opacity-50 text-gray-950 text-xs font-semibold py-2 rounded-lg transition-colors"
         >
           {isPending ? 'Saving…' : 'Save Payout'}
         </button>

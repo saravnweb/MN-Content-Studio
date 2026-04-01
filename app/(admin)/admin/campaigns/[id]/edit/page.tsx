@@ -8,7 +8,7 @@ export default async function EditCampaignPage({ params }: { params: { id: strin
 
   const { data: campaign } = await supabase
     .from('campaigns')
-    .select('id, title, description, budget_min, budget_max, deliverables, niches, platforms, deadline, slots_total, status, image_url, video_url, brand_name, brand_logo_url')
+    .select('id, title, description, budget_min, budget_max, deliverables, niches, platforms, deadline, slots_total, status, image_url, video_url, brand_name, brand_logo_url, visibility, visible_to, target_niches')
     .eq('id', params.id)
     .single()
 
@@ -37,6 +37,9 @@ export default async function EditCampaignPage({ params }: { params: { id: strin
           video_url: campaign.video_url,
           brand_name: campaign.brand_name,
           brand_logo_url: campaign.brand_logo_url,
+          visibility: campaign.visibility ?? 'public',
+          visible_to: campaign.visible_to ?? [],
+          target_niches: campaign.target_niches ?? [],
         }}
       />
     </div>

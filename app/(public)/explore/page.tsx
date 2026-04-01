@@ -110,7 +110,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: Sear
       <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur border-b border-gray-800 px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <GuestHamburger isGuest={!user} />
-          <BrandLogo withLink={true} size={28} textClassName="font-bold text-base tracking-tight text-gray-100 transition-colors" />
+          <BrandLogo withLink={true} size={28} textClassName="font-bold text-lg tracking-tight text-gray-100 transition-colors" />
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
@@ -128,12 +128,12 @@ export default async function ExplorePage({ searchParams }: { searchParams: Sear
 
       <main className="max-w-xl mx-auto px-4 pb-24">
         <div className="pt-8 pb-5">
-          <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-300 transition-colors mb-4">
+          <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-300 transition-colors mb-4">
             <ArrowLeft className="w-3.5 h-3.5" />
             Back to home
           </Link>
           <h1 className="text-2xl font-bold text-gray-100">Browse Live Deals</h1>
-          <p className="text-sm text-gray-400 mt-1">Real campaigns from Tamil Nadu brands, updated continuously.</p>
+          <p className="text-base text-gray-400 mt-1">Real campaigns from Tamil Nadu brands, updated continuously.</p>
         </div>
 
         <Suspense fallback={<FilterSkeleton />}>
@@ -160,7 +160,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: Sear
                 <p className="text-sm mt-1 text-gray-400">Join our network to be notified when new campaigns launch</p>
                 <AuthButton
                   label="Join Now"
-                  className="mt-5 inline-block bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-6 py-2.5 rounded-xl transition-colors shadow-lg shadow-indigo-600/20"
+                  className="mt-5 inline-block bg-indigo-600 hover:bg-indigo-700 text-white text-base font-medium px-6 py-2.5 rounded-xl transition-colors shadow-lg shadow-indigo-600/20"
                   showIcon={false}
                 />
               </>
@@ -178,12 +178,12 @@ export default async function ExplorePage({ searchParams }: { searchParams: Sear
           <div className="mt-8 bg-gray-900 border border-gray-800 rounded-2xl p-8 flex flex-col items-center text-center shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-50" />
             <h2 className="font-bold text-xl text-gray-100">Ready to claim your next deal?</h2>
-            <p className="text-sm mt-2 mb-6 text-gray-400 max-w-xs mx-auto">
+            <p className="text-base mt-2 mb-6 text-gray-400 max-w-xs mx-auto">
               Join Tamil Nadu creators landing orders from top brands today.
             </p>
             <AuthButton
               label="Get Started Now"
-              className="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm shadow-lg shadow-indigo-600/25"
+              className="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-base shadow-lg shadow-indigo-600/25"
               showIcon={false}
             />
           </div>

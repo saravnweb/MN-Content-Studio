@@ -6,6 +6,7 @@ import AdminSidebar from './AdminSidebar'
 import NotificationBell from '@/components/NotificationBell'
 import ThemeToggle from '@/components/ThemeToggle'
 import { Menu } from 'lucide-react'
+import { Toaster } from 'sonner'
 
 export default function AdminShell({
   children,
@@ -25,6 +26,7 @@ export default function AdminShell({
 
   return (
     <div className="flex min-h-screen bg-gray-950">
+      <Toaster richColors position="top-right" />
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-20 bg-black/60 md:hidden"

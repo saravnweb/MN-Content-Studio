@@ -3,8 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import BrandLogo from '@/components/BrandLogo'
-
-const NICHES = ['Fashion', 'Beauty', 'Fitness', 'Food & Beverage', 'Tech & Gadgets', 'Travel', 'Gaming', 'Finance', 'Lifestyle', 'Education', 'Other']
+import { NICHES } from '@/lib/constants'
 const BUDGET_RANGES = ['Under ₹25,000', '₹25,000 – ₹50,000', '₹50,000 – ₹1,00,000', '₹1,00,000 – ₹5,00,000', '₹5,00,000+']
 const TIMELINES = ['ASAP (within 2 weeks)', 'Within 1 month', '2–3 months', 'Flexible']
 const PLATFORMS = ['YouTube', 'Instagram', 'Both']

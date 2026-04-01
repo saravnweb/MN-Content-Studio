@@ -1,15 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import { updateApplicationStatus } from './actions'
 
 type Status = 'pending' | 'accepted' | 'rejected' | 'negotiating'
 
 const ACTIONS: { label: string; status: Status; cls: string }[] = [
-  { label: 'Accept', status: 'accepted', cls: 'bg-green-600 hover:bg-green-700 text-white' },
-  { label: 'Negotiate', status: 'negotiating', cls: 'bg-blue-600 hover:bg-blue-700 text-white' },
-  { label: 'Reject', status: 'rejected', cls: 'bg-red-600/20 hover:bg-red-600/30 text-red-400' },
+  { label: 'Accept', status: 'accepted', cls: 'border border-green-700 text-green-400 hover:bg-green-900/20 bg-transparent' },
+  { label: 'Negotiate', status: 'negotiating', cls: 'border border-yellow-700 text-yellow-400 hover:bg-yellow-900/20 bg-transparent' },
+  { label: 'Reject', status: 'rejected', cls: 'border border-red-800 text-red-400 hover:bg-red-900/20 bg-transparent' },
 ]
 
 export default function ApplicationActions({
@@ -20,14 +21,21 @@ export default function ApplicationActions({
   currentStatus: string
 }) {
   const router = useRouter()
-  const supabase = createClient()
   const [loading, setLoading] = useState<Status | null>(null)
   const [activeStatus, setActiveStatus] = useState(currentStatus)
 
   async function updateStatus(status: Status) {
+    if (status === 'rejected') {
+      if (!confirm('Reject this application? The creator will be notified via push if subscribed.')) return
+    }
     setLoading(status)
-    const { error } = await supabase.from('applications').update({ status }).eq('id', applicationId)
-    if (!error) setActiveStatus(status)
+    try {
+      await updateApplicationStatus(applicationId, status)
+      setActiveStatus(status)
+      toast.success(`Application ${status}`)
+    } catch {
+      toast.error('Failed to update status. Please try again.')
+    }
     setLoading(null)
     router.refresh()
   }

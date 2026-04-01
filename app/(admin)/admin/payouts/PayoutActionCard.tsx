@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 interface PayoutActionCardProps {
   applicationId: string
@@ -46,18 +47,27 @@ export default function PayoutActionCard({
           payout_date: new Date().toISOString(),
         })
         .eq('id', applicationId)
-      if (dbErr) { setError('Failed. Try again.'); return }
+      if (dbErr) {
+        toast.error('Payment record failed. Try again.')
+        return
+      }
+      toast.success(`Marked as paid — ${fmt(amount)} to ${creatorName}`)
       router.refresh()
     })
   }
 
-  function reject() {
+  function resetToPending() {
     startTransition(async () => {
       const supabase = createClient()
-      await supabase
+      const { error: dbErr } = await supabase
         .from('applications')
         .update({ payout_status: 'unpaid', payout_ref: null })
         .eq('id', applicationId)
+      if (dbErr) {
+        toast.error('Failed to reset status.')
+        return
+      }
+      toast.success('Reset to pending')
       router.refresh()
     })
   }
@@ -99,14 +109,16 @@ export default function PayoutActionCard({
           ✓ Mark Paid
         </button>
         <button
-          onClick={reject}
+          onClick={resetToPending}
           disabled={isPending}
-          className="flex items-center gap-1.5 border border-red-500/40 hover:border-red-500/70 text-red-400 hover:text-red-300 disabled:opacity-50 text-xs font-semibold px-4 py-2 rounded-lg transition-colors shrink-0"
+          title="Remove from payment queue and reset status to unpaid"
+          className="flex items-center gap-1.5 border border-gray-600 hover:border-gray-500 text-gray-400 hover:text-gray-300 disabled:opacity-50 text-xs font-semibold px-4 py-2 rounded-lg transition-colors shrink-0"
         >
-          ✕ Reject
+          Reset
         </button>
       </div>
       {error && <p className="text-red-400 text-xs mt-2">{error}</p>}
+      <p className="text-gray-600 text-[10px] mt-2">&ldquo;Reset&rdquo; removes from payment queue and sets status back to unpaid</p>
     </div>
   )
 }

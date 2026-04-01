@@ -1,41 +1,85 @@
-import { createClient } from '@/lib/supabase/server'
+'use client'
+
+import { useState, useEffect, useMemo } from 'react'
+import { createClient } from '@/lib/supabase/client'
 import PayoutActionCard from './PayoutActionCard'
 
-export default async function PayoutsPage() {
-  const supabase = createClient()
+const STATUS_FILTERS = ['all', 'awaiting', 'paid'] as const
+type StatusFilter = typeof STATUS_FILTERS[number]
 
-  const { data: payouts } = await supabase
-    .from('applications')
-    .select('id, payout_status, payout_amount, payout_date, payout_ref, created_at, creator:profiles(id, full_name, platform, upi_id, bank_name, account_number), campaign:campaigns(id, title, brand_name, budget_min, budget_max)')
-    .eq('status', 'accepted')
-    .eq('submission_status', 'approved')
-    .order('payout_date', { ascending: false, nullsFirst: true })
+export default function PayoutsPage() {
+  const [payouts, setPayouts] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
 
-  const all = payouts ?? []
-  const paid       = all.filter((p) => p.payout_status === 'paid')
-  const awaiting   = all.filter((p) => p.payout_status === 'processing' || p.payout_status === 'unpaid')
+  useEffect(() => {
+    const supabase = createClient()
+    supabase
+      .from('applications')
+      .select('id, payout_status, payout_amount, payout_date, payout_ref, created_at, creator:profiles(id, full_name, platform, upi_id, bank_name, account_number), campaign:campaigns(id, title, brand_name, budget_min, budget_max)')
+      .eq('status', 'accepted')
+      .eq('submission_status', 'approved')
+      .order('payout_date', { ascending: false, nullsFirst: true })
+      .then(({ data }) => {
+        if (data) setPayouts(data)
+        setLoading(false)
+      })
+  }, [])
+
+  const all = payouts
+  const paid = useMemo(() => all.filter((p) => p.payout_status === 'paid'), [all])
+  const awaiting = useMemo(() => all.filter((p) => p.payout_status === 'processing' || p.payout_status === 'unpaid'), [all])
 
   const totalPaid    = paid.reduce((sum, p: any) => sum + ((p.payout_amount ?? (p.campaign as any)?.budget_min ?? 0) as number), 0)
   const totalPending = awaiting.reduce((sum, p: any) => sum + ((p.payout_amount ?? (p.campaign as any)?.budget_min ?? 0) as number), 0)
 
   const fmt = (n: number) => `₹${n.toLocaleString('en-IN')}`
 
+  const showAwaiting = statusFilter === 'all' || statusFilter === 'awaiting'
+  const showPaid = statusFilter === 'all' || statusFilter === 'paid'
+
+  if (loading) return <p className="text-gray-400 text-sm">Loading…</p>
+
   return (
     <div className="max-w-2xl pb-28">
-      <div className="mb-8">
+      <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-100">Payouts</h2>
         <p className="text-gray-400 text-sm mt-1">Track creator earnings for approved content</p>
       </div>
 
       {/* Summary stats */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-3 gap-4 mb-6">
         <StatCard label="Total Paid Out" value={fmt(totalPaid)} color="text-emerald-400" />
         <StatCard label="Pending / Processing" value={fmt(totalPending)} color="text-yellow-400" />
         <StatCard label="Creators to Pay" value={String(awaiting.length)} color="text-indigo-400" />
       </div>
 
+      {/* Status filter */}
+      <div className="flex gap-1.5 mb-6">
+        {STATUS_FILTERS.map((f) => {
+          const count = f === 'all' ? all.length : f === 'awaiting' ? awaiting.length : paid.length
+          return (
+            <button key={f} onClick={() => setStatusFilter(f)}
+              className={`flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-medium capitalize transition-colors ${
+                statusFilter === f
+                  ? 'bg-indigo-600/20 text-indigo-400 border border-indigo-500/30'
+                  : 'bg-gray-900 text-gray-400 border border-gray-800 hover:text-gray-300'
+              }`}>
+              {f}
+              {count > 0 && <span className="text-[10px] opacity-70">({count})</span>}
+            </button>
+          )
+        })}
+      </div>
+
+      {!all.length && (
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
+          <p className="text-gray-400 text-sm">No approved content yet — payouts appear once submissions are approved.</p>
+        </div>
+      )}
+
       {/* Awaiting payment — action cards */}
-      {awaiting.length > 0 && (
+      {showAwaiting && awaiting.length > 0 && (
         <div className="mb-8">
           <h3 className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-3">
             Awaiting Payment <span className="text-red-400 ml-1">({awaiting.length})</span>
@@ -61,14 +105,8 @@ export default async function PayoutsPage() {
         </div>
       )}
 
-      {!all.length && (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
-          <p className="text-gray-400 text-sm">No approved content yet — payouts appear once submissions are approved.</p>
-        </div>
-      )}
-
       {/* Paid history */}
-      {paid.length > 0 && (
+      {showPaid && paid.length > 0 && (
         <div>
           <h3 className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-3">
             Paid <span className="text-emerald-400 ml-1">({paid.length})</span>
@@ -112,7 +150,7 @@ export default async function PayoutsPage() {
         </div>
       )}
 
-      {/* Floating total bar — only when there are pending payouts */}
+      {/* Floating total bar — always based on unfiltered awaiting */}
       {awaiting.length > 0 && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-950 border border-gray-700 rounded-2xl px-6 py-3.5 flex items-center gap-8 shadow-2xl z-10">
           <div>

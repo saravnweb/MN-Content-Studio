@@ -1,6 +1,12 @@
 // Service Worker — MN Content Studio Push Notifications
 // This file is served from /sw-push.js (referenced from PushSetup component)
 
+let _vapidKey = null
+
+self.addEventListener('message', function (event) {
+  if (event.data?.type === 'SET_VAPID_KEY') _vapidKey = event.data.key
+})
+
 self.addEventListener('push', function (event) {
   if (!event.data) return;
 
@@ -59,7 +65,7 @@ self.addEventListener('pushsubscriptionchange', function (event) {
   event.waitUntil(
     self.registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: self.__VAPID_PUBLIC_KEY__,
+      applicationServerKey: _vapidKey,
     })
   );
 });

@@ -2,8 +2,7 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-
-const NICHES = ['fitness', 'food', 'tech', 'fashion', 'travel', 'beauty', 'gaming', 'finance']
+import { NICHES, NICHE_SET } from '@/lib/constants'
 
 type Profile = {
   full_name: string | null
@@ -34,7 +33,11 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
     profile.instagram_url ?? (profile.platform === 'instagram' ? profile.platform_url : '') ?? ''
   )
   const [followersCount, setFollowersCount] = useState(profile.followers_count?.toString() ?? '')
-  const [niches, setNiches] = useState<string[]>(profile.niches ?? [])
+  const profileNiches = profile.niches ?? []
+  const hasValidSingleNiche = profileNiches.length === 1 && NICHE_SET.has(profileNiches[0] as any)
+  const needsNicheUpdate = profileNiches.length > 0 && !hasValidSingleNiche
+
+  const [niches, setNiches] = useState<string[]>(needsNicheUpdate ? [] : profileNiches)
   const [phone, setPhone] = useState(profile.phone ?? '')
   const [whatsapp, setWhatsapp] = useState(profile.whatsapp ?? '')
   const [sameAsPhone, setSameAsPhone] = useState(
@@ -44,7 +47,8 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
   const [gender, setGender] = useState(profile.gender ?? '')
 
   function toggleNiche(n: string) {
-    setNiches((p) => (p.includes(n) ? p.filter((x) => x !== n) : [...p, n]))
+    if (hasValidSingleNiche) return
+    setNiches((p) => p.includes(n) ? p.filter((x) => x !== n) : p.length >= 1 ? p : [...p, n])
   }
 
   function handlePhone(val: string) {
@@ -66,7 +70,7 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
   const missing = [
     !platformUrlMet && 'Platform URL',
     !(phone || whatsapp) && 'Phone number',
-    niches.length === 0 && 'At least one niche',
+    niches.length === 0 && 'Niche',
     !age && 'Age',
     !gender && 'Gender',
   ].filter(Boolean) as string[]
@@ -230,20 +234,84 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
       {/* Niches */}
       <Section>
         <p className="text-xs mb-2" style={{ color: 'var(--color-text-muted)' }}>
-          Your Niches <span style={{ color: '#D97706' }}>*</span>
+          Your Niche <span style={{ color: '#D97706' }}>*</span>
         </p>
-        <div className="flex flex-wrap gap-2">
-          {NICHES.map((n) => (
-            <button key={n} type="button" onClick={() => toggleNiche(n)}
-              className="px-3 py-1.5 rounded-full text-sm capitalize transition-colors"
-              style={{
-                backgroundColor: niches.includes(n) ? 'var(--color-accent)' : 'var(--color-surface-alt)',
-                color: niches.includes(n) ? '#ffffff' : 'var(--color-text-secondary)',
-              }}>
-              {n}
-            </button>
-          ))}
-        </div>
+
+        {hasValidSingleNiche ? (
+          /* ── Locked: single valid niche ── */
+          <div className="space-y-3">
+            <div className="flex flex-wrap gap-2">
+              {NICHES.map((n) => {
+                const isSelected = profileNiches.includes(n)
+                return (
+                  <span key={n} className="px-3 py-1.5 rounded-full text-sm capitalize transition-colors"
+                    style={{
+                      backgroundColor: isSelected ? 'var(--color-accent)' : 'var(--color-surface-alt)',
+                      color: isSelected ? '#ffffff' : 'var(--color-text-secondary)',
+                      opacity: isSelected ? 1 : 0.4,
+                      cursor: 'not-allowed'
+                    }}>
+                    {n}
+                  </span>
+                )
+              })}
+            </div>
+            <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>
+              To add more niches, please contact admin.
+            </p>
+          </div>
+        ) : needsNicheUpdate ? (
+          /* ── Re-pick: old or multiple niches ── */
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="text-xs" style={{ color: 'var(--color-text-muted)' }}>Previous:</span>
+              {profileNiches.map((n) => (
+                <span key={n} className="px-2.5 py-1 rounded-full text-xs"
+                  style={{ backgroundColor: 'var(--color-surface-alt)', color: 'var(--color-text-muted)' }}>
+                  {n}
+                </span>
+              ))}
+            </div>
+            <div className="rounded-lg px-3 py-2.5 border" style={{ backgroundColor: '#FFFBEB', borderColor: '#FDE68A' }}>
+              <p className="text-xs font-semibold" style={{ color: '#92400E' }}>
+                Your niche categories have been updated. Please re-select your primary niche.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {NICHES.map((n) => (
+                <button key={n} type="button" onClick={() => toggleNiche(n)}
+                  disabled={niches.length >= 1 && !niches.includes(n)}
+                  className="px-3 py-1.5 rounded-full text-sm capitalize transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  style={{
+                    backgroundColor: niches.includes(n) ? 'var(--color-accent)' : 'var(--color-surface-alt)',
+                    color: niches.includes(n) ? '#ffffff' : 'var(--color-text-secondary)',
+                  }}>
+                  {n}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          /* ── Fresh pick: no niches yet ── */
+          <div className="space-y-2">
+            <div className="flex flex-wrap gap-2">
+              {NICHES.map((n) => (
+                <button key={n} type="button" onClick={() => toggleNiche(n)}
+                  disabled={niches.length >= 1 && !niches.includes(n)}
+                  className="px-3 py-1.5 rounded-full text-sm capitalize transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  style={{
+                    backgroundColor: niches.includes(n) ? 'var(--color-accent)' : 'var(--color-surface-alt)',
+                    color: niches.includes(n) ? '#ffffff' : 'var(--color-text-secondary)',
+                  }}>
+                  {n}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs" style={{ color: '#D97706' }}>
+              Choose one niche — this cannot be changed once saved.
+            </p>
+          </div>
+        )}
       </Section>
 
       {error && <p className="text-sm" style={{ color: 'var(--color-accent)' }}>{error}</p>}

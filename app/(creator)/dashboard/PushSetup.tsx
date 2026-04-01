@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!
 
@@ -9,38 +9,56 @@ export default function PushSetup() {
   const [subscription, setSubscription] = useState<PushSubscription | null>(null)
   const [permission, setPermission] = useState<NotificationPermission | 'default'>('default')
 
+  const checkSubscription = useCallback(async () => {
+    const registration = await getPushReg()
+    const sub = await registration.pushManager.getSubscription()
+    setSubscription(sub)
+  }, [])
+
   useEffect(() => {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator && 'PushManager' in window) {
       setIsSupported(true)
       checkSubscription()
       setPermission(Notification.permission)
     }
-  }, [])
+  }, [checkSubscription])
 
-  async function checkSubscription() {
-    const registration = await navigator.serviceWorker.ready
-    const sub = await registration.pushManager.getSubscription()
-    setSubscription(sub)
+  async function getPushReg() {
+    const reg = await navigator.serviceWorker.register('/sw-push.js')
+    await new Promise<void>((resolve) => {
+      if (reg.active) {
+        reg.active.postMessage({ type: 'SET_VAPID_KEY', key: VAPID_PUBLIC_KEY })
+        resolve()
+      } else {
+        const sw = reg.installing ?? reg.waiting
+        sw?.addEventListener('statechange', function handler(e) {
+          if ((e.target as ServiceWorker).state === 'activated') {
+            reg.active!.postMessage({ type: 'SET_VAPID_KEY', key: VAPID_PUBLIC_KEY })
+            resolve()
+          }
+        })
+      }
+    })
+    return reg
   }
+
+
 
   async function subscribe() {
     try {
-      const registration = await navigator.serviceWorker.ready
-      
-      // Request permission
+      const registration = await getPushReg()
+
       const result = await Notification.requestPermission()
       setPermission(result)
       if (result !== 'granted') return
 
-      // Subscribe to push manager
       const sub = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
       })
 
-      // Send to server
       const { p256dh, auth } = sub.toJSON().keys as { p256dh: string, auth: string }
-      
+
       const res = await fetch('/api/push/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -64,7 +82,7 @@ export default function PushSetup() {
 
     try {
       await subscription.unsubscribe()
-      
+
       await fetch('/api/push/subscribe', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
@@ -98,7 +116,7 @@ export default function PushSetup() {
           {subscription ? 'Unsubscribe' : 'Enable Alerts'}
         </button>
       </div>
-      
+
       {permission === 'denied' && (
         <p className="text-[10px] mt-2 text-red-500">
           Notifications are blocked. Please reset permission in your browser settings to enable alerts.

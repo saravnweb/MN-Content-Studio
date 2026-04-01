@@ -48,7 +48,7 @@ export default async function LandingPage() {
       <header className="sticky top-0 z-30 bg-gray-950/90 backdrop-blur-md border-b border-gray-800 px-5 py-3 flex items-center justify-between">
         <BrandLogo />
         <div className="flex items-center gap-3">
-          <Link href="/explore" className="text-xs text-gray-400 hover:text-gray-100 transition-colors hidden sm:block">
+          <Link href="/explore" className="text-sm text-gray-400 hover:text-gray-100 transition-colors hidden sm:block">
             Browse Deals
           </Link>
           <ThemeToggle />
@@ -72,7 +72,7 @@ export default async function LandingPage() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <span className="text-xs text-gray-500 font-medium tracking-tight">
+          <span className="text-sm text-gray-500 font-medium tracking-tight">
             {(liveCount ?? 0) > 0
               ? <><span className="text-emerald-600 dark:text-emerald-400 font-bold">{liveCount}</span> live campaigns right now</>
               : <>New campaigns dropping soon</>}
@@ -88,7 +88,7 @@ export default async function LandingPage() {
             <br />
             <span className="text-gray-100">through Excellence.</span>
           </h1>
-          <p className="text-xs sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl mx-auto font-medium px-4">
+          <p className="text-sm sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl mx-auto font-medium px-4">
             The premier network connecting distinguished creators with iconic brands. 
             Built for those who value artistry and the pursuit of a lasting legacy.
           </p>
@@ -101,7 +101,7 @@ export default async function LandingPage() {
         <dl className="flex items-center gap-6 text-center">
           {STATS.map(({ value, label }) => (
             <div key={label}>
-              <dt className="text-[10px] sm:text-[11px] text-gray-500 font-medium order-last tracking-[0.05em] uppercase">{label}</dt>
+              <dt className="text-xs text-gray-500 font-medium order-last tracking-[0.05em] uppercase">{label}</dt>
               <dd className="text-base sm:text-lg font-bold text-gray-100">{value}</dd>
             </div>
           ))}
@@ -123,9 +123,9 @@ export default async function LandingPage() {
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-gray-950 to-transparent z-10" aria-hidden="true" />
 
         <div className="text-center mb-6 px-5">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 mb-2">Creator network</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 mb-2">Creator network</p>
           <h2 className="text-xl sm:text-2xl font-bold text-gray-100">Tamil Nadu&apos;s top creators, all in one place</h2>
-          <p className="text-xs sm:text-sm text-gray-400 mt-1.5">Fitness · Tech · Food · Beauty · Travel · Finance · Gaming · and more</p>
+          <p className="text-sm text-gray-400 mt-1.5">Fitness · Tech · Food · Beauty · Travel · Finance · Gaming · and more</p>
         </div>
 
         <CreatorMarquee />
@@ -133,7 +133,7 @@ export default async function LandingPage() {
         <div className="text-center mt-10">
           <Link
             href="/explore"
-            className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-xl text-sm transition-all hover:scale-[1.02] shadow-lg shadow-indigo-600/20 active:scale-[0.98]"
+            className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-xl text-base transition-all hover:scale-[1.02] shadow-lg shadow-indigo-600/20 active:scale-[0.98]"
           >
             Browse Live Deals
           </Link>
@@ -143,11 +143,11 @@ export default async function LandingPage() {
 
       {/* ── Footer ── */}
       <footer className="relative z-10 border-t border-gray-900/60 px-5 py-4 flex items-center justify-center gap-5">
-        <Link href="/terms"   className="text-[11px] text-gray-400 hover:text-gray-200 transition-colors">Terms</Link>
-        <Link href="/privacy" className="text-[11px] text-gray-400 hover:text-gray-200 transition-colors">Privacy</Link>
-        <Link href="/help"    className="text-[11px] text-gray-400 hover:text-gray-200 transition-colors">Help</Link>
+        <Link href="/terms"   className="text-xs text-gray-400 hover:text-gray-200 transition-colors">Terms</Link>
+        <Link href="/privacy" className="text-xs text-gray-400 hover:text-gray-200 transition-colors">Privacy</Link>
+        <Link href="/help"    className="text-xs text-gray-400 hover:text-gray-200 transition-colors">Help</Link>
         <a href="https://wa.me/918428601947" target="_blank" rel="noopener noreferrer"
-          className="text-[11px] text-[#25D366] hover:brightness-110 transition-all">
+          className="text-xs text-[#25D366] hover:brightness-110 transition-all">
           WhatsApp
         </a>
       </footer>

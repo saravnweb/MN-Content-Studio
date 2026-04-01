@@ -3,6 +3,8 @@
 import { useState, useTransition } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import { Check, ExternalLink, RotateCcw } from 'lucide-react'
 
 interface ReviewSubmissionProps {
   applicationId: string
@@ -13,7 +15,6 @@ interface ReviewSubmissionProps {
 
 export default function ReviewSubmission({ applicationId, submissionUrl, currentStatus, budgetMin }: ReviewSubmissionProps) {
   const [note, setNote] = useState('')
-  const [showRevisionBox, setShowRevisionBox] = useState(false)
   const [isPending, startTransition] = useTransition()
   const [activeStatus, setActiveStatus] = useState(currentStatus)
   const router = useRouter()
@@ -34,9 +35,13 @@ export default function ReviewSubmission({ applicationId, submissionUrl, current
         .from('applications')
         .update(updateData)
         .eq('id', applicationId)
-      if (!error) setActiveStatus(status)
-      setShowRevisionBox(false)
+      if (error) {
+        toast.error('Failed to update. Please try again.')
+        return
+      }
+      setActiveStatus(status)
       setNote('')
+      toast.success(status === 'approved' ? 'Content approved — payout set to processing' : 'Revision requested')
       router.refresh()
     })
   }
@@ -44,10 +49,10 @@ export default function ReviewSubmission({ applicationId, submissionUrl, current
   if (activeStatus === 'approved') {
     return (
       <div className="flex items-center gap-1.5 mt-2">
-        <span className="text-emerald-400 text-xs font-medium">✓ Content approved</span>
+        <span className="flex items-center gap-1 text-green-400 text-xs font-medium"><Check className="w-3 h-3" /> Content approved</span>
         <a href={submissionUrl} target="_blank" rel="noopener noreferrer"
-          className="text-indigo-400 text-xs hover:underline truncate max-w-[200px]">
-          View →
+          className="inline-flex items-center gap-0.5 text-gray-400 text-xs hover:text-gray-200 hover:underline truncate max-w-[200px]">
+          View <ExternalLink className="w-3 h-3" />
         </a>
       </div>
     )
@@ -57,58 +62,38 @@ export default function ReviewSubmission({ applicationId, submissionUrl, current
     <div className="mt-3 space-y-2">
       {/* Submission URL preview */}
       <div className="flex items-center gap-2 bg-gray-800/60 rounded-lg px-3 py-2">
-        <span className="text-gray-400 text-xs shrink-0">📎 Submission:</span>
+        <ExternalLink className="w-3.5 h-3.5 text-gray-500 shrink-0" />
         <a href={submissionUrl} target="_blank" rel="noopener noreferrer"
-          className="text-indigo-400 text-xs hover:underline truncate">
+          className="text-gray-400 text-xs hover:text-gray-200 hover:underline truncate">
           {submissionUrl}
         </a>
       </div>
 
-      {/* Revision note input */}
-      {showRevisionBox && (
-        <textarea
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-          placeholder="Describe what needs to be changed…"
-          rows={2}
-          className="w-full bg-gray-800 border border-gray-700 text-white text-xs rounded-lg px-3 py-2 placeholder-gray-600 focus:outline-none focus:border-orange-500 resize-none transition-colors"
-        />
-      )}
+      {/* Revision note — always visible */}
+      <textarea
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+        placeholder="Revision notes (required to request changes)…"
+        rows={2}
+        className="w-full bg-gray-800 border border-gray-700 text-white text-xs rounded-lg px-3 py-2 placeholder-gray-600 focus:outline-none focus:border-gray-500 resize-none transition-colors"
+      />
 
       {/* Action buttons */}
       <div className="flex gap-2">
         <button
           onClick={() => updateSubmission('approved')}
           disabled={isPending}
-          className="flex-1 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 text-xs font-medium py-2 rounded-lg border border-emerald-600/30 hover:border-emerald-500/50 transition-colors disabled:opacity-50"
+          className="flex-1 inline-flex items-center justify-center gap-1.5 border border-green-700 text-green-400 hover:bg-green-900/20 bg-transparent text-xs font-medium py-2 rounded-lg transition-colors disabled:opacity-50"
         >
-          {isPending ? '…' : '✓ Approve'}
+          <Check className="w-3.5 h-3.5" />{isPending ? '…' : 'Approve'}
         </button>
-        {!showRevisionBox ? (
-          <button
-            onClick={() => setShowRevisionBox(true)}
-            disabled={isPending}
-            className="flex-1 bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 text-xs font-medium py-2 rounded-lg border border-orange-500/20 hover:border-orange-500/40 transition-colors disabled:opacity-50"
-          >
-            ↩ Request Revision
-          </button>
-        ) : (
-          <>
-            <button
-              onClick={() => updateSubmission('revision_requested')}
-              disabled={isPending || !note.trim()}
-              className="flex-1 bg-orange-500/20 hover:bg-orange-500/30 text-orange-400 text-xs font-medium py-2 rounded-lg border border-orange-500/30 transition-colors disabled:opacity-50"
-            >
-              Send Revision
-            </button>
-            <button
-              onClick={() => { setShowRevisionBox(false); setNote('') }}
-              className="px-3 py-2 text-gray-400 hover:text-gray-300 text-xs rounded-lg border border-gray-700 transition-colors"
-            >
-              Cancel
-            </button>
-          </>
-        )}
+        <button
+          onClick={() => updateSubmission('revision_requested')}
+          disabled={isPending || !note.trim()}
+          className="flex-1 inline-flex items-center justify-center gap-1.5 border border-yellow-700 text-yellow-400 hover:bg-yellow-900/20 bg-transparent text-xs font-medium py-2 rounded-lg transition-colors disabled:opacity-50"
+        >
+          <RotateCcw className="w-3.5 h-3.5" />{isPending ? '…' : 'Request Revision'}
+        </button>
       </div>
     </div>
   )

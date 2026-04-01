@@ -29,9 +29,10 @@ export default async function DealsPage({ searchParams }: { searchParams: Search
   const sort      = searchParams.sort ?? 'newest'
 
   // ── Base query ─────────────────────────────────────────────────
+  // RLS policies will automatically filter based on visibility and user's niches
   let campaignsQuery = supabase
     .from('campaigns')
-    .select('id, title, brand_name, brand_logo_url, description, budget_min, budget_max, niches, platforms, deadline, slots_filled, slots_total, deliverables')
+    .select('id, title, brand_name, brand_logo_url, description, budget_min, budget_max, niches, platforms, deadline, slots_filled, slots_total, deliverables, visibility, visible_to')
     .eq('status', 'active')
 
   // Search across title, brand_name, description
@@ -106,14 +107,14 @@ export default async function DealsPage({ searchParams }: { searchParams: Search
     <div className="bg-gray-950 min-h-screen">
       <div className="pt-8 pb-6 text-center text-gray-50">
         <div className="inline-block text-xs font-medium px-3 py-1 rounded-full mb-4 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-          India&apos;s Creator Fulfillment Network
+          Curated Just for You
         </div>
         <h1 className="text-3xl font-bold leading-tight text-gray-100">
-          Brand orders,<br />
-          <span className="text-indigo-500">delivered to you</span>
+          Your niche,<br />
+          <span className="text-indigo-500">your deals</span>
         </h1>
         <p className="text-sm mt-3 leading-relaxed text-gray-400">
-          Browse live orders from top brands. Get started to claim your next deal.
+          We&apos;ve carefully selected brand partnerships that match your interests and audience. No noise, only relevant opportunities.
         </p>
       </div>
 

@@ -49,27 +49,27 @@ export default function PublicDealCard({
           }
         </div>
         <div className="min-w-0 flex-1">
-          <p className="font-semibold text-sm leading-tight text-gray-100">{c.brand_name}</p>
+          <p className="font-semibold text-base leading-tight text-gray-100">{c.brand_name}</p>
           {c.platforms && c.platforms.length > 0 && (
-            <p className="text-xs capitalize text-gray-400">{c.platforms.join(' · ')}</p>
+            <p className="text-sm capitalize text-gray-400">{c.platforms.join(' · ')}</p>
           )}
         </div>
-        <span className="text-[10px] px-2 py-1 rounded-full font-medium shrink-0 bg-emerald-500/10 text-emerald-400">Live</span>
+        <span className="text-xs px-2 py-1 rounded-full font-medium shrink-0 bg-emerald-500/10 text-emerald-400">Live</span>
       </div>
 
       {/* Niche tags */}
       <div className="flex flex-wrap gap-1.5 mb-2">
         {c.niches?.slice(0, 4).map((n: string) => (
-          <span key={n} className="text-[11px] px-2.5 py-0.5 rounded-full capitalize font-medium bg-indigo-500/10 text-indigo-400">{n}</span>
+          <span key={n} className="text-xs px-2.5 py-0.5 rounded-full capitalize font-medium bg-indigo-500/10 text-indigo-400">{n}</span>
         ))}
       </div>
 
       {/* Title & description */}
-      <p className="font-semibold text-base leading-snug text-gray-100">{c.title}</p>
-      <p className="text-sm mt-1.5 line-clamp-2 leading-relaxed text-gray-400">{c.description}</p>
+      <p className="font-semibold text-lg leading-snug text-gray-100">{c.title}</p>
+      <p className="text-base mt-1.5 line-clamp-2 leading-relaxed text-gray-400">{c.description}</p>
 
       {/* Stats Row */}
-      <div className="grid grid-cols-3 divide-x divide-gray-800 rounded-xl mt-4 text-xs overflow-hidden border border-gray-800">
+      <div className="grid grid-cols-3 divide-x divide-gray-800 rounded-xl mt-4 text-sm overflow-hidden border border-gray-800">
         <div className="px-3 py-2.5">
           <p className="text-gray-400 mb-0.5">Budget</p>
           <p className="font-semibold text-gray-200">
@@ -95,7 +95,7 @@ export default function PublicDealCard({
       {/* Actions Row */}
       <div className="flex items-center gap-2 mt-4">
         <Link href={`/deals/${c.id}`}
-          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium py-2.5 rounded-xl text-center transition-colors shadow-lg shadow-indigo-900/20">
+          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-base font-medium py-2.5 rounded-xl text-center transition-colors shadow-lg shadow-indigo-900/20">
           View Full Details
         </Link>
         <button
@@ -107,7 +107,7 @@ export default function PublicDealCard({
             }
           }}
         >
-          <Bookmark className="w-4 h-4" />
+          <Bookmark className="w-5 h-5" />
         </button>
         <button
           onClick={handleShare}
