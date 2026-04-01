@@ -329,10 +329,16 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
       </button>
 
       <button type="button" onClick={signOut}
-        className="w-full border font-medium py-3 rounded-xl text-sm transition-colors"
+        className="w-full border font-medium py-3 rounded-xl text-sm transition-colors mb-2"
         style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)', color: 'var(--color-text-muted)' }}>
         Sign Out
       </button>
+
+      <div className="text-center">
+        <a href="/settings" className="text-xs text-red-500 hover:underline">
+          Delete your profile
+        </a>
+      </div>
     </form>
   )
 }
