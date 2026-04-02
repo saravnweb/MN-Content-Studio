@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { NICHES } from '@/lib/constants'
+import CityAutocomplete from '@/components/ui/CityAutocomplete'
 
 type Step = 1 | 2 | 3
 
@@ -69,6 +70,8 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
     if (step === 1) {
       if (!fullName.trim()) { setError('Please enter your name'); return }
       if (!city.trim()) { setError('Please enter the city you live in'); return }
+      if (!age) { setError('Please enter your age'); return }
+      if (!gender) { setError('Please select your gender'); return }
       if (phone.replace(/\D/g, '').length !== 10) { setError('Please enter a valid 10-digit phone number'); return }
       setStep(2)
     } else if (step === 2) {
@@ -114,7 +117,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
     { n: 3, label: 'Your Topic' },
   ]
 
-  const inp = "w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-gray-100 placeholder:text-gray-400 focus:outline-none focus:border-indigo-500 transition-colors"
+  const inp = "w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2.5 text-sm text-gray-100 placeholder:text-gray-500 placeholder:font-light focus:outline-none focus:border-indigo-500 transition-colors"
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center py-4 px-2">
@@ -185,16 +188,20 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
               </Field>
 
               <Field label="City *">
-                <input value={city} onChange={(e) => setCity(e.target.value)}
-                  placeholder="Mumbai, Maharashtra" className={inp} />
+                <CityAutocomplete 
+                  value={city} 
+                  onChange={(val) => setCity(val)}
+                  placeholder="chennai"
+                  error={!!error && !city}
+                />
               </Field>
 
               <div className="grid grid-cols-2 gap-4">
-                <Field label="Age">
+                <Field label="Age *">
                   <input type="number" min={13} max={100} value={age}
                     onChange={(e) => setAge(e.target.value)} placeholder="25" className={inp} />
                 </Field>
-                <Field label="Gender">
+                <Field label="Gender *">
                   <select value={gender} onChange={(e) => setGender(e.target.value)} className={`${inp} cursor-pointer`}>
                     <option value="">Select…</option>
                     <option value="male">Male</option>

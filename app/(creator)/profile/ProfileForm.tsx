@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { NICHES, NICHE_SET } from '@/lib/constants'
+import CityAutocomplete from '@/components/ui/CityAutocomplete'
 
 type Profile = {
   full_name: string | null
@@ -82,6 +83,8 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
     e.preventDefault()
     if (phone && phone.length !== 10) { setError('Phone number must be 10 digits'); return }
     if (whatsapp && whatsapp.length !== 10) { setError('WhatsApp number must be 10 digits'); return }
+    if (!age) { setError('Please enter your age'); return }
+    if (!gender) { setError('Please select your gender'); return }
 
     setSaving(true)
     setError('')
@@ -161,7 +164,11 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
           </div>
         </div>
         <Field label={<Required>City</Required>}>
-          <input value={city} onChange={(e) => setCity(e.target.value)} placeholder="Mumbai, Maharashtra" className={inp} />
+          <CityAutocomplete 
+            value={city} 
+            onChange={(val) => setCity(val)}
+            placeholder="chennai"
+          />
         </Field>
       </Section>
 
@@ -346,7 +353,7 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
 const inp = [
   'w-full border rounded-lg px-3 py-2.5 text-sm focus:outline-none transition-colors',
   'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-primary)]',
-  'placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)]',
+  'placeholder:text-gray-500 placeholder:font-light focus:border-[var(--color-accent)]',
 ].join(' ')
 
 function Section({ children }: { children: React.ReactNode }) {
