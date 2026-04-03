@@ -45,10 +45,10 @@ export default function RoleSelector() {
             </svg>
           </div>
 
-          <p className="font-bold text-gray-100 text-sm sm:text-base mb-0.5 sm:mb-1">
+          <p className="font-bold text-gray-100 text-base mb-0.5 sm:mb-1">
             {loading ? 'Connecting…' : "I'm a Creator"}
           </p>
-          <p className="text-[10px] sm:text-xs text-gray-400 leading-relaxed font-medium">
+          <p className="text-xs sm:text-sm text-gray-400 leading-relaxed font-medium">
             Join an elite network of professional creators
           </p>
 
@@ -68,9 +68,9 @@ export default function RoleSelector() {
           )}
         </button>
 
-        <Link 
-          href="/creators" 
-          className="mt-3 text-[11px] font-medium text-gray-400 hover:text-indigo-400 transition-colors duration-200 underline underline-offset-4"
+        <Link
+          href="/creators"
+          className="mt-3 text-xs font-medium text-gray-400 hover:text-indigo-400 transition-colors duration-200 underline underline-offset-4"
         >
           How it works?
         </Link>
@@ -89,8 +89,8 @@ export default function RoleSelector() {
             <Building2 className="w-6 h-6 text-white" strokeWidth={1.8} />
           </div>
 
-          <p className="font-bold text-gray-100 text-sm sm:text-base mb-0.5 sm:mb-1">I&apos;m a Brand</p>
-          <p className="text-[10px] sm:text-xs text-gray-400 leading-relaxed font-medium">
+          <p className="font-bold text-gray-100 text-base mb-0.5 sm:mb-1">I&apos;m a Brand</p>
+          <p className="text-xs sm:text-sm text-gray-400 leading-relaxed font-medium">
             Discover India&apos;s most distinguished creative talent
           </p>
 
@@ -101,9 +101,9 @@ export default function RoleSelector() {
           </div>
         </Link>
         
-        <Link 
-          href="/brands" 
-          className="mt-3 text-[11px] font-medium text-gray-400 hover:text-pink-400 transition-colors duration-200 underline underline-offset-4"
+        <Link
+          href="/brands"
+          className="mt-3 text-xs font-medium text-gray-400 hover:text-pink-400 transition-colors duration-200 underline underline-offset-4"
         >
           How it works?
         </Link>

@@ -8,6 +8,7 @@ import ActivityTicker from '@/components/landing/ActivityTicker'
 import ScrollHint from '@/components/landing/ScrollHint'
 import CreatorMarquee from '@/components/landing/CreatorMarquee'
 import CreatorVideoGrid, { FeaturedVideo } from '@/components/landing/CreatorVideoGrid'
+import AnimatedStats from '@/components/landing/AnimatedStats'
 import BrandLogo from '@/components/BrandLogo'
 import Footer from '@/components/Footer'
 
@@ -20,11 +21,6 @@ export const metadata = {
   },
 }
 
-const STATS = [
-  { value: '246',   label: 'Creators' },
-  { value: '16',    label: 'Niches' },
-  { value: '100%',  label: 'Verified Brands' },
-]
 
 export const revalidate = 3600 // Cache for 1 hour
 
@@ -148,14 +144,7 @@ export default async function LandingPage() {
         <RoleSelector />
 
         {/* Stats */}
-        <dl className="flex items-center gap-6 text-center">
-          {STATS.map(({ value, label }) => (
-            <div key={label}>
-              <dt className="text-meta font-medium order-last tracking-[0.05em] uppercase">{label}</dt>
-              <dd className="text-sm sm:text-base font-bold text-gray-100">{value}</dd>
-            </div>
-          ))}
-        </dl>
+        <AnimatedStats />
 
         {/* Activity ticker */}
         <ActivityTicker />
