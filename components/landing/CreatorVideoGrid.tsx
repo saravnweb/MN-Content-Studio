@@ -136,11 +136,11 @@ function VideoCard({ video, onClick }: { video: FeaturedVideo; onClick: () => vo
 
         {/* Creator Info Overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 group-hover:translate-y-0 transition-transform">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-1">{video.brand_name || 'Showcase Content'}</p>
+          <p className="text-label text-indigo-400 mb-1">{video.brand_name || 'Showcase Content'}</p>
           <div className="flex items-center justify-between gap-2">
-            <p className="text-sm font-bold text-white truncate">{video.creator_name}</p>
+            <p className="text-card-title text-white truncate">{video.creator_name}</p>
             {video.creator_niche && (
-              <span className="text-[10px] bg-white/10 backdrop-blur-sm text-white border border-white/10 px-2 py-0.5 rounded-full font-bold">
+              <span className="text-badge bg-white/10 backdrop-blur-sm text-white border border-white/10 px-2 py-0.5 rounded-full font-bold">
                 {video.creator_niche}
               </span>
             )}
@@ -157,18 +157,27 @@ function VideoModal({ video, onClose }: { video: FeaturedVideo; onClose: () => v
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 sm:p-8 animate-in fade-in zoom-in duration-300"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/98 backdrop-blur-2xl p-4 sm:p-8 pt-20 sm:pt-24 animate-in fade-in zoom-in duration-300"
       onClick={onClose}
     >
+      {/* 
+         Premium Close Button:
+         - Large hit area (p-4 on the button)
+         - Visual reinforcement (backdrop blur + border)
+         - High z-index to stay above the iframe
+      */}
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors p-2 bg-white/5 rounded-full z-50 hover:bg-white/10"
+        className="absolute top-4 right-4 sm:top-8 sm:right-8 text-white transition-all p-4 hover:scale-110 z-[110] group"
+        aria-label="Close modal"
       >
-        <X size={28} />
+        <div className="bg-white/10 group-hover:bg-white/20 p-2.5 rounded-full backdrop-blur-xl border border-white/20 shadow-2xl transition-all">
+          <X size={28} />
+        </div>
       </button>
 
       <div
-        className={`relative w-full bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10 ${
+        className={`relative w-full bg-black rounded-3xl overflow-hidden shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)] border border-white/10 ${
           isVertical ? "max-w-md aspect-[9/16]" : "max-w-5xl aspect-video"
         }`}
         onClick={e => e.stopPropagation()}
@@ -205,8 +214,8 @@ function VideoModal({ video, onClose }: { video: FeaturedVideo; onClose: () => v
 
       {/* Proof Banner */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center hidden sm:block">
-        <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2">Authentic Social Proof</p>
-        <p className="text-gray-400 text-sm">Direct {video.platform === 'instagram' ? 'Instagram Reel' : 'YouTube Video'} Feed</p>
+        <p className="text-label text-white/30 tracking-[0.2em] mb-2">Authentic Social Proof</p>
+        <p className="text-white/50 text-xs tracking-wide">Direct {video.platform === 'instagram' ? 'Instagram Reel' : 'YouTube Video'} Feed</p>
       </div>
     </div>
   )
@@ -231,7 +240,7 @@ export default function CreatorVideoGrid({ videos }: { videos: FeaturedVideo[] }
         <div className="inline-flex p-1 bg-gray-900/50 border border-gray-800 rounded-full shadow-lg backdrop-blur-md">
           <button
             onClick={() => setPlatform('instagram')}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold transition-all duration-500 ${
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-badge font-bold transition-all duration-500 ${
               platform === 'instagram' 
                 ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30" 
                 : "text-gray-500 hover:text-gray-300"
@@ -242,7 +251,7 @@ export default function CreatorVideoGrid({ videos }: { videos: FeaturedVideo[] }
           </button>
           <button
             onClick={() => setPlatform('youtube')}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold transition-all duration-500 ${
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-badge font-bold transition-all duration-500 ${
               platform === 'youtube' 
                 ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30" 
                 : "text-gray-500 hover:text-gray-300"

@@ -136,8 +136,8 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
 
       {/* Header section */}
       <div className="mb-8 text-center px-4">
-        <h2 className="text-xl font-black text-gray-100 tracking-tight">Complete Your Profile</h2>
-        <p className="text-xs mt-1.5 text-gray-500 font-bold uppercase tracking-widest">3 Quick Steps</p>
+        <h2 className="heading-page">Complete Your Profile</h2>
+        <p className="text-page-subtitle mt-1.5">3 Quick Steps</p>
       </div>
 
       {/* Step indicator */}
@@ -163,7 +163,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
               }`}>
                 {step > s.n ? '✓' : s.n}
               </div>
-              <p className={`text-[10px] mt-3 font-bold uppercase tracking-widest ${
+              <p className={`text-label mt-3 ${
                 step >= s.n ? 'text-gray-100' : 'text-gray-500'
               }`}>{s.label}</p>
             </div>
@@ -180,10 +180,10 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
         {step === 1 && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-100 flex items-center gap-2">
+              <h2 className="heading-section flex items-center gap-2">
                 Welcome! <span className="animate-bounce-short">👋</span>
               </h2>
-              <p className="text-sm mt-2 text-gray-400 leading-relaxed">Tell us a bit about yourself to get started.</p>
+              <p className="text-description mt-2">Tell us a bit about yourself to get started.</p>
             </div>
 
             <div className="space-y-5">
@@ -192,7 +192,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                   <input value={fullName} onChange={(e) => setFullName(e.target.value)}
                     placeholder="Karthik Raja" className={inp} autoFocus />
                   {name && (
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-indigo-400/70 pointer-events-none">
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-badge font-bold text-indigo-400/70 pointer-events-none">
                       from Google
                     </span>
                   )}
@@ -238,7 +238,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                     }`}>
                     {isWhatsapp && <span className="text-white text-[10px] font-bold leading-none">✓</span>}
                   </div>
-                  <span className="text-xs text-gray-400 font-medium">This is my WhatsApp number</span>
+                  <span className="text-meta font-medium">This is my WhatsApp number</span>
                 </label>
               </Field>
             </div>
@@ -249,10 +249,10 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
         {step === 2 && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-100 flex items-center gap-2">
+              <h2 className="heading-section flex items-center gap-2">
                 Your Platform 📱
               </h2>
-              <p className="text-sm mt-2 text-gray-400">Where do you create content?</p>
+              <p className="text-description mt-2">Where do you create content?</p>
             </div>
 
             <div className="space-y-5">
@@ -282,7 +282,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                       className={inp}
                     />
                     {ytFetching && (
-                      <p className="text-[11px] text-indigo-400 mt-2 pl-1 flex items-center gap-1.5">
+                      <p className="text-badge text-indigo-400 mt-2 pl-1 flex items-center gap-1.5">
                         <span className="inline-block w-3 h-3 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
                         Fetching channel info…
                       </p>
@@ -301,12 +301,12 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                         )}
                         <div className="min-w-0">
                           <p className="text-xs font-bold text-emerald-400 truncate">{ytPreview.name}</p>
-                          <p className="text-[10px] text-emerald-600">Subscriber count auto-filled</p>
+                          <p className="text-badge text-emerald-600">Subscriber count auto-filled</p>
                         </div>
                       </div>
                     )}
                     {ytError && !ytFetching && (
-                      <p className="text-[11px] text-amber-400 mt-2 pl-1">{ytError} — enter count manually below</p>
+                      <p className="text-badge text-amber-400 mt-2 pl-1">{ytError} — enter count manually below</p>
                     )}
                   </Field>
                 )}
@@ -314,7 +314,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                   <Field label="Instagram Profile URL *">
                     <input value={instagramUrl} onChange={(e) => setInstagramUrl(e.target.value)}
                       placeholder="instagram.com/yourhandle" className={inp} />
-                    <p className="text-[10px] text-gray-600 mt-1.5 pl-1">
+                    <p className="text-badge text-gray-600 mt-1.5 pl-1">
                       Instagram doesn&apos;t allow public follower lookups — enter count manually below.
                     </p>
                   </Field>
@@ -328,7 +328,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                     placeholder="e.g. 50000" className={inp} />
                   {ytPreview && platform !== 'instagram' && (
                     <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                      <span className="text-[10px] font-bold text-emerald-500">auto-filled</span>
+                      <span className="text-badge font-bold text-emerald-500">auto-filled</span>
                     </div>
                   )}
                 </div>
@@ -341,22 +341,22 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
         {step === 3 && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-100 flex items-center gap-2">
+              <h2 className="heading-section flex items-center gap-2">
                 What do you post about? 🎯
               </h2>
-              <p className="text-sm mt-2 text-gray-400 leading-relaxed">
+              <p className="text-description mt-2">
                 Pick the one topic that best describes your content.
               </p>
               <div className="mt-3 flex flex-col gap-2">
                 <div className="flex items-start gap-2 bg-amber-500/10 border border-amber-500/20 rounded-xl px-3 py-2.5">
                   <span className="text-amber-400 text-sm mt-0.5 shrink-0">⚠</span>
-                  <p className="text-xs text-amber-300/80 leading-relaxed">
+                  <p className="text-meta text-amber-300/80 leading-relaxed">
                     <span className="font-bold text-amber-300">This cannot be changed later.</span> Choose carefully — your niche determines which brand deals you see.
                   </p>
                 </div>
                 <div className="flex items-start gap-2 bg-indigo-500/10 border border-indigo-500/20 rounded-xl px-3 py-2.5">
                   <span className="text-indigo-400 text-sm mt-0.5 shrink-0">ℹ️</span>
-                  <p className="text-xs text-indigo-300/80 leading-relaxed">
+                  <p className="text-meta text-indigo-300/80 leading-relaxed">
                     Admin can add two or more niches to your profile. Please contact admin for that.
                   </p>
                 </div>
@@ -382,8 +382,8 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
 
             {selectedNiches.length > 0 && (
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 flex items-center gap-3">
-                <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] text-white font-bold">✓</div>
-                <p className="text-xs font-bold text-emerald-400">
+                <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-badge text-white font-bold">✓</div>
+                <p className="text-meta font-bold text-emerald-400">
                   {selectedNiches[0]} — selected!
                 </p>
               </div>
@@ -428,7 +428,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="w-full">
-      <label className="block text-[10px] font-black uppercase tracking-widest mb-2 text-gray-500 pl-1">{label}</label>
+      <label className="block text-label mb-2 pl-1">{label}</label>
       {children}
     </div>
   )

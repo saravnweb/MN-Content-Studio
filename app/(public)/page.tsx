@@ -9,7 +9,7 @@ import ScrollHint from '@/components/landing/ScrollHint'
 import CreatorMarquee from '@/components/landing/CreatorMarquee'
 import CreatorVideoGrid, { FeaturedVideo } from '@/components/landing/CreatorVideoGrid'
 import BrandLogo from '@/components/BrandLogo'
-
+import Footer from '@/components/Footer'
 
 
 export const metadata = {
@@ -131,14 +131,14 @@ export default async function LandingPage() {
 
         {/* Headline */}
         <div className="text-center max-w-2xl mb-2 sm:mb-6">
-          <h1 className="text-4xl sm:text-7xl font-bold tracking-tight leading-[1.02] mb-4 sm:mb-10">
+          <h1 className="heading-hero mb-4 sm:mb-10">
             <span className="bg-gradient-to-br from-indigo-950 via-indigo-900 to-violet-900 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent drop-shadow-sm">
               Crafting Legacies
             </span>
             <br />
             <span className="text-gray-100">through Excellence.</span>
           </h1>
-          <p className="text-sm sm:text-lg text-gray-400 leading-relaxed max-w-xl mx-auto font-medium px-4">
+          <p className="text-description max-w-xl mx-auto font-medium px-4">
             The premier network connecting distinguished creators with iconic brands. 
             Built for those who value artistry and the pursuit of a lasting legacy.
           </p>
@@ -151,8 +151,8 @@ export default async function LandingPage() {
         <dl className="flex items-center gap-6 text-center">
           {STATS.map(({ value, label }) => (
             <div key={label}>
-              <dt className="text-xs text-gray-400 font-medium order-last tracking-[0.05em] uppercase">{label}</dt>
-              <dd className="text-base sm:text-lg font-bold text-gray-100">{value}</dd>
+              <dt className="text-meta font-medium order-last tracking-[0.05em] uppercase">{label}</dt>
+              <dd className="text-sm sm:text-base font-bold text-gray-100">{value}</dd>
             </div>
           ))}
         </dl>
@@ -173,9 +173,9 @@ export default async function LandingPage() {
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-gray-950 to-transparent z-10" aria-hidden="true" />
 
         <div className="text-center mb-6 px-5">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400 mb-2">Creator network</p>
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-100">Tamil Nadu&apos;s top creators, all in one place</h2>
-          <p className="text-sm text-gray-400 mt-1.5">Fitness · Tech · Food · Beauty · Travel · Finance · Gaming · and more</p>
+          <p className="text-page-subtitle mb-2">Creator network</p>
+          <h2 className="heading-section">Tamil Nadu&apos;s top creators, all in one place</h2>
+          <p className="text-description mt-1.5 font-normal">Fitness · Tech · Food · Beauty · Travel · Finance · Gaming · and more</p>
         </div>
 
         <CreatorMarquee />
@@ -205,9 +205,9 @@ export default async function LandingPage() {
       {featuredVideos.length > 0 && (
         <section aria-label="Creator work showcase" className="relative z-10 py-16 px-5 max-w-5xl mx-auto">
           <div className="text-center mb-10 px-5">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400 mb-2">Creator Showcase</p>
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-100">See what we bring to the table</h2>
-            <p className="text-sm text-gray-400 mt-1.5">Premium content created for top brands across Tamil Nadu</p>
+            <p className="text-page-subtitle mb-2">Creator Showcase</p>
+            <h2 className="heading-section">See what we bring to the table</h2>
+            <p className="text-description mt-1.5 font-normal">Premium content created for top brands across Tamil Nadu</p>
           </div>
 
           <CreatorVideoGrid videos={featuredVideos} />
@@ -233,16 +233,7 @@ export default async function LandingPage() {
       )}
       </main>
 
-      {/* ── Footer ── */}
-      <footer className="relative z-10 border-t border-gray-900/60 px-5 py-4 flex items-center justify-center gap-5">
-        <Link href="/terms"   className="text-xs text-gray-400 hover:text-gray-200 transition-colors">Terms</Link>
-        <Link href="/privacy" className="text-xs text-gray-400 hover:text-gray-200 transition-colors">Privacy</Link>
-        <Link href="/help"    className="text-xs text-gray-400 hover:text-gray-200 transition-colors">Help</Link>
-        <a href="https://wa.me/918428601947" target="_blank" rel="noopener noreferrer"
-          className="text-xs text-[#25D366] hover:brightness-110 transition-all">
-          WhatsApp
-        </a>
-      </footer>
+      <Footer />
     </div>
   )
 }

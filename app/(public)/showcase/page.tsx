@@ -68,10 +68,10 @@ export default async function ShowcasePage() {
             Back to home
           </Link>
           
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-100 mb-3">
+          <h1 className="heading-page mb-3">
             Video Showcase
           </h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-description text-lg">
             A curated selection of work from our elite creator network.
           </p>
         </div>

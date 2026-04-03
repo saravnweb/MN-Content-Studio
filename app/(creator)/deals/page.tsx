@@ -105,15 +105,14 @@ export default async function DealsPage({ searchParams }: { searchParams: Search
 
   return (
     <div className="bg-gray-950 min-h-screen">
-      <div className="pt-8 pb-6 text-center text-gray-50">
-        <div className="inline-block text-xs font-medium px-3 py-1 rounded-full mb-4 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+      <div className="pt-8 pb-6 text-center text-gray-50 px-5">
+        <div className="text-page-subtitle inline-block px-3 py-1 rounded-full mb-4 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
           Curated Just for You
         </div>
-        <h1 className="text-3xl font-bold leading-tight text-gray-100">
-          Your niche,<br />
-          <span className="text-indigo-500">your deals</span>
+        <h1 className="heading-page">
+          Your niche, <span className="text-indigo-500">your deals</span>
         </h1>
-        <p className="text-sm mt-3 leading-relaxed text-gray-400">
+        <p className="text-description mt-3 mx-auto max-w-sm">
           We&apos;ve carefully selected brand partnerships that match your interests and audience. No noise, only relevant opportunities.
         </p>
       </div>
@@ -135,19 +134,19 @@ export default async function DealsPage({ searchParams }: { searchParams: Search
             <>
               <Bookmark className="w-8 h-8 mx-auto mb-3 text-gray-400" />
               <p className="font-medium text-gray-100">No saved deals yet</p>
-              <p className="text-sm mt-1 text-gray-400">Tap the bookmark icon on any deal to save it</p>
+              <p className="text-meta mt-1">Tap the bookmark icon on any deal to save it</p>
             </>
           ) : hasActiveFilters ? (
             <>
               <Search className="w-8 h-8 mx-auto mb-3 text-gray-400" />
               <p className="font-medium text-gray-100">No deals match your filters</p>
-              <p className="text-sm mt-1 text-gray-400">Try adjusting your search or clearing some filters</p>
+              <p className="text-meta mt-1">Try adjusting your search or clearing some filters</p>
             </>
           ) : (
             <>
               <Inbox className="w-8 h-8 mx-auto mb-3 text-gray-400" />
               <p className="font-medium text-gray-100">No deals right now</p>
-              <p className="text-sm mt-1 text-gray-400">Check back soon — new campaigns are posted regularly</p>
+              <p className="text-meta mt-1">Check back soon — new campaigns are posted regularly</p>
             </>
           )}
         </div>

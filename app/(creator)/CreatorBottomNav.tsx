@@ -37,7 +37,7 @@ export default function CreatorBottomNav({ isGuest = false }: { isGuest?: boolea
               <button
                 key={href}
                 onClick={handleGoogleAuth}
-                className={`flex-1 flex flex-col items-center gap-1 py-3 text-sm font-medium transition-colors text-gray-400 hover:text-gray-300`}
+                className={`flex-1 flex flex-col items-center gap-1 py-3 text-label text-gray-400 hover:text-gray-300 transition-colors`}
               >
                 <Icon className="w-5 h-5" />
                 {label}
@@ -49,7 +49,7 @@ export default function CreatorBottomNav({ isGuest = false }: { isGuest?: boolea
           
           return (
             <Link key={href} href={finalHref}
-              className={`flex-1 flex flex-col items-center gap-1 py-3 text-sm font-medium transition-colors ${
+              className={`flex-1 flex flex-col items-center gap-1 py-3 text-label transition-colors ${
                 active ? 'text-indigo-400' : 'text-gray-400 hover:text-gray-300'
               }`}>
               <Icon className="w-5 h-5" />

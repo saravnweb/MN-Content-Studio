@@ -49,23 +49,23 @@ export default function DealCard({
           {c.brand_logo_url ? (
             <Image src={c.brand_logo_url} alt={c.brand_name} fill className="object-cover" />
           ) : (
-            <span className="font-bold text-xs text-gray-400">
+            <span className="text-badge text-gray-400">
               {initials}
             </span>
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="font-semibold text-sm leading-tight text-gray-100">
+          <p className="text-card-title">
             {c.brand_name}
           </p>
           {c.platforms && c.platforms.length > 0 && (
-            <p className="text-xs capitalize text-gray-400">
+            <p className="text-meta capitalize">
               {c.platforms.join(' · ')}
             </p>
           )}
         </div>
         {status && <AppliedBadge status={status} />}
-        <span className="text-[10px] px-2 py-1 rounded-full font-medium shrink-0 bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400">Live</span>
+        <span className="text-badge px-2 py-1 rounded-full shrink-0 bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400">Live</span>
       </div>
 
       {/* Niche tags */}
@@ -73,7 +73,7 @@ export default function DealCard({
         {c.niches?.slice(0, 4).map((n) => (
           <span
             key={n}
-            className="text-[11px] px-2.5 py-0.5 rounded-full capitalize font-medium bg-indigo-500/10 text-indigo-400"
+            className="text-badge px-2.5 py-0.5 rounded-full capitalize bg-indigo-500/10 text-indigo-400"
           >
             {n}
           </span>
@@ -81,18 +81,18 @@ export default function DealCard({
       </div>
 
       {/* Title & description */}
-      <p className="font-semibold text-base leading-snug text-gray-100">
+      <p className="heading-section leading-snug">
         {c.title}
       </p>
-      <p className="text-sm mt-1.5 line-clamp-2 leading-relaxed text-gray-400">
+      <p className="text-description mt-1.5 line-clamp-2">
         {c.description}
       </p>
 
       {/* Stats Row */}
-      <div className="flex items-center gap-4 mt-4 text-xs">
+      <div className="flex items-center gap-4 mt-4">
         <div className="flex flex-col">
-          <p className="text-gray-400 mb-0.5">Budget</p>
-          <p className="font-semibold text-gray-200">
+          <p className="text-meta mb-0.5">Budget</p>
+          <p className="text-meta font-semibold text-gray-200">
             {c.budget_min || c.budget_max
               ? <>₹{(c.budget_min ?? c.budget_max)!.toLocaleString('en-IN')}{c.budget_max && c.budget_max !== c.budget_min ? `–₹${c.budget_max.toLocaleString('en-IN')}` : ''}</>
               : 'Not specified'}
@@ -100,14 +100,14 @@ export default function DealCard({
         </div>
         <div className="w-px h-6 bg-gray-800" />
         <div className="flex flex-col">
-          <p className="text-gray-400 mb-0.5">Spots Left</p>
-          <p className="font-semibold text-gray-200">
+          <p className="text-meta mb-0.5">Spots Left</p>
+          <p className="text-meta font-semibold text-gray-200">
             {c.slots_total - c.slots_filled} / {c.slots_total}
           </p>
         </div>
         <div className="ml-auto flex flex-col items-end">
-          <p className="text-gray-400 mb-0.5">End Date</p>
-          <p className="font-semibold text-gray-200">
+          <p className="text-meta mb-0.5">End Date</p>
+          <p className="text-meta font-semibold text-gray-200">
             {c.deadline
               ? new Date(c.deadline).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })
               : 'N/A'}
@@ -163,7 +163,7 @@ function AppliedBadge({ status }: { status: string }) {
   }
   const cls = s[status] ?? 'bg-gray-100 text-gray-400 dark:bg-gray-500/10 dark:text-gray-400'
   return (
-    <span className={`text-[10px] font-medium px-2 py-1 rounded-full capitalize shrink-0 ${cls}`}>
+    <span className={`text-badge px-2 py-1 rounded-full capitalize shrink-0 ${cls}`}>
       {status}
     </span>
   )

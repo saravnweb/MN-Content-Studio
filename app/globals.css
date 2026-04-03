@@ -4,7 +4,6 @@
 
 @layer base {
   :root {
-    font-size: 105%;
     color-scheme: dark;
 
     /* Gray scale — stored as RGB channels so Tailwind opacity modifiers (bg-gray-900/50) work */
@@ -89,6 +88,53 @@
     background-repeat: no-repeat;
     background-size: 1.25rem 1.25rem;
     padding-right: 2.5rem !important;
+  }
+}
+
+@layer components {
+  /* Standardized Typography */
+  .heading-hero {
+    @apply text-4xl sm:text-7xl font-bold tracking-tight leading-[1.02] font-heading;
+  }
+
+  .heading-page {
+    @apply text-xl sm:text-2xl font-bold text-gray-100 tracking-tight font-heading;
+  }
+
+  .heading-section {
+    @apply text-lg sm:text-xl font-bold text-gray-100 font-heading;
+  }
+
+  .text-page-subtitle {
+     @apply text-[10px] sm:text-xs font-bold uppercase tracking-widest text-gray-500;
+  }
+
+  .text-description {
+    @apply text-sm sm:text-base font-medium text-gray-400 leading-relaxed;
+  }
+
+  .text-label {
+    @apply text-[10px] font-bold uppercase tracking-widest text-gray-500;
+  }
+
+  /* Card/item title — brand names, list item names */
+  .text-card-title {
+    @apply text-sm font-bold leading-tight text-gray-100;
+  }
+
+  /* Secondary metadata — timestamps, platform names, helper text */
+  .text-meta {
+    @apply text-xs text-gray-400;
+  }
+
+  /* Tag / pill / status chip text — replaces scattered text-[10px]/text-[11px] */
+  .text-badge {
+    @apply text-[10px] font-medium;
+  }
+
+  /* Big stat numbers — earnings, counts, metrics */
+  .text-stat {
+    @apply text-2xl font-bold text-gray-100;
   }
 }
 
