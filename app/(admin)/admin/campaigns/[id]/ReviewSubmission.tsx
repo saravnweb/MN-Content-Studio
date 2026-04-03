@@ -79,18 +79,18 @@ export default function ReviewSubmission({ applicationId, submissionUrl, current
       />
 
       {/* Action buttons */}
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-2">
         <button
           onClick={() => updateSubmission('approved')}
           disabled={isPending}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 border border-green-700 text-green-400 hover:bg-green-900/20 bg-transparent text-xs font-medium py-2 rounded-lg transition-colors disabled:opacity-50"
+          className="flex-1 inline-flex items-center justify-center gap-1.5 border border-green-700 text-green-400 hover:bg-green-900/20 bg-transparent text-xs font-medium py-2.5 rounded-lg transition-colors disabled:opacity-50"
         >
           <Check className="w-3.5 h-3.5" />{isPending ? '…' : 'Approve'}
         </button>
         <button
           onClick={() => updateSubmission('revision_requested')}
           disabled={isPending || !note.trim()}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 border border-yellow-700 text-yellow-400 hover:bg-yellow-900/20 bg-transparent text-xs font-medium py-2 rounded-lg transition-colors disabled:opacity-50"
+          className="flex-1 inline-flex items-center justify-center gap-1.5 border border-yellow-700 text-yellow-400 hover:bg-yellow-900/20 bg-transparent text-xs font-medium py-2.5 rounded-lg transition-colors disabled:opacity-50"
         >
           <RotateCcw className="w-3.5 h-3.5" />{isPending ? '…' : 'Request Revision'}
         </button>

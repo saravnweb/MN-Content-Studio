@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { Bell } from 'lucide-react'
 
-export default function NotificationBell({ userId, href = '/admin' }: { userId: string; href?: string }) {
+export default function NotificationBell({ userId, href = '/admin/notifications' }: { userId: string; href?: string }) {
   const router = useRouter()
   const [unread, setUnread] = useState(0)
 

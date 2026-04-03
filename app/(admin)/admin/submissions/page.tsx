@@ -52,15 +52,21 @@ export default function SubmissionsPage() {
 
   return (
     <div className="max-w-4xl">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-white">Submissions Queue</h2>
-        <p className="text-gray-400 text-sm mt-1">
-          {counts.submitted} needs review · {counts.revision_requested} revision requested · {counts.approved} approved · Open a campaign to manage
-        </p>
+      <div className="mb-6 space-y-2">
+        <h2 className="heading-page">Submissions Queue</h2>
+        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-meta">
+          <span className="whitespace-nowrap">{counts.submitted} needs review</span>
+          <span className="text-gray-700">·</span>
+          <span className="whitespace-nowrap">{counts.revision_requested} revision requested</span>
+          <span className="text-gray-700">·</span>
+          <span className="whitespace-nowrap">{counts.approved} approved</span>
+          <span className="hidden sm:inline text-gray-700">·</span>
+          <span className="text-gray-500 text-[10px] sm:text-xs">Open a campaign to manage</span>
+        </div>
       </div>
 
       {/* Status tabs */}
-      <div className="flex gap-1.5 mb-6 overflow-x-auto">
+      <div className="flex gap-1.5 mb-6 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide sm:mx-0 sm:px-0">
         {TABS.map((tab) => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)}
             className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
@@ -81,11 +87,11 @@ export default function SubmissionsPage() {
       </div>
 
       {!submissions.length ? (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 sm:p-12 text-center">
           <p className="text-gray-400 text-sm">No content submissions yet</p>
         </div>
       ) : !filtered.length ? (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 sm:p-12 text-center">
           <p className="text-gray-400 text-sm">No submissions in this category</p>
         </div>
       ) : (
@@ -96,28 +102,28 @@ export default function SubmissionsPage() {
               : null
 
             return (
-              <div key={s.id} className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-white font-medium text-sm">{s.creator?.full_name ?? '—'}</p>
-                    <p className="text-gray-400 text-xs mt-0.5 capitalize">
+              <div key={s.id} className="bg-gray-900 border border-gray-800 rounded-xl p-4 sm:p-5">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 mb-4">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-white font-medium text-sm truncate">{s.creator?.full_name ?? '—'}</p>
+                    <p className="text-meta mt-0.5 capitalize">
                       {s.creator?.platform}
                       {s.creator?.followers_count ? ` · ${s.creator.followers_count.toLocaleString('en-IN')} followers` : ''}
                     </p>
                     {s.creator?.platform_url && (
                       <a href={s.creator.platform_url} target="_blank" rel="noopener noreferrer"
-                        className="text-indigo-400 text-xs hover:underline mt-0.5 block truncate max-w-xs">
+                        className="text-indigo-400 text-[10px] sm:text-xs hover:underline mt-1 block truncate">
                         {s.creator.platform_url}
                       </a>
                     )}
                   </div>
-                  <div className="text-right shrink-0">
+                  <div className="sm:text-right shrink-0 border-t border-gray-800 sm:border-t-0 pt-3 sm:pt-0">
                     <Link href={`/admin/campaigns/${s.campaign?.id}`}
-                      className="text-indigo-400 text-xs hover:underline font-medium">
+                      className="text-indigo-400 text-xs hover:underline font-medium block">
                       {s.campaign?.brand_name} · {s.campaign?.title}
                     </Link>
                     {submittedAt && (
-                      <p className="text-gray-400 text-xs mt-0.5">{submittedAt}</p>
+                      <p className="text-meta mt-0.5">{submittedAt}</p>
                     )}
                   </div>
                 </div>

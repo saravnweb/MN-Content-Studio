@@ -64,26 +64,25 @@ export default function BrandsPage() {
   return (
     <div className="max-w-2xl">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold text-gray-100">Brands</h2>
           <p className="text-gray-400 text-sm mt-1">Upload a logo once — reused across all campaigns</p>
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
+          className="bg-white hover:bg-gray-100 text-gray-950 font-medium px-4 py-2 rounded-lg text-sm transition-colors"
         >
-          <span className="text-lg leading-none">+</span>
-          New Brand
+          + New Brand
         </button>
       </div>
 
       {/* Brand list */}
       {brands.length === 0 ? (
-        <div className="text-center py-16 border border-dashed border-gray-800 rounded-2xl">
-          <p className="text-gray-400 text-sm">No brands yet.</p>
-          <button onClick={() => setShowCreate(true)} className="mt-3 text-indigo-400 hover:text-indigo-300 text-sm">
-            Add your first brand →
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
+          <p className="text-gray-400 text-sm font-medium">No brands yet.</p>
+          <button onClick={() => setShowCreate(true)} className="mt-4 bg-white hover:bg-gray-100 text-gray-950 px-4 py-2 rounded-lg text-sm transition-colors">
+            Add your first brand
           </button>
         </div>
       ) : (
