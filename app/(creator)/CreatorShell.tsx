@@ -31,7 +31,7 @@ export default function CreatorShell({
     <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
       <PWAInstallBanner />
       <CreatorSideMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} name={name} />
-      <header className="sticky top-0 z-30 border-b border-gray-800 bg-gray-950/90 backdrop-blur-md px-5 py-3 flex items-center gap-2">
+      <header className="sticky top-0 z-30 border-b border-gray-800 bg-gray-950/90 backdrop-blur-md px-5 pt-3-safe pb-3 flex items-center gap-2">
         <button
           className="p-1.5 text-gray-400 hover:text-gray-100 rounded-md hover:bg-gray-800 transition-colors"
           onClick={() => setMenuOpen(true)}
@@ -44,7 +44,7 @@ export default function CreatorShell({
         <ThemeToggle />
         <HeaderNotificationBell userId={userId} />
       </header>
-      <main className="max-w-lg mx-auto w-full flex-1 flex flex-col px-4 pt-4 pb-24">
+      <main className="max-w-lg mx-auto w-full flex-1 flex flex-col px-4 pt-4 pb-nav">
         {children}
       </main>
       <Footer />

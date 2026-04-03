@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent', // allows content behind status bar (required for viewportFit: cover)
     title: 'MW Content Studio',
   },
   openGraph: {
@@ -64,6 +64,9 @@ export const viewport: Viewport = {
   themeColor: '#030712',
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 5,          // allow user zoom (accessibility)
+  viewportFit: 'cover',     // content extends under notch / Dynamic Island
+  interactiveWidget: 'resizes-visual', // keyboard overlays content, no layout shift
 }
 
 export default async function RootLayout({

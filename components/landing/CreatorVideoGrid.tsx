@@ -89,7 +89,7 @@ function VideoCard({ video, onClick }: { video: FeaturedVideo; onClick: () => vo
       {/* Media Area */}
       <div className={`relative w-full overflow-hidden bg-gray-950 ${isVertical ? "aspect-[9/16]" : "aspect-video"}`}>
         {video.file_url ? (
-          /* Premium Preview: Muted looping video */
+          /* Premium Preview: Muted looping video — preload="none" avoids bandwidth/CPU drain on mobile */
           <video
             src={video.file_url}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -97,11 +97,14 @@ function VideoCard({ video, onClick }: { video: FeaturedVideo; onClick: () => vo
             loop
             playsInline
             autoPlay
+            preload="none"
           />
         ) : thumbnail ? (
           <img
             src={thumbnail}
             alt=""
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
         ) : (

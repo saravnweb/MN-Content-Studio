@@ -54,6 +54,8 @@
 
   * {
     box-sizing: border-box;
+    /* Remove tap flash on iOS/Android — single biggest native-feel win */
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
@@ -62,6 +64,10 @@
     font-family: var(--font-body, sans-serif);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Prevent pull-to-refresh bounce while keeping in-container momentum scrolling */
+    overscroll-behavior-y: contain;
+    /* Remove 300ms double-tap delay without breaking pinch-to-zoom */
+    touch-action: manipulation;
   }
 
   h1, h2, h3 {
@@ -143,18 +149,27 @@
     @apply bg-white text-gray-950 hover:bg-gray-100 transition-colors;
   }
 
-  /* Safe area for PWA bottom nav on iOS */
-  .pb-safe {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  .pb-nav {
-    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
-  }
+  /* Safe area utilities for iOS notch / Dynamic Island / Android cutouts */
+  .pt-safe  { padding-top:    env(safe-area-inset-top); }
+  .pb-safe  { padding-bottom: env(safe-area-inset-bottom); }
+  .pl-safe  { padding-left:   env(safe-area-inset-left); }
+  .pr-safe  { padding-right:  env(safe-area-inset-right); }
+  .pb-nav   { padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
+  /* Additive: keeps baseline padding AND clears the status bar */
+  .pt-3-safe { padding-top: calc(0.75rem + env(safe-area-inset-top)); }
+  .pt-4-safe { padding-top: calc(1rem    + env(safe-area-inset-top)); }
 
   /* Landing page — animated gradient text */
   .animate-gradient-text {
     background-size: 200% auto;
     animation: gradient-pan 4s ease-in-out infinite;
+    will-change: background-position;
+  }
+
+  /* Momentum scrolling for inner scroll containers (iOS) */
+  .scroll-smooth-ios {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
   }
 
   /* Hide scrollbar but keep functionality */

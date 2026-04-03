@@ -22,7 +22,7 @@ export default function PWAInstallBanner() {
   if (!visible) return null
 
   return (
-    <div className="fixed top-0 inset-x-0 z-50 bg-indigo-600 text-white px-4 py-3 flex items-center justify-between gap-4 max-w-lg mx-auto">
+    <div className="fixed top-0 inset-x-0 z-50 bg-indigo-600 text-white px-4 pt-3-safe pb-3 flex items-center justify-between gap-4 max-w-lg mx-auto">
       <p className="text-sm font-medium">Add MW Content Studio to your home screen</p>
       <div className="flex gap-2 shrink-0">
         <button onClick={() => setVisible(false)} className="text-xs text-indigo-200 hover:text-white">Later</button>
