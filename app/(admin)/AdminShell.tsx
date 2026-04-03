@@ -36,7 +36,7 @@ export default function AdminShell({
 
       <AdminSidebar name={name} isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 md:ml-64 flex flex-col min-h-screen">
+      <div className="flex-1 md:ml-64 flex flex-col min-h-screen min-w-0">
         <header className="h-12 border-b border-gray-800 flex items-center px-4 gap-2 bg-gray-950 shrink-0">
           <button
             className="md:hidden p-1.5 text-gray-400 hover:text-gray-100 rounded-md hover:bg-gray-800 transition-colors"

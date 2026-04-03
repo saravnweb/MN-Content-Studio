@@ -21,7 +21,7 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
     .order('created_at', { ascending: false })
 
   return (
-    <div className="max-w-4xl">
+    <div className="max-w-4xl w-full min-w-0">
       <Link href="/admin/campaigns" className="text-gray-400 text-sm hover:text-gray-300 mb-6 inline-block">
         ← Campaigns
       </Link>

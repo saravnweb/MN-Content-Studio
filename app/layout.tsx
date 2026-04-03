@@ -87,7 +87,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen antialiased bg-gray-950 text-gray-100 font-body">
+      <body className="min-h-screen antialiased bg-gray-950 text-gray-100 font-body overflow-x-hidden">
         <ThemeProvider>
           {children}
           <ScrollToTop isGuest={!user} />

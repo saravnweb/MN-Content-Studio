@@ -39,12 +39,12 @@ export default function CampaignTabs({
   return (
     <div>
       {/* Tab bar */}
-      <div className="flex gap-0 border-b border-gray-800 mb-6 overflow-x-auto">
+      <div className="flex gap-0 border-b border-gray-800 mb-6 overflow-x-auto scrollbar-hide">
         {tabs.map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors border-b-2 -mb-px ${
+            className={`flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium whitespace-nowrap transition-colors border-b-2 -mb-px ${
               activeTab === tab.key
                 ? 'border-white text-white'
                 : 'border-transparent text-gray-400 hover:text-gray-300'

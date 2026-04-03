@@ -7,7 +7,7 @@ import { Tag, BarChart2, User, type LucideIcon } from 'lucide-react'
 
 const NAV: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/deals', label: 'Deals', icon: Tag },
-  { href: '/dashboard', label: 'My Deals', icon: BarChart2 },
+  { href: '/dashboard', label: 'Status', icon: BarChart2 },
   { href: '/profile', label: 'Profile', icon: User },
 ]
 
