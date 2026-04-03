@@ -51,7 +51,7 @@ export default function SubmissionsPage() {
   if (loading) return <p className="text-gray-400 text-sm">Loading…</p>
 
   return (
-    <div className="max-w-4xl">
+    <div className="w-full max-w-4xl">
       <div className="mb-6 space-y-2">
         <h2 className="heading-page">Submissions Queue</h2>
         <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-meta">

@@ -44,7 +44,7 @@ export default function AdminSidebar({
         <p className="text-gray-400 text-sm mt-0.5">Admin Control</p>
       </div>
 
-      <nav className="flex-1 px-3 py-4 space-y-1">
+      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         {NAV.map(({ href, label, icon: Icon }) => {
           const active = href === '/admin' ? pathname === '/admin' : pathname.startsWith(href)
           return (

@@ -197,7 +197,7 @@ export default function CreatorProfileUI({
               <div className="bg-gray-900/50 border border-gray-800 rounded-3xl p-12 text-center">
                  <AlertCircle className="w-10 h-10 text-gray-700 mx-auto mb-4" />
                  <p className="text-gray-400 font-medium text-lg">No campaign participation history found.</p>
-                 <p className="text-gray-600 text-sm mt-1">This creator hasn't applied to any roles yet.</p>
+                 <p className="text-gray-600 text-sm mt-1">This creator hasn&apos;t applied to any roles yet.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-3">
@@ -265,7 +265,7 @@ export default function CreatorProfileUI({
                 <h4 className="text-label mb-6">Payment Settings</h4>
                 {!(creator.account_number || creator.upi_id) ? (
                   <div className="text-center py-4">
-                    <p className="text-gray-500 text-xs italic">Creator hasn't saved payment methods.</p>
+                    <p className="text-gray-500 text-xs italic">Creator hasn&apos;t saved payment methods.</p>
                   </div>
                 ) : (
                   <div className="space-y-6">
