@@ -227,29 +227,29 @@ export default function CreatorVideoGrid({ videos }: { videos: FeaturedVideo[] }
   return (
     <div className="w-full">
       {/* Platform Toggle */}
-      <div className="flex flex-col items-center mb-10 gap-4">
-        <div className="inline-flex p-1.5 bg-gray-900 border border-gray-800 rounded-2xl shadow-xl">
+      <div className="flex justify-end mb-6 px-2">
+        <div className="inline-flex p-1 bg-gray-900/50 border border-gray-800 rounded-full shadow-lg backdrop-blur-md">
           <button
             onClick={() => setPlatform('instagram')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold transition-all duration-500 ${
               platform === 'instagram' 
-                ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 translate-y-[-1px]" 
+                ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30" 
                 : "text-gray-500 hover:text-gray-300"
             }`}
           >
-            <InstagramIcon className={`w-4.5 h-4.5 ${platform === 'instagram' ? "text-white" : "text-pink-600/60"}`} />
-            Instagram Reels
+            <InstagramIcon className={`w-3 h-3 ${platform === 'instagram' ? "text-white" : "text-pink-600/60"}`} />
+            Instagram
           </button>
           <button
             onClick={() => setPlatform('youtube')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold transition-all duration-500 ${
               platform === 'youtube' 
-                ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 translate-y-[-1px]" 
+                ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30" 
                 : "text-gray-500 hover:text-gray-300"
             }`}
           >
-            <YoutubeIcon className={`w-4.5 h-4.5 ${platform === 'youtube' ? "text-white" : "text-red-600/60"}`} />
-            YouTube Content
+            <YoutubeIcon className={`w-3 h-3 ${platform === 'youtube' ? "text-white" : "text-red-600/60"}`} />
+            YouTube
           </button>
         </div>
       </div>

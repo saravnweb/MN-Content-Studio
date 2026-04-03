@@ -180,12 +180,21 @@ export default async function LandingPage() {
 
         <CreatorMarquee />
 
-        <div className="text-center mt-10">
+        <div className="text-center mt-8">
           <Link
             href="/explore"
-            className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-xl text-base transition-all hover:scale-[1.02] shadow-lg shadow-indigo-600/20 active:scale-[0.98]"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors group"
           >
             Browse Live Deals
+            <svg 
+              className="w-4 h-4 transition-transform group-hover:translate-x-0.5" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth={2}
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </Link>
         </div>
       </section>
@@ -194,7 +203,13 @@ export default async function LandingPage() {
           CREATOR VIDEO SHOWCASE
       ══════════════════════════════════ */}
       {featuredVideos.length > 0 && (
-        <section aria-label="Creator work showcase" className="relative z-10 py-12 px-5 max-w-5xl mx-auto">
+        <section aria-label="Creator work showcase" className="relative z-10 py-16 px-5 max-w-5xl mx-auto">
+          <div className="text-center mb-10 px-5">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400 mb-2">Creator Showcase</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-100">See what we bring to the table</h2>
+            <p className="text-sm text-gray-400 mt-1.5">Premium content created for top brands across Tamil Nadu</p>
+          </div>
+
           <CreatorVideoGrid videos={featuredVideos} />
           
           <div className="mt-8 text-center">
