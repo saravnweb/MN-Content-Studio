@@ -3,12 +3,7 @@
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useState, useEffect, useCallback, useTransition } from 'react'
 import Link from 'next/link'
-
-const NICHES = [
-  'fitness', 'food', 'tech', 'fashion', 'travel', 'beauty',
-  'gaming', 'finance', 'lifestyle', 'wellness', 'education', 'entertainment',
-  'sports', 'parenting', 'automotive', 'home-decor',
-]
+import { NICHES } from '@/lib/constants'
 
 const PLATFORMS = [
   { value: '', label: 'All' },

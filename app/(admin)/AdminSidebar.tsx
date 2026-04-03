@@ -3,17 +3,19 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { LayoutDashboard, Megaphone, ClipboardList, FileCheck, User, Tag, Banknote, type LucideIcon } from 'lucide-react'
+import { LayoutDashboard, Megaphone, ClipboardList, FileCheck, User, Tag, Banknote, MessageSquare, PlaySquare, type LucideIcon } from 'lucide-react'
 import BrandLogo from '@/components/BrandLogo'
 
 const NAV: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/campaigns', label: 'Campaigns', icon: Megaphone },
+  { href: '/admin/inquiries', label: 'Brand Leads', icon: MessageSquare },
   { href: '/admin/applications', label: 'Applications Queue', icon: ClipboardList },
   { href: '/admin/submissions', label: 'Submissions Queue', icon: FileCheck },
   { href: '/admin/creators', label: 'Creators', icon: User },
   { href: '/admin/brands', label: 'Brands', icon: Tag },
   { href: '/admin/payouts', label: 'Payouts', icon: Banknote },
+  { href: '/admin/showcase', label: 'Showcase', icon: PlaySquare },
 ]
 
 export default function AdminSidebar({

@@ -63,16 +63,26 @@ export default function CreatorsPage() {
   const [selectedNiches, setSelectedNiches] = useState<string[]>([])
   const [minFollowers, setMinFollowers] = useState<number | null>(null)
   const [sortBy, setSortBy] = useState<string>('newest')
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const supabase = createClient()
     supabase
       .from('profiles')
-      .select('id, full_name, username, phone, whatsapp, youtube_url, instagram_url, twitter_url, followers_count, niches, gender, age, created_at')
+      .select('*')
       .eq('role', 'creator')
       .order('created_at', { ascending: false })
-      .then(({ data }) => {
-        if (data) setCreators(data)
+      .then(async ({ data, error }) => {
+        const { data: { user } } = await supabase.auth.getUser()
+        console.log('User:', user?.id, 'Creators found length:', data?.length)
+        if (error) {
+          console.error('Error fetching creators:', error)
+          setError(error.message)
+          setCreators([])
+        } else if (data) {
+          setCreators(data)
+          setError(null)
+        }
         setLoading(false)
       })
   }, [])
@@ -295,7 +305,14 @@ export default function CreatorsPage() {
         </div>
       )}
 
-      {!creators.length ? (
+      {error && (
+        <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 mb-6">
+          <p className="text-red-400 text-sm font-semibold">Error loading creators:</p>
+          <p className="text-red-300 text-xs mt-1">{error}</p>
+        </div>
+      )}
+
+      {!creators.length && !loading ? (
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-12 text-center">
           <div className="w-14 h-14 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-4">
             <Users className="w-6 h-6 text-gray-600" />

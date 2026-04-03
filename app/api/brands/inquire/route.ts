@@ -29,7 +29,10 @@ export async function POST(request: Request) {
 
   if (error) {
     console.error('brand_inquiries insert error:', error)
-    return NextResponse.json({ error: 'Something went wrong. Please try again.' }, { status: 500 })
+    return NextResponse.json({ 
+      error: 'Something went wrong. Please try again.',
+      debug: error.message // Temporarily include actual error for debugging
+    }, { status: 500 })
   }
 
   return NextResponse.json({ success: true })

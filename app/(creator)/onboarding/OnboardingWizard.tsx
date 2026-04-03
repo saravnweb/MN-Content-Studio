@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -12,7 +12,7 @@ type Step = 1 | 2 | 3
 export default function OnboardingWizard({ userId, name }: { userId: string; name: string }) {
   const router = useRouter()
   const [step, setStep] = useState<Step>(1)
-  const [isPending, startTransition] = useTransition()
+  const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState('')
 
   // Step 1 — Identity
@@ -85,12 +85,13 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
   async function finish() {
     if (selectedNiches.length === 0) { setError('Please pick a topic'); return }
     setError('')
+    setIsSaving(true)
 
-    startTransition(async () => {
+    try {
       const supabase = createClient()
       const platformUrl = platform === 'instagram' ? instagramUrl : youtubeUrl
 
-      const { error: dbError } = await supabase.from('profiles').update({
+      const { data, error: dbError } = await supabase.from('profiles').update({
         full_name: fullName.trim(),
         platform,
         platform_url: platformUrl || null,
@@ -99,16 +100,27 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
         followers_count: followersCount ? parseInt(followersCount) : null,
         niches: selectedNiches,
         phone: phone.replace(/\D/g, '').slice(0, 10) || null,
-        is_whatsapp: isWhatsapp,
+        whatsapp: isWhatsapp ? phone.replace(/\D/g, '').slice(0, 10) : null,
         city: city.trim() || null,
         age: age ? parseInt(age) : null,
         gender: gender || null,
-      }).eq('id', userId)
+      }).eq('id', userId).select()
 
-      if (dbError) { setError(dbError.message); return }
+      if (dbError) {
+        console.error('Onboarding save error:', dbError)
+        setError(dbError.message)
+        setIsSaving(false)
+        return
+      }
+
+      console.log('Onboarding saved successfully:', data)
       router.push('/deals')
       router.refresh()
-    })
+    } catch (err: any) {
+      console.error('Unexpected onboarding error:', err)
+      setError(err.message || 'An unexpected error occurred')
+      setIsSaving(false)
+    }
   }
 
   const steps = [
@@ -335,11 +347,19 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
               <p className="text-sm mt-2 text-gray-400 leading-relaxed">
                 Pick the one topic that best describes your content.
               </p>
-              <div className="mt-3 flex items-start gap-2 bg-amber-500/10 border border-amber-500/20 rounded-xl px-3 py-2.5">
-                <span className="text-amber-400 text-sm mt-0.5 shrink-0">⚠</span>
-                <p className="text-xs text-amber-300/80 leading-relaxed">
-                  <span className="font-bold text-amber-300">This cannot be changed later.</span> Choose carefully — your niche determines which brand deals you see.
-                </p>
+              <div className="mt-3 flex flex-col gap-2">
+                <div className="flex items-start gap-2 bg-amber-500/10 border border-amber-500/20 rounded-xl px-3 py-2.5">
+                  <span className="text-amber-400 text-sm mt-0.5 shrink-0">⚠</span>
+                  <p className="text-xs text-amber-300/80 leading-relaxed">
+                    <span className="font-bold text-amber-300">This cannot be changed later.</span> Choose carefully — your niche determines which brand deals you see.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2 bg-indigo-500/10 border border-indigo-500/20 rounded-xl px-3 py-2.5">
+                  <span className="text-indigo-400 text-sm mt-0.5 shrink-0">ℹ️</span>
+                  <p className="text-xs text-indigo-300/80 leading-relaxed">
+                    Admin can add two or more niches to your profile. Please contact admin for that.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -393,9 +413,9 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
               Continue →
             </button>
           ) : (
-            <button onClick={finish} disabled={isPending}
+            <button onClick={finish} disabled={isSaving}
               className="flex-1 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-sm font-black transition-all disabled:opacity-60 shadow-lg shadow-indigo-600/25 active:scale-95">
-              {isPending ? 'Saving…' : '🚀 Start Exploring Deals'}
+              {isSaving ? 'Saving…' : '🚀 Start Exploring Deals'}
             </button>
           )}
         </div>

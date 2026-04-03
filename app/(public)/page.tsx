@@ -7,6 +7,7 @@ import RoleSelector from '@/components/landing/RoleSelector'
 import ActivityTicker from '@/components/landing/ActivityTicker'
 import ScrollHint from '@/components/landing/ScrollHint'
 import CreatorMarquee from '@/components/landing/CreatorMarquee'
+import CreatorVideoGrid, { FeaturedVideo } from '@/components/landing/CreatorVideoGrid'
 import BrandLogo from '@/components/BrandLogo'
 
 
@@ -27,6 +28,37 @@ const STATS = [
 
 export const revalidate = 3600 // Cache for 1 hour
 
+// Cached function to fetch admin-curated showcase videos
+const getFeaturedVideos = unstable_cache(
+  async (): Promise<FeaturedVideo[]> => {
+    const adminSupabase = createAdminClient()
+    const { data } = await adminSupabase
+      .from('showcase_videos')
+      .select('id, video_url, file_url, creator_name, niche, brand_name, platform')
+      .order('display_order', { ascending: true })
+      .order('created_at', { ascending: false })
+
+    if (!data) return []
+
+    return data.map((row: any) => {
+      const name: string = row.creator_name ?? 'Creator'
+      const initials = name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)
+      return {
+        id: row.id,
+        video_url: row.video_url ?? null,
+        file_url: row.file_url ?? null,
+        platform: row.platform ?? (row.video_url?.includes('youtube.com') || row.video_url?.includes('youtu.be') ? 'youtube' : 'instagram'),
+        creator_name: name,
+        creator_niche: row.niche ?? null,
+        brand_name: row.brand_name ?? '',
+        avatar_initials: initials,
+      }
+    })
+  },
+  ['featured-videos'],
+  { revalidate: 3600, tags: ['featured-videos'] }
+)
+
 // Cached function to get campaign count to avoid database hits on every request
 const getLiveCampaignCount = unstable_cache(
   async () => {
@@ -42,7 +74,10 @@ const getLiveCampaignCount = unstable_cache(
 )
 
 export default async function LandingPage() {
-  const liveCount = await getLiveCampaignCount()
+  const [liveCount, featuredVideos] = await Promise.all([
+    getLiveCampaignCount(),
+    getFeaturedVideos(),
+  ])
 
 
   return (
@@ -87,7 +122,7 @@ export default async function LandingPage() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <span className="text-sm text-gray-500 font-medium tracking-tight">
+          <span className="text-sm text-gray-400 font-medium tracking-tight">
             {(liveCount ?? 0) > 0
               ? <><span className="text-emerald-600 dark:text-emerald-400 font-bold">{liveCount}</span> live campaigns right now</>
               : <>New campaigns dropping soon</>}
@@ -103,7 +138,7 @@ export default async function LandingPage() {
             <br />
             <span className="text-gray-100">through Excellence.</span>
           </h1>
-          <p className="text-sm sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl mx-auto font-medium px-4">
+          <p className="text-sm sm:text-lg text-gray-400 leading-relaxed max-w-xl mx-auto font-medium px-4">
             The premier network connecting distinguished creators with iconic brands. 
             Built for those who value artistry and the pursuit of a lasting legacy.
           </p>
@@ -116,7 +151,7 @@ export default async function LandingPage() {
         <dl className="flex items-center gap-6 text-center">
           {STATS.map(({ value, label }) => (
             <div key={label}>
-              <dt className="text-xs text-gray-500 font-medium order-last tracking-[0.05em] uppercase">{label}</dt>
+              <dt className="text-xs text-gray-400 font-medium order-last tracking-[0.05em] uppercase">{label}</dt>
               <dd className="text-base sm:text-lg font-bold text-gray-100">{value}</dd>
             </div>
           ))}
@@ -138,7 +173,7 @@ export default async function LandingPage() {
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-gray-950 to-transparent z-10" aria-hidden="true" />
 
         <div className="text-center mb-6 px-5">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 mb-2">Creator network</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400 mb-2">Creator network</p>
           <h2 className="text-xl sm:text-2xl font-bold text-gray-100">Tamil Nadu&apos;s top creators, all in one place</h2>
           <p className="text-sm text-gray-400 mt-1.5">Fitness · Tech · Food · Beauty · Travel · Finance · Gaming · and more</p>
         </div>
@@ -154,6 +189,33 @@ export default async function LandingPage() {
           </Link>
         </div>
       </section>
+
+      {/* ══════════════════════════════════
+          CREATOR VIDEO SHOWCASE
+      ══════════════════════════════════ */}
+      {featuredVideos.length > 0 && (
+        <section aria-label="Creator work showcase" className="relative z-10 py-12 px-5 max-w-5xl mx-auto">
+          <CreatorVideoGrid videos={featuredVideos} />
+          
+          <div className="mt-8 text-center">
+            <Link 
+              href="/showcase" 
+              className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors group"
+            >
+              View all creator videos
+              <svg 
+                className="w-4 h-4 transition-transform group-hover:translate-x-0.5" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth={2}
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          </div>
+        </section>
+      )}
       </main>
 
       {/* ── Footer ── */}

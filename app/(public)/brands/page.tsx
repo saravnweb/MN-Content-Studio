@@ -63,7 +63,7 @@ export default function ForBrandsPage() {
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
           <h2 className="text-xl font-bold text-gray-100 mb-2">Interested in listing a campaign?</h2>
           <p className="text-sm text-gray-400 mb-6">
-            Tell us about your brand and campaign requirements. We review every submission personally and follow up within 24 hours.
+            Tell us about your brand and campaign requirements. We review every submission personally and follow up within 5 minutes.
           </p>
           <Link
             href="/brands/signup"

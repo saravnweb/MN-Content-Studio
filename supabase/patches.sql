@@ -7,14 +7,20 @@
 -- SECURITY DEFINER bypasses RLS, breaking the recursion loop
 CREATE OR REPLACE FUNCTION public.is_admin()
 RETURNS boolean
-LANGUAGE sql
+LANGUAGE plpgsql
 SECURITY DEFINER
 STABLE
 AS $$
-  SELECT EXISTS(
-    SELECT 1 FROM public.profiles
-    WHERE id = auth.uid() AND role = 'admin'
+BEGIN
+  RETURN (
+    (current_setting('role', true) = 'service_role') OR
+    (auth.role() = 'service_role') OR
+    EXISTS (
+      SELECT 1 FROM public.profiles
+      WHERE id = auth.uid() AND role = 'admin'
+    )
   );
+END;
 $$;
 
 -- ── PROFILES ──────────────────────────────────────────────

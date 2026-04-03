@@ -1,7 +1,7 @@
 'use server'
 
 import { createAdminClient } from '@/lib/supabase/server'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 /**
  * Update creator niches using service role to bypass RLS.
@@ -31,4 +31,21 @@ export async function updateCreatorNiches(creatorId: string, niches: string[]) {
   revalidatePath(`/admin/creators/${creatorId}`)
   
   return { success: true }
+}
+
+/**
+ * Toggle whether an approved submission appears in the homepage "Live View" grid.
+ */
+export async function toggleHomepageFeature(applicationId: string, featured: boolean) {
+  const supabase = createAdminClient()
+
+  const { error } = await supabase
+    .from('applications')
+    .update({ is_homepage_featured: featured })
+    .eq('id', applicationId)
+
+  if (error) throw new Error(error.message)
+
+  revalidateTag('featured-videos')
+  revalidatePath('/')
 }

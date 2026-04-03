@@ -1,16 +1,16 @@
 const NICHE_COLORS: Record<string, string> = {
-  Tech:      'bg-blue-500/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/20',
-  Fitness:   'bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/20',
-  Food:      'bg-amber-500/10 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/20',
-  Finance:   'bg-violet-500/10 dark:bg-violet-500/15 text-violet-700 dark:text-violet-400 border-violet-500/20',
-  Beauty:    'bg-rose-500/10 dark:bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/20',
-  Travel:    'bg-sky-500/10 dark:bg-sky-500/15 text-sky-700 dark:text-sky-400 border-sky-500/20',
-  Lifestyle: 'bg-orange-500/10 dark:bg-orange-500/15 text-orange-700 dark:text-orange-400 border-orange-500/20',
-  Gaming:    'bg-purple-500/10 dark:bg-purple-500/15 text-purple-700 dark:text-purple-400 border-purple-500/20',
-  Fashion:   'bg-pink-500/10 dark:bg-pink-500/15 text-pink-700 dark:text-pink-400 border-pink-500/20',
-  Health:    'bg-teal-500/10 dark:bg-teal-500/15 text-teal-700 dark:text-teal-400 border-teal-500/20',
-  Education: 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 border-cyan-500/20',
-  Sports:    'bg-lime-500/10 dark:bg-lime-500/15 text-lime-700 dark:text-lime-400 border-lime-500/20',
+  Tech:      'bg-blue-500/15 text-blue-400 border-blue-500/20',
+  Fitness:   'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
+  Food:      'bg-amber-500/15 text-amber-400 border-amber-500/20',
+  Finance:   'bg-violet-500/15 text-violet-400 border-violet-500/20',
+  Beauty:    'bg-rose-500/15 text-rose-400 border-rose-500/20',
+  Travel:    'bg-sky-500/15 text-sky-400 border-sky-500/20',
+  Lifestyle: 'bg-orange-500/15 text-orange-400 border-orange-500/20',
+  Gaming:    'bg-purple-500/15 text-purple-400 border-purple-500/20',
+  Fashion:   'bg-pink-500/15 text-pink-400 border-pink-500/20',
+  Health:    'bg-teal-500/15 text-teal-400 border-teal-500/20',
+  Education: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/20',
+  Sports:    'bg-lime-500/15 text-lime-400 border-lime-500/20',
 }
 
 const ROW_1 = [
@@ -32,11 +32,11 @@ const ROW_2 = [
 ]
 
 // Platform badge colours
-const YT_BADGE  = 'bg-red-500/10 dark:bg-red-500/15 text-red-700 dark:text-red-400'
-const IG_BADGE  = 'bg-pink-500/10 dark:bg-pink-500/15 text-pink-700 dark:text-pink-400'
+const YT_BADGE  = 'bg-red-500/15 text-red-400'
+const IG_BADGE  = 'bg-pink-500/15 text-pink-400'
 
 function CreatorCard({ name, niche, platform, followers, rating, initial, bg }: typeof ROW_1[0]) {
-  const nicheStyle = NICHE_COLORS[niche] ?? 'bg-gray-800/10 dark:bg-gray-700/40 text-gray-700 dark:text-gray-400'
+  const nicheStyle = NICHE_COLORS[niche] ?? 'bg-gray-700/40 text-gray-400'
   const platformStyle = platform === 'YouTube' ? YT_BADGE : IG_BADGE
 
   return (
@@ -47,13 +47,13 @@ function CreatorCard({ name, niche, platform, followers, rating, initial, bg }: 
         </div>
         <div className="min-w-0">
           <p className="text-sm font-semibold text-gray-100 truncate">{name}</p>
-          <p className="text-xs text-gray-500">{followers} followers</p>
+          <p className="text-xs text-gray-400">{followers} followers</p>
         </div>
       </div>
       <div className="flex items-center gap-2">
         <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border border-current/10 ${nicheStyle}`}>{niche}</span>
         <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${platformStyle}`}>{platform}</span>
-        <span className="ml-auto text-[10px] text-yellow-600 dark:text-yellow-400 font-bold">★ {rating}</span>
+        <span className="ml-auto text-[10px] text-yellow-400 font-bold">★ {rating}</span>
       </div>
     </div>
   )

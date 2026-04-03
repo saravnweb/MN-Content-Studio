@@ -42,17 +42,16 @@ export default function BrandSignupPage() {
     setForm(prev => ({ ...prev, [field]: value }))
   }
 
-  function togglePlatform(p: string) {
-    setForm(prev => ({
-      ...prev,
-      platforms: prev.platforms.includes(p)
-        ? prev.platforms.filter(x => x !== p)
-        : [...prev.platforms, p],
-    }))
+  function selectPlatform(p: string) {
+    setForm(prev => ({ ...prev, platforms: [p] }))
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (form.platforms.length === 0) {
+      setError('Please select a target platform.')
+      return
+    }
     setError('')
     setSubmitting(true)
     try {
@@ -63,7 +62,7 @@ export default function BrandSignupPage() {
       })
       const data = await res.json()
       if (!res.ok) {
-        setError(data.error || 'Something went wrong.')
+        setError(data.debug || data.error || 'Something went wrong.')
       } else {
         setSuccess(true)
       }
@@ -90,7 +89,7 @@ export default function BrandSignupPage() {
             </div>
             <h1 className="text-2xl font-bold text-gray-100 mb-3">We&apos;ve got your details</h1>
             <p className="text-gray-400 text-sm leading-relaxed mb-8">
-              Thanks for reaching out. Our team will review your campaign requirements and get back to you within 24 hours.
+              Thanks for reaching out. Our team will review your campaign requirements and get back to you within 5 minutes.
             </p>
             <Link
               href="/brands"
@@ -118,7 +117,7 @@ export default function BrandSignupPage() {
           </div>
           <h1 className="text-2xl font-bold text-gray-100 mb-2">List your campaign</h1>
           <p className="text-sm text-gray-400 leading-relaxed">
-            Tell us about your brand and what you need. We&apos;ll review your submission and follow up within 24 hours.
+            Tell us about your brand and what you need. We&apos;ll review your submission and follow up within 5 minutes.
           </p>
         </div>
 
@@ -176,7 +175,7 @@ export default function BrandSignupPage() {
             <select
               value={form.niche}
               onChange={e => set('niche', e.target.value)}
-              className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-sm text-gray-100 outline-none transition-colors"
+              className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 pr-10 text-sm text-gray-100 outline-none transition-colors"
             >
               <option value="">Select a niche…</option>
               {NICHES.map(n => <option key={n} value={n}>{n}</option>)}
@@ -184,17 +183,17 @@ export default function BrandSignupPage() {
           </Field>
 
           {/* Platforms */}
-          <Field label="Target platform">
+          <Field label="Target platform" required>
             <div className="flex gap-2 flex-wrap">
               {PLATFORMS.map(p => (
                 <button
                   key={p}
                   type="button"
-                  onClick={() => togglePlatform(p)}
+                  onClick={() => selectPlatform(p)}
                   className={`px-4 py-2 rounded-xl text-sm font-medium border transition-colors ${
                     form.platforms.includes(p)
-                      ? 'bg-indigo-600 border-indigo-500 text-white'
-                      : 'bg-gray-900 border-gray-700 text-gray-400 hover:border-gray-500'
+                      ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/20'
+                      : 'bg-gray-900 border-gray-700 text-gray-400 hover:border-gray-500 hover:text-gray-300'
                   }`}
                 >
                   {p}
@@ -211,6 +210,7 @@ export default function BrandSignupPage() {
               placeholder="Describe your product, what content you need (e.g. 2 Instagram Reels + 1 YouTube integration), key messaging, and anything else we should know."
               required
               rows={4}
+              aria-label="Campaign brief"
               className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-sm text-gray-100 placeholder-gray-500 outline-none transition-colors resize-none"
             />
           </Field>
@@ -221,7 +221,7 @@ export default function BrandSignupPage() {
               <select
                 value={form.budget_range}
                 onChange={e => set('budget_range', e.target.value)}
-                className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-sm text-gray-100 outline-none transition-colors"
+                className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 pr-10 text-sm text-gray-100 outline-none transition-colors"
               >
                 <option value="">Select a range…</option>
                 {BUDGET_RANGES.map(b => <option key={b} value={b}>{b}</option>)}
@@ -231,7 +231,7 @@ export default function BrandSignupPage() {
               <select
                 value={form.timeline}
                 onChange={e => set('timeline', e.target.value)}
-                className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-sm text-gray-100 outline-none transition-colors"
+                className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 pr-10 text-sm text-gray-100 outline-none transition-colors"
               >
                 <option value="">Select a timeline…</option>
                 {TIMELINES.map(t => <option key={t} value={t}>{t}</option>)}
@@ -252,7 +252,7 @@ export default function BrandSignupPage() {
           </button>
 
           <p className="text-xs text-center text-gray-500">
-            We review every submission personally. You&apos;ll hear from us within 24 hours.
+            We review every submission personally. You&apos;ll hear from us within 5 minutes.
           </p>
 
         </form>

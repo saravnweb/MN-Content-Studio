@@ -39,7 +39,7 @@ export default function CityAutocomplete({
 
     const filtered = CITIES.filter(city =>
       city.toLowerCase().includes(query.toLowerCase())
-    ).slice(0, 8)
+    ).slice(0, 15)
     setFilteredCities(filtered)
   }, [query])
 

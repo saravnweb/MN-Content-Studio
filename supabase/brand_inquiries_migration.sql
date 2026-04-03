@@ -1,7 +1,6 @@
 -- ============================================================
--- Brand Inquiries — public form submissions from brands
--- Run in Supabase SQL Editor
--- ============================================================
+-- Ensure pgcrypto is enabled for gen_random_uuid()
+create extension if not exists pgcrypto;
 
 create table if not exists public.brand_inquiries (
   id           uuid default gen_random_uuid() primary key,

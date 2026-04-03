@@ -2,7 +2,7 @@ import React from 'react'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import AdminCharts from './AdminCharts'
-import { User, Megaphone, Clock, ClipboardList, CheckCircle, Banknote, ChevronRight } from 'lucide-react'
+import { User, Megaphone, Clock, ClipboardList, CheckCircle, Banknote, ChevronRight, MessageSquare } from 'lucide-react'
 
 export default async function AdminDashboard() {
   const supabase = createClient()
@@ -15,6 +15,7 @@ export default async function AdminDashboard() {
     { count: approvedContent },
     { count: submissionsNeedingReview },
     { count: pendingPayouts },
+    { count: newInquiries },
   ] = await Promise.all([
     supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'creator'),
     supabase.from('campaigns').select('*', { count: 'exact', head: true }).eq('status', 'active'),
@@ -23,6 +24,7 @@ export default async function AdminDashboard() {
     supabase.from('applications').select('*', { count: 'exact', head: true }).eq('submission_status', 'approved'),
     supabase.from('applications').select('*', { count: 'exact', head: true }).eq('submission_status', 'submitted'),
     supabase.from('applications').select('*', { count: 'exact', head: true }).eq('status', 'accepted').eq('submission_status', 'approved').in('payout_status', ['unpaid', 'processing']),
+    supabase.from('brand_inquiries').select('*', { count: 'exact', head: true }).eq('status', 'new'),
   ])
 
   // Revenue: sum all paid payouts
@@ -73,6 +75,7 @@ export default async function AdminDashboard() {
 
   const attentionItems = [
     { count: pendingApplications ?? 0, label: 'Pending Applications', href: '/admin/applications', color: 'text-yellow-400', border: 'border-yellow-500/20', bg: 'bg-yellow-500/5' },
+    { count: newInquiries ?? 0, label: 'New Brand Leads', href: '/admin/inquiries', color: 'text-indigo-400', border: 'border-indigo-500/20', bg: 'bg-indigo-500/5' },
     { count: submissionsNeedingReview ?? 0, label: 'Awaiting Content Review', href: '/admin/submissions', color: 'text-yellow-400', border: 'border-yellow-500/20', bg: 'bg-yellow-500/5' },
     { count: pendingPayouts ?? 0, label: 'Payouts Due', href: '/admin/payouts', color: 'text-red-400', border: 'border-red-500/20', bg: 'bg-red-500/5' },
   ].filter((item) => item.count > 0)
@@ -109,6 +112,7 @@ export default async function AdminDashboard() {
         <StatCard label="Active Campaigns" value={activeCampaigns ?? 0} sub="live now" color="text-green-400" icon={<Megaphone className="w-6 h-6" />} />
         <StatCard label="Pending Review" value={pendingApplications ?? 0} sub="applications" color="text-yellow-400" icon={<Clock className="w-6 h-6" />} />
         <StatCard label="Total Applications" value={totalApplications ?? 0} sub="all time" color="text-gray-400" icon={<ClipboardList className="w-6 h-6" />} />
+        <StatCard label="Brand Leads" value={newInquiries ?? 0} sub="new inquiries" color="text-indigo-400" icon={<MessageSquare className="w-6 h-6" />} />
         <StatCard label="Content Approved" value={approvedContent ?? 0} sub="deliverables" color="text-green-400" icon={<CheckCircle className="w-6 h-6" />} />
         <StatCard
           label="Total Paid Out"

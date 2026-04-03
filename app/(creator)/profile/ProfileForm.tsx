@@ -271,7 +271,7 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
               })}
             </div>
             <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>
-              To add more niches, please contact admin.
+              Admin can add two or more niches to your profile. Please contact admin for that.
             </p>
           </div>
         ) : needsNicheUpdate ? (
@@ -322,7 +322,8 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
               ))}
             </div>
             <p className="text-xs" style={{ color: '#D97706' }}>
-              Choose one niche — this cannot be changed once saved.
+              Choose one niche — this cannot be changed once saved.<br/>
+              Admin can add two or more niches to your profile. Please contact admin for that.
             </p>
           </div>
         )}

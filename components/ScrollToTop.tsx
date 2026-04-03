@@ -2,10 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import { ChevronUp } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
-export default function ScrollToTop() {
+interface ScrollToTopProps {
+  isGuest?: boolean
+}
+
+export default function ScrollToTop({ isGuest = false }: ScrollToTopProps) {
   const [isVisible, setIsVisible] = useState(false)
-
+  const pathname = usePathname()
   useEffect(() => {
     const toggleVisibility = () => {
       // Show button when page is scrolled more than 300px
@@ -25,6 +30,11 @@ export default function ScrollToTop() {
       top: 0,
       behavior: 'smooth',
     })
+  }
+
+  // Don't show on homescreen for guest users
+  if (isGuest && pathname === '/') {
+    return null
   }
 
   return (

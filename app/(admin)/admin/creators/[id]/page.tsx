@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { createAdminClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import AdminNicheEditor from './AdminNicheEditor'
+import FeatureToggleButton from './FeatureToggleButton'
 import { 
   User, 
   Calendar, 
@@ -29,7 +30,7 @@ export default async function CreatorDetailPage({ params }: { params: { id: stri
 
   const { data: applications } = await supabase
     .from('applications')
-    .select('id, status, created_at, campaign:campaigns(id, title, brand_name)')
+    .select('id, status, created_at, submission_url, submission_status, is_homepage_featured, campaign:campaigns(id, title, brand_name)')
     .eq('creator_id', params.id)
     .order('created_at', { ascending: false })
 
@@ -210,17 +211,25 @@ export default async function CreatorDetailPage({ params }: { params: { id: stri
         ) : (
           <div className="space-y-2">
             {applications.map((app: any) => (
-              <Link key={app.id} href={`/admin/campaigns/${app.campaign?.id}`}
-                className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-xl p-4 hover:border-gray-700 transition-colors">
-                <div>
-                  <p className="text-white text-base font-medium">{app.campaign?.title}</p>
-                  <p className="text-gray-400 text-sm mt-0.5">{app.campaign?.brand_name}</p>
-                </div>
-                <div className="flex items-center gap-3 shrink-0">
-                  <StatusBadge status={app.status} />
-                  <p className="text-gray-400 text-sm">{new Date(app.created_at).toLocaleDateString('en-IN')}</p>
-                </div>
-              </Link>
+              <div key={app.id} className="flex items-center gap-2 bg-gray-900 border border-gray-800 rounded-xl p-4 hover:border-gray-700 transition-colors">
+                <Link href={`/admin/campaigns/${app.campaign?.id}`} className="flex flex-1 items-center justify-between min-w-0 gap-3">
+                  <div className="min-w-0">
+                    <p className="text-white text-base font-medium truncate">{app.campaign?.title}</p>
+                    <p className="text-gray-400 text-sm mt-0.5">{app.campaign?.brand_name}</p>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <StatusBadge status={app.status} />
+                    <p className="text-gray-400 text-sm">{new Date(app.created_at).toLocaleDateString('en-IN')}</p>
+                  </div>
+                </Link>
+                {/* Feature on homepage — only for approved submissions with a URL */}
+                {app.submission_status === 'approved' && app.submission_url && (
+                  <FeatureToggleButton
+                    applicationId={app.id}
+                    isFeatured={!!app.is_homepage_featured}
+                  />
+                )}
+              </div>
             ))}
           </div>
         )}

@@ -3,6 +3,7 @@ import { Outfit, Bricolage_Grotesque } from 'next/font/google'
 import './globals.css'
 import ScrollToTop from '@/components/ScrollToTop'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import { createClient } from '@/lib/supabase/server'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -65,11 +66,14 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const supabase = createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
   return (
     <html lang="en" className={`${outfit.variable} ${bricolage.variable}`} suppressHydrationWarning>
       {/* Inline script runs before paint to prevent flash of wrong theme */}
@@ -83,7 +87,7 @@ export default function RootLayout({
       <body className="min-h-screen antialiased bg-gray-950 text-gray-100 font-body">
         <ThemeProvider>
           {children}
-          <ScrollToTop />
+          <ScrollToTop isGuest={!user} />
         </ThemeProvider>
       </body>
     </html>
