@@ -71,13 +71,13 @@ export default function SubmissionsPage() {
           <button key={tab.key} onClick={() => setActiveTab(tab.key)}
             className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
               activeTab === tab.key
-                ? 'bg-indigo-600/20 text-indigo-400 border border-indigo-500/30'
+                ? 'bg-gray-800 text-gray-100 border border-gray-700'
                 : 'bg-gray-900 text-gray-400 border border-gray-800 hover:text-gray-300'
             }`}>
             {tab.label}
             {counts[tab.key] > 0 && (
               <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                activeTab === tab.key ? 'bg-indigo-600/30 text-indigo-300' : 'bg-gray-700 text-gray-400'
+                activeTab === tab.key ? 'bg-gray-700 text-gray-100' : 'bg-gray-700 text-gray-400'
               }`}>
                 {counts[tab.key]}
               </span>
@@ -105,7 +105,7 @@ export default function SubmissionsPage() {
               <div key={s.id} className="bg-gray-900 border border-gray-800 rounded-xl p-4 sm:p-5">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 mb-4">
                   <div className="flex-1 min-w-0">
-                    <p className="text-white font-medium text-sm truncate">{s.creator?.full_name ?? '—'}</p>
+                    <p className="text-gray-100 font-medium text-sm truncate">{s.creator?.full_name ?? '—'}</p>
                     <p className="text-meta mt-0.5 capitalize">
                       {s.creator?.platform}
                       {s.creator?.followers_count ? ` · ${s.creator.followers_count.toLocaleString('en-IN')} followers` : ''}

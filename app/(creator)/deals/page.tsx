@@ -106,7 +106,7 @@ export default async function DealsPage({ searchParams }: { searchParams: Search
   return (
     <div className="bg-gray-950 min-h-screen">
       <div className="pt-8 pb-6 text-center text-gray-50 px-5">
-        <div className="text-page-subtitle inline-block px-3 py-1 rounded-full mb-4 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+        <div className="text-page-subtitle inline-block px-3 py-1 rounded-full mb-4 bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/20">
           Curated Just for You
         </div>
         <h1 className="heading-page">

@@ -4,6 +4,7 @@ import './globals.css'
 import ScrollToTop from '@/components/ScrollToTop'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { createClient } from '@/lib/supabase/server'
+import { AxeCore } from '@/components/AxeCore'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -31,9 +32,12 @@ export const metadata: Metadata = {
       { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
     ],
   },
+  other: {
+    'mobile-web-app-capable': 'yes',
+  },
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'black-translucent', // allows content behind status bar (required for viewportFit: cover)
+    statusBarStyle: 'black-translucent',
     title: 'MW Content Studio',
   },
   openGraph: {
@@ -89,6 +93,7 @@ export default async function RootLayout({
       </head>
       <body className="min-h-screen antialiased bg-gray-950 text-gray-100 font-body overflow-x-hidden">
         <ThemeProvider>
+          {process.env.NODE_ENV === 'development' && <AxeCore />}
           {children}
           <ScrollToTop isGuest={!user} />
         </ThemeProvider>

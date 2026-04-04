@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { Camera, X, Link2 } from 'lucide-react'
+import { Camera } from 'lucide-react'
 import BrandLogo from './BrandLogo'
 
 export default function Footer() {
@@ -17,9 +17,7 @@ export default function Footer() {
               India&apos;s creator-to-brand fulfillment network. Real orders, real brands.
             </p>
             <div className="flex gap-4">
-              <SocialLink href="#" label="Instagram" icon={<Camera className="w-4 h-4" />} />
-              <SocialLink href="#" label="X (Twitter)" icon={<X className="w-4 h-4" />} />
-              <SocialLink href="#" label="LinkedIn" icon={<Link2 className="w-4 h-4" />} />
+              <SocialLink href="https://www.instagram.com/mw_content_studio_?igsh=MWU4N2gyb2VmaGVzNw%3D%3D" label="Instagram" icon={<Camera className="w-4 h-4" />} />
               <SocialLink
                 href="https://wa.me/918428601947"
                 label="WhatsApp"

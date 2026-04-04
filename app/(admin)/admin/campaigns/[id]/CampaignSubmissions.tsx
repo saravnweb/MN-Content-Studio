@@ -54,14 +54,14 @@ export default function CampaignSubmissions({
             onClick={() => setActiveTab(tab.key)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
               activeTab === tab.key
-                ? 'bg-indigo-600/20 text-indigo-400 border border-indigo-500/30'
+                ? 'bg-gray-800 text-gray-100 border border-gray-700'
                 : 'text-gray-400 hover:text-gray-300 hover:bg-gray-800'
             }`}
           >
             {tab.label}
             {counts[tab.key] > 0 && (
               <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                activeTab === tab.key ? 'bg-indigo-600/30 text-indigo-300' : 'bg-gray-700 text-gray-400'
+                activeTab === tab.key ? 'bg-gray-700 text-gray-100' : 'bg-gray-700 text-gray-400'
               }`}>
                 {counts[tab.key]}
               </span>
@@ -80,7 +80,7 @@ export default function CampaignSubmissions({
             <div key={app.id} className="bg-gray-900 border border-gray-800 rounded-xl p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-white font-medium text-sm">{app.creator?.full_name ?? '—'}</p>
+                  <p className="text-gray-100 font-medium text-sm">{app.creator?.full_name ?? '—'}</p>
                   <p className="text-gray-400 text-xs mt-0.5 capitalize">
                     {app.creator?.platform}
                     {app.creator?.followers_count

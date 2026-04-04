@@ -44,7 +44,7 @@ export default function AdminNicheEditor({ creatorId, initialNiches }: { creator
           <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Expertise</p>
           <button
             onClick={() => setEditing(true)}
-            className="flex items-center gap-1 text-[10px] font-bold bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded-md transition-all"
+            className="flex items-center gap-1 text-[10px] font-bold bg-gray-800 hover:bg-gray-700 text-gray-100 px-2 py-1 rounded-md transition-all"
           >
             <Pencil className="w-2.5 h-2.5" />
             {saved ? 'Saved' : 'Edit'}
@@ -53,7 +53,7 @@ export default function AdminNicheEditor({ creatorId, initialNiches }: { creator
         {niches.length > 0 ? (
           <div className="flex gap-2 flex-wrap">
             {niches.map((n) => (
-              <span key={n} className="text-[10px] font-bold bg-indigo-500/10 text-indigo-300 px-3 py-1.5 rounded-lg capitalize border border-indigo-500/10 shadow-sm transition-all hover:bg-indigo-500/20 active:scale-95 cursor-default">
+              <span key={n} className="text-[10px] font-bold bg-gray-800 text-gray-100 px-3 py-1.5 rounded-lg capitalize border border-gray-700 shadow-sm transition-all hover:bg-gray-700 active:scale-95 cursor-default">
                 {n}
               </span>
             ))}
@@ -74,7 +74,7 @@ export default function AdminNicheEditor({ creatorId, initialNiches }: { creator
         <div className="flex items-center gap-2">
           <button
             onClick={() => { setNiches(initialNiches); setEditing(false); setError('') }}
-            className="text-[10px] font-bold text-gray-400 hover:text-white transition-colors"
+            className="text-[10px] font-bold text-gray-400 hover:text-gray-100 transition-colors"
           >
             Cancel
           </button>
@@ -96,7 +96,7 @@ export default function AdminNicheEditor({ creatorId, initialNiches }: { creator
             onClick={() => toggleNiche(n)}
             className={`text-xs px-2.5 py-1 rounded-full capitalize border transition-all ${
               niches.includes(n)
-                ? 'bg-indigo-600/20 border-indigo-500/50 text-indigo-300'
+                ? 'bg-gray-800 border-gray-700 text-gray-100 shadow-sm'
                 : 'bg-gray-800/40 border-gray-700 text-gray-400 hover:text-gray-300 hover:border-gray-600'
             }`}
           >

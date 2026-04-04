@@ -25,7 +25,7 @@ export default function CreatorBottomNav({ isGuest = false }: { isGuest?: boolea
   }
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-40 bg-gray-950/80 backdrop-blur-md border-t border-gray-800 pb-safe">
+    <nav aria-label="Mobile navigation" className="fixed bottom-0 inset-x-0 z-40 bg-gray-950/80 backdrop-blur-md border-t border-gray-800 pb-safe">
       <div className="max-w-lg mx-auto flex">
         {NAV.map(({ href, label, icon: Icon }) => {
           const isDeals = href === '/deals'

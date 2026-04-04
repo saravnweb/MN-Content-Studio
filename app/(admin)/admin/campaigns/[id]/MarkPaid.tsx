@@ -111,17 +111,18 @@ export default function MarkPaid({
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder={budgetMin ? String(budgetMin) : '0'}
-            className="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500 transition-colors"
+            className="w-full bg-gray-900 border border-gray-700 text-gray-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500 transition-colors"
           />
         </div>
 
         {/* Status */}
         <div>
-          <label className="text-[10px] text-gray-400 uppercase tracking-wide mb-1 block">Status</label>
+          <label htmlFor="payout-status" className="text-[10px] text-gray-400 uppercase tracking-wide mb-1 block">Status</label>
           <select
+            id="payout-status"
             value={status}
             onChange={(e) => setStatus(e.target.value as 'unpaid' | 'processing' | 'paid')}
-            className="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500 transition-colors"
+            className="w-full bg-gray-900 border border-gray-700 text-gray-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500 transition-colors"
           >
             <option value="processing">Processing</option>
             <option value="paid">Paid ✓</option>
@@ -138,7 +139,7 @@ export default function MarkPaid({
           value={ref}
           onChange={(e) => setRef(e.target.value)}
           placeholder="e.g. HDFC0012345678"
-          className="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500 transition-colors font-mono"
+          className="w-full bg-gray-900 border border-gray-700 text-gray-100 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500 transition-colors font-mono"
         />
       </div>
 
@@ -156,7 +157,7 @@ export default function MarkPaid({
         <button
           onClick={save}
           disabled={isPending}
-          className="flex-1 bg-white hover:bg-gray-100 disabled:opacity-50 text-gray-950 text-xs font-semibold py-2 rounded-lg transition-colors"
+          className="flex-1 bg-gray-100 hover:bg-gray-100 disabled:opacity-50 text-gray-900 text-xs font-semibold py-2 rounded-lg transition-colors"
         >
           {isPending ? 'Saving…' : 'Save Payout'}
         </button>

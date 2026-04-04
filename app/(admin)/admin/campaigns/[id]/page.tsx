@@ -28,7 +28,7 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
 
       <div className="flex items-start justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-white">{campaign.title}</h2>
+          <h2 className="text-2xl font-bold text-gray-100">{campaign.title}</h2>
           <p className="text-gray-400 text-sm mt-1">{campaign.brand_name}</p>
         </div>
         <StatusPill status={campaign.status} />

@@ -44,13 +44,13 @@ export default function AdminSidebar({
         <p className="text-gray-400 text-sm mt-0.5">Admin Control</p>
       </div>
 
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav aria-label="Admin navigation" className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         {NAV.map(({ href, label, icon: Icon }) => {
           const active = href === '/admin' ? pathname === '/admin' : pathname.startsWith(href)
           return (
             <Link key={href} href={href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                active ? 'bg-gray-800 text-white border-l-2 border-white pl-[10px]' : 'text-gray-500 hover:text-gray-100 hover:bg-gray-800'
+                active ? 'bg-gray-800 text-gray-100 border-l-2 border-gray-100 pl-[10px]' : 'text-gray-500 hover:text-gray-100 hover:bg-gray-800'
               }`}>
               <Icon className="w-4 h-4 shrink-0" />
               {label}

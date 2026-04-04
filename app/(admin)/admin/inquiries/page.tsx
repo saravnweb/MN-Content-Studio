@@ -87,7 +87,7 @@ export default function BrandInquiriesPage() {
   return (
     <div className="max-w-4xl">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-white">Brand Leads</h2>
+        <h2 className="text-2xl font-bold text-gray-100">Brand Leads</h2>
         <p className="text-gray-400 text-sm mt-1">Inquiries submitted via the &quot;For Brands&quot; signup page</p>
       </div>
 
@@ -133,7 +133,7 @@ function InquiryCard({
       <div className="p-5 flex items-start justify-between cursor-pointer group" onClick={onToggle}>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 mb-1">
-            <h3 className="text-white font-bold text-lg leading-none">{inquiry.company_name}</h3>
+            <h3 className="text-gray-100 font-bold text-lg leading-none">{inquiry.company_name}</h3>
             <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full ${statusConfig.color}`}>
               {statusConfig.label}
             </span>

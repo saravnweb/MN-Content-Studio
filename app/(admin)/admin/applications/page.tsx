@@ -53,7 +53,7 @@ export default function ApplicationsPage() {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-white">Applications Queue</h2>
+        <h2 className="text-2xl font-bold text-gray-100">Applications Queue</h2>
         <p className="text-gray-400 text-sm mt-1">{counts.pending} pending · {counts.all} total · Open a campaign to manage</p>
       </div>
 
@@ -64,14 +64,14 @@ export default function ApplicationsPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by creator or campaign…"
-          className="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+          className="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
         />
         <div className="flex gap-1.5 flex-wrap">
           {STATUS_FILTERS.map((f) => (
             <button key={f} onClick={() => setStatusFilter(f)}
               className={`flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-medium capitalize transition-colors ${
                 statusFilter === f
-                  ? 'bg-indigo-600/20 text-indigo-400 border border-indigo-500/30'
+                  ? 'bg-gray-800 text-gray-100 border border-gray-700'
                   : 'bg-gray-900 text-gray-400 border border-gray-800 hover:text-gray-300'
               }`}>
               {f}
@@ -95,7 +95,7 @@ export default function ApplicationsPage() {
             <Link key={app.id} href={`/admin/campaigns/${app.campaign?.id}`}
               className="flex items-center justify-between px-5 py-4 hover:bg-gray-800/50 transition-colors">
               <div>
-                <p className="text-white text-sm font-medium">{app.creator?.full_name ?? '—'}</p>
+                <p className="text-gray-100 text-sm font-medium">{app.creator?.full_name ?? '—'}</p>
                 <p className="text-gray-400 text-xs mt-0.5">
                   {app.campaign?.brand_name} · {app.campaign?.title}
                   {app.creator?.platform ? ` · ${app.creator.platform}` : ''}

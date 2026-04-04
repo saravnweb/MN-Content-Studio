@@ -86,7 +86,7 @@ export default function RoleSelector() {
         <Link href="/brands/signup" className="flex flex-col items-center w-full active:scale-[0.98] transition-transform">
           {/* Icon — decorative */}
           <div className="w-12 h-12 rounded-2xl mb-2 flex items-center justify-center bg-gradient-to-br from-pink-500 to-rose-600 shadow-lg shadow-pink-600/40 group-hover:shadow-pink-600/60 group-hover:scale-105 transition-all duration-300" aria-hidden="true">
-            <Building2 className="w-6 h-6 text-white" strokeWidth={1.8} />
+            <Building2 className="w-6 h-6 text-gray-100" strokeWidth={1.8} />
           </div>
 
           <p className="font-bold text-gray-100 text-base mb-0.5 sm:mb-1">I&apos;m a Brand</p>

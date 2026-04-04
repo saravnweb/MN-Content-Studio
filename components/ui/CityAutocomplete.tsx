@@ -99,7 +99,7 @@ export default function CityAutocomplete({
               key={city}
               type="button"
               onClick={() => handleSelect(city)}
-              className="w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-indigo-600/10 hover:text-indigo-400 flex items-center justify-between transition-colors group"
+              className="w-full text-left px-4 py-3 text-sm text-white hover:bg-indigo-600/10 hover:text-indigo-400 flex items-center justify-between transition-colors group"
             >
               <span>{city}</span>
               {value === city && <Check size={14} className="text-emerald-500" />}

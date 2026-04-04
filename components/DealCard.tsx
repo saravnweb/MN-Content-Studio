@@ -73,7 +73,7 @@ export default function DealCard({
         {c.niches?.slice(0, 4).map((n) => (
           <span
             key={n}
-            className="text-badge px-2.5 py-0.5 rounded-full capitalize bg-indigo-500/10 text-indigo-400"
+            className="text-badge px-2.5 py-0.5 rounded-full capitalize bg-indigo-500/10 text-indigo-700 dark:text-indigo-400"
           >
             {n}
           </span>

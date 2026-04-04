@@ -48,7 +48,7 @@ export default function CampaignPayouts({
           <div key={app.id} className="bg-gray-900 border border-gray-800 rounded-xl p-5">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-white font-medium text-sm">{app.creator?.full_name ?? '—'}</p>
+                <p className="text-gray-100 font-medium text-sm">{app.creator?.full_name ?? '—'}</p>
                 <p className="text-gray-400 text-xs mt-0.5 capitalize">
                   {app.creator?.platform}
                   {app.creator?.followers_count
@@ -58,7 +58,7 @@ export default function CampaignPayouts({
               </div>
               <Link
                 href={`/admin/creators/${app.creator_id}`}
-                className="inline-flex items-center gap-1 text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg transition-colors shrink-0"
+                className="inline-flex items-center gap-1 text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-gray-100 px-3 py-1.5 rounded-lg transition-colors shrink-0"
               >
                 View Profile <ChevronRight className="w-3.5 h-3.5" />
               </Link>

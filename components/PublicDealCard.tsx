@@ -60,7 +60,7 @@ export default function PublicDealCard({
       {/* Niche tags */}
       <div className="flex flex-wrap gap-1.5 mb-2">
         {c.niches?.slice(0, 4).map((n: string) => (
-          <span key={n} className="text-badge px-2.5 py-0.5 rounded-full capitalize bg-indigo-500/10 text-indigo-400">{n}</span>
+          <span key={n} className="text-badge px-2.5 py-0.5 rounded-full capitalize bg-indigo-500/10 text-indigo-700 dark:text-indigo-400">{n}</span>
         ))}
       </div>
 

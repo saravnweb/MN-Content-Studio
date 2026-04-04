@@ -226,7 +226,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-2xl font-bold text-white">{isEdit ? 'Edit Campaign' : 'New Campaign'}</h2>
+          <h2 className="text-2xl font-bold text-gray-100">{isEdit ? 'Edit Campaign' : 'New Campaign'}</h2>
           <p className="text-gray-400 text-sm mt-1">{isEdit ? 'Update campaign details' : 'Post a brand deal for creators'}</p>
         </div>
         {isEdit && (
@@ -239,7 +239,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
         {/* ── BRAND ── */}
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-white">Brand</h3>
+            <h3 className="text-sm font-semibold text-gray-100">Brand</h3>
             <button type="button" onClick={() => { setShowAddBrand(true); setBrandError('') }}
               className="text-xs text-indigo-400 hover:text-indigo-300 font-medium">
               + New Brand
@@ -265,7 +265,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                   }`}>
                   <BrandAvatar brand={b} size="sm" />
                   <div className="min-w-0">
-                    <p className="text-white text-xs font-medium truncate">{b.name}</p>
+                    <p className="text-gray-100 text-xs font-medium truncate">{b.name}</p>
                     {b.tagline && <p className="text-gray-400 text-[10px] truncate">{b.tagline}</p>}
                   </div>
                   {selectedBrand?.id === b.id && (
@@ -279,7 +279,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
 
         {/* ── CAMPAIGN DETAILS ── */}
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-4">
-          <h3 className="text-sm font-semibold text-white">Campaign Details</h3>
+          <h3 className="text-sm font-semibold text-gray-100">Campaign Details</h3>
           <Field label="Campaign Title *">
             <input required value={title} onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Whey Protein Summer Campaign" className={inputCls} />
@@ -310,7 +310,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
               )}
               {bannerPreview && (
                 <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity">
-                  <p className="text-white text-sm font-medium">Change Image</p>
+                  <p className="text-gray-100 text-sm font-medium">Change Image</p>
                 </div>
               )}
             </div>
@@ -320,7 +320,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
 
         {/* ── BUDGET & TARGETING ── */}
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-4">
-          <h3 className="text-sm font-semibold text-white">Budget &amp; Targeting</h3>
+          <h3 className="text-sm font-semibold text-gray-100">Budget &amp; Targeting</h3>
           <Field label="Budget Range (INR)">
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
@@ -344,7 +344,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                   className={`px-3 py-1.5 rounded-full text-sm transition-all font-medium ${
                     selectedNiches.includes(n)
                       ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/30'
-                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white'
+                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-gray-100'
                   }`}>
                   {n}
                 </button>
@@ -380,7 +380,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                   className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm capitalize font-medium transition-all ${
                     selectedPlatforms.includes(p)
                       ? 'bg-indigo-600 text-white ring-1 ring-indigo-400/30'
-                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white'
+                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-gray-100'
                   }`}>
                   <span>{PLATFORM_ICONS[p]}</span>
                   {p}
@@ -392,7 +392,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
 
         {/* ── SCHEDULING & VISIBILITY ── */}
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-4">
-          <h3 className="text-sm font-semibold text-white">Scheduling &amp; Visibility</h3>
+          <h3 className="text-sm font-semibold text-gray-100">Scheduling &amp; Visibility</h3>
 
           <div className="grid grid-cols-2 gap-4">
             <Field label="Application Deadline">
@@ -414,7 +414,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                   className="w-4 h-4 rounded border-gray-600 bg-gray-700 accent-indigo-600 mt-0.5 shrink-0"
                 />
                 <div>
-                  <p className="text-white text-sm font-medium">Public</p>
+                  <p className="text-gray-100 text-sm font-medium">Public</p>
                   <p className="text-xs text-gray-400 mt-0.5">Visible to everyone — logged-in creators and browsers</p>
                 </div>
               </label>
@@ -428,7 +428,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                     className="w-4 h-4 rounded border-gray-600 bg-gray-700 accent-indigo-600 mt-0.5 shrink-0"
                   />
                   <div className="flex-1">
-                    <p className="text-white text-sm font-medium flex items-center gap-2">
+                    <p className="text-gray-100 text-sm font-medium flex items-center gap-2">
                       All Creators
                       <span className="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full">Recommended</span>
                     </p>
@@ -469,7 +469,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                             className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs transition-all font-medium ${
                               active
                                 ? 'bg-indigo-600 text-white'
-                                : 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white'
+                                : 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-gray-100'
                             }`}>
                             {n}
                             {cnt > 0 && (
@@ -504,7 +504,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                           )
                         })}
                         <div className="border-t border-gray-700 pt-1.5 flex items-center justify-between">
-                          <span className="text-xs text-white font-semibold">Total unique reach</span>
+                          <span className="text-xs text-gray-100 font-semibold">Total unique reach</span>
                           <span className="text-sm text-emerald-400 font-bold tabular-nums">
                             {countMatchingCreators(effectiveTargetNiches)} creators
                           </span>
@@ -527,7 +527,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
                   className="w-4 h-4 rounded border-gray-600 bg-gray-700 accent-indigo-600 mt-0.5 shrink-0"
                 />
                 <div className="flex-1">
-                  <p className="text-white text-sm font-medium">Selected Creators Only</p>
+                  <p className="text-gray-100 text-sm font-medium">Selected Creators Only</p>
                   <p className="text-xs text-gray-400 mt-0.5">Hand-pick specific creators. Use for exclusive collabs.</p>
                   {visibility === 'selected_creators' && (
                     <div className="mt-3 space-y-2">
@@ -604,7 +604,7 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
           <div className="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-sm p-6 space-y-5 shadow-2xl">
             <div className="flex items-center justify-between">
-              <h3 className="text-white font-semibold">Add New Brand</h3>
+              <h3 className="text-gray-100 font-semibold">Add New Brand</h3>
               <button type="button" onClick={() => setShowAddBrand(false)}
                 className="text-gray-400 hover:text-gray-300 w-8 h-8 rounded-full hover:bg-gray-800 flex items-center justify-center transition-colors">
                 ✕
@@ -685,7 +685,7 @@ function BrandAvatar({ brand, size }: { brand: Brand; size: 'sm' | 'md' }) {
   return <div className={`${cls} bg-indigo-900 text-indigo-300 font-bold flex items-center justify-center shrink-0`}>{initials}</div>
 }
 
-const inputCls = 'w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20 transition-colors'
+const inputCls = 'w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-gray-100 placeholder-gray-600 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20 transition-colors'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (

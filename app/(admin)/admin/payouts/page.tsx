@@ -43,7 +43,7 @@ export default function PayoutsPage() {
   return (
     <div className="max-w-2xl pb-28">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-100">Payouts</h2>
+        <h1 className="text-2xl font-bold text-gray-100">Payouts</h1>
         <p className="text-gray-400 text-sm mt-1">Track creator earnings for approved content</p>
       </div>
 
@@ -62,7 +62,7 @@ export default function PayoutsPage() {
             <button key={f} onClick={() => setStatusFilter(f)}
               className={`flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-medium capitalize transition-colors ${
                 statusFilter === f
-                  ? 'bg-indigo-600/20 text-indigo-400 border border-indigo-500/30'
+                  ? 'bg-gray-800 text-gray-100 border border-gray-700'
                   : 'bg-gray-900 text-gray-400 border border-gray-800 hover:text-gray-300'
               }`}>
               {f}
@@ -155,11 +155,11 @@ export default function PayoutsPage() {
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-950 border border-gray-700 rounded-2xl px-6 py-3.5 flex items-center gap-8 shadow-2xl z-10">
           <div>
             <p className="text-gray-400 text-[10px] uppercase tracking-wider font-medium">Total Payout Pending</p>
-            <p className="text-white text-xl font-bold">{fmt(totalPending)}</p>
+            <p className="text-gray-100 text-xl font-bold">{fmt(totalPending)}</p>
           </div>
           <div className="text-right">
             <p className="text-gray-400 text-[10px] uppercase tracking-wider font-medium">Requests</p>
-            <p className="text-white text-xl font-bold flex items-center gap-1.5">
+            <p className="text-gray-100 text-xl font-bold flex items-center gap-1.5">
               {awaiting.length}
               <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
             </p>

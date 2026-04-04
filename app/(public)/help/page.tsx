@@ -6,7 +6,7 @@ import WhatsAppCTA from '@/components/WhatsAppCTA'
 
 export default function HelpPage() {
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-gray-950 text-white selection:bg-indigo-500/30">
       <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur border-b border-gray-800 px-4 py-3 flex items-center justify-between">
         <Link href="/" className="font-bold text-base tracking-tight text-gray-100">MW Content Studio</Link>
         <Link href="/" className="text-sm text-gray-400 hover:text-gray-100 transition-colors">Back to Home</Link>

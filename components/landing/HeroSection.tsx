@@ -30,7 +30,7 @@ export default function HeroSection({ isLoggedIn = false }: { isLoggedIn?: boole
       <div className="max-w-xl mx-auto relative">
         {/* Eyebrow */}
         <div className="flex justify-center mb-5">
-          <span className="inline-block text-xs font-medium px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+          <span className="inline-block text-xs font-medium px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/20">
             India&apos;s Influencer Marketplace
           </span>
         </div>

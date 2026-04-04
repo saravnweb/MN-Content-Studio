@@ -83,7 +83,7 @@ export default async function AdminDashboard() {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-100">Dashboard</h2>
+        <h1 className="text-2xl font-bold text-gray-100">Dashboard</h1>
         <p className="text-gray-400 text-sm mt-1">Platform overview</p>
       </div>
 
@@ -145,7 +145,7 @@ export default async function AdminDashboard() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-gray-100 font-semibold">Recent Applications</h3>
-          <Link href="/admin/applications" className="text-gray-400 hover:text-white text-sm hover:underline transition-colors">View all</Link>
+          <Link href="/admin/applications" className="text-gray-400 hover:text-gray-100 text-sm hover:underline transition-colors">View all</Link>
         </div>
         {!recentApps?.length ? (
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center">

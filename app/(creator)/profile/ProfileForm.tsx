@@ -153,7 +153,7 @@ export default function ProfileForm({ profile, userId }: { profile: Profile; use
           </div>
           <div className="flex-1">
             <Field label={<Required>Gender</Required>}>
-              <select value={gender} onChange={(e) => setGender(e.target.value)} className={inp}>
+              <select aria-label="Gender" value={gender} onChange={(e) => setGender(e.target.value)} className={inp}>
                 <option value="">Select…</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>

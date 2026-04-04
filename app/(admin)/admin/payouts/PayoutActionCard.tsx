@@ -99,7 +99,7 @@ export default function PayoutActionCard({
           value={utr}
           onChange={(e) => { setUtr(e.target.value); setError('') }}
           placeholder="UTR / Trans. ID"
-          className="flex-1 bg-gray-800 border border-gray-700 text-white text-sm rounded-lg px-3 py-2 placeholder-gray-600 focus:outline-none focus:border-indigo-500 transition-colors font-mono"
+          className="flex-1 bg-gray-800 border border-gray-700 text-gray-100 text-sm rounded-lg px-3 py-2 placeholder-gray-600 focus:outline-none focus:border-indigo-500 transition-colors font-mono"
         />
         <button
           onClick={markPaid}

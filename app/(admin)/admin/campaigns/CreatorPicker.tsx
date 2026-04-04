@@ -61,7 +61,7 @@ export default function CreatorPicker({ selectedIds, onChange, isOpen, onClose }
       <div className="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-lg max-h-[70vh] flex flex-col shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <h3 className="text-white font-semibold">Select Creators</h3>
+          <h3 className="text-gray-100 font-semibold">Select Creators</h3>
           <button
             type="button"
             onClick={onClose}
@@ -79,7 +79,7 @@ export default function CreatorPicker({ selectedIds, onChange, isOpen, onClose }
               placeholder="Search by name or username…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-gray-800 border border-gray-700 text-white text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
         </div>
@@ -115,12 +115,12 @@ export default function CreatorPicker({ selectedIds, onChange, isOpen, onClose }
                         ? 'bg-indigo-600 border-indigo-600'
                         : 'border-gray-600 bg-transparent'
                     }`}>
-                    {selectedIds.includes(creator.id) && <Check className="w-3 h-3 text-white" />}
+                    {selectedIds.includes(creator.id) && <Check className="w-3 h-3 text-gray-100" />}
                   </div>
 
                   {/* Avatar & info */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-white text-sm font-medium truncate">{creator.full_name || 'Unnamed'}</p>
+                    <p className="text-gray-100 text-sm font-medium truncate">{creator.full_name || 'Unnamed'}</p>
                     <p className="text-gray-400 text-xs truncate">
                       {creator.username ? `@${creator.username}` : 'No username'}
                       {creator.followers_count && ` · ${creator.followers_count.toLocaleString()} followers`}

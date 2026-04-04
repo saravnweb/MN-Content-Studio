@@ -129,7 +129,7 @@ export default function ShowcaseManager({ initialVideos }: { initialVideos: Show
       {/* ── Add form ── */}
       <form onSubmit={handleAdd} className="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-white font-semibold">Add New Video</h2>
+          <h2 className="text-gray-100 font-semibold">Add New Video</h2>
           <div className="flex gap-2 p-1 bg-gray-800 rounded-lg">
             {(['instagram', 'youtube'] as const).map(p => (
               <button
@@ -139,7 +139,7 @@ export default function ShowcaseManager({ initialVideos }: { initialVideos: Show
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
                   form.platform === p
                     ? 'bg-indigo-600 text-white shadow-lg'
-                    : 'text-gray-400 hover:text-white'
+                    : 'text-gray-400 hover:text-gray-100'
                 }`}
               >
                 {p === 'instagram' ? <InstagramIcon className="w-3.5 h-3.5" /> : <YoutubeIcon className="w-3.5 h-3.5" />}
@@ -169,7 +169,7 @@ export default function ShowcaseManager({ initialVideos }: { initialVideos: Show
                   value={form.video_url}
                   onChange={e => setField('video_url', e.target.value)}
                   placeholder={form.platform === 'instagram' ? "https://instagram.com/reel/..." : "https://youtube.com/watch?v=..."}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg pl-10 pr-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg pl-10 pr-3 py-2.5 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
@@ -213,17 +213,18 @@ export default function ShowcaseManager({ initialVideos }: { initialVideos: Show
                 value={form.creator_name}
                 onChange={e => setField('creator_name', e.target.value)}
                 placeholder="e.g. Riya Sharma"
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-gray-400 mb-1.5">Niche</label>
+                <label htmlFor="niche-select" className="block text-sm text-gray-400 mb-1.5">Niche</label>
                 <select
+                  id="niche-select"
                   value={form.niche}
                   onChange={e => setField('niche', e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-sm text-gray-100 focus:outline-none focus:border-indigo-500"
                 >
                   <option value="">— Niche —</option>
                   {NICHES.map(n => <option key={n} value={n}>{n}</option>)}
@@ -236,7 +237,7 @@ export default function ShowcaseManager({ initialVideos }: { initialVideos: Show
                   value={form.brand_name}
                   onChange={e => setField('brand_name', e.target.value)}
                   placeholder="e.g. KFC"
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
@@ -259,7 +260,7 @@ export default function ShowcaseManager({ initialVideos }: { initialVideos: Show
 
       {/* ── Video list ── */}
       <div className="space-y-4 text-left">
-        <h2 className="text-white font-semibold flex items-center justify-between">
+        <h2 className="text-gray-100 font-semibold flex items-center justify-between">
           <span>Manage Content ({videos.length})</span>
         </h2>
         
@@ -288,7 +289,7 @@ export default function ShowcaseManager({ initialVideos }: { initialVideos: Show
                     }`}>
                       {v.platform}
                     </span>
-                    <p className="text-white text-sm font-bold truncate">{v.creator_name}</p>
+                    <p className="text-gray-100 text-sm font-bold truncate">{v.creator_name}</p>
                   </div>
                   <p className="text-gray-500 text-[11px] truncate flex items-center gap-2">
                     {v.brand_name && <span className="text-gray-400">{v.brand_name}</span>}

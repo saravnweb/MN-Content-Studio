@@ -75,7 +75,7 @@ export default function ReviewSubmission({ applicationId, submissionUrl, current
         onChange={(e) => setNote(e.target.value)}
         placeholder="Revision notes (required to request changes)…"
         rows={2}
-        className="w-full bg-gray-800 border border-gray-700 text-white text-xs rounded-lg px-3 py-2 placeholder-gray-600 focus:outline-none focus:border-gray-500 resize-none transition-colors"
+        className="w-full bg-gray-800 border border-gray-700 text-gray-100 text-xs rounded-lg px-3 py-2 placeholder-gray-600 focus:outline-none focus:border-gray-500 resize-none transition-colors"
       />
 
       {/* Action buttons */}

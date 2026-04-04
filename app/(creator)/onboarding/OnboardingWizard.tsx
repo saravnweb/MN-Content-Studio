@@ -136,7 +136,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
 
       {/* Header section */}
       <div className="mb-8 text-center px-4">
-        <h2 className="heading-page">Complete Your Profile</h2>
+        <h1 className="heading-page">Complete Your Profile</h1>
         <p className="text-page-subtitle mt-1.5">3 Quick Steps</p>
       </div>
 
@@ -214,7 +214,7 @@ export default function OnboardingWizard({ userId, name }: { userId: string; nam
                     onChange={(e) => setAge(e.target.value)} placeholder="25" className={inp} />
                 </Field>
                 <Field label="Gender *">
-                  <select value={gender} onChange={(e) => setGender(e.target.value)} className={`${inp} cursor-pointer`}>
+                  <select aria-label="Gender" value={gender} onChange={(e) => setGender(e.target.value)} className={`${inp} cursor-pointer`}>
                     <option value="">Select…</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>

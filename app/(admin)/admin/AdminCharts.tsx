@@ -23,7 +23,7 @@ export default function AdminCharts({
           return (
             <div key={d.date} className="flex-1 flex flex-col items-center gap-1 group relative">
               {/* Tooltip on hover */}
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-700 text-white text-[10px] px-1.5 py-0.5 rounded whitespace-nowrap z-10 pointer-events-none">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-700 text-gray-100 text-[10px] px-1.5 py-0.5 rounded whitespace-nowrap z-10 pointer-events-none">
                 {d.count} app{d.count !== 1 ? 's' : ''}
               </div>
               <div className="w-full rounded-t-sm transition-all"

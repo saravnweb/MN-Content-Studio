@@ -66,12 +66,12 @@ export default function BrandsPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-100">Brands</h2>
+          <h1 className="text-2xl font-bold text-gray-100">Brands</h1>
           <p className="text-gray-400 text-sm mt-1">Upload a logo once — reused across all campaigns</p>
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="bg-white hover:bg-gray-100 text-gray-950 font-medium px-4 py-2 rounded-lg text-sm transition-colors"
+          className="bg-gray-100 hover:bg-gray-100 text-gray-900 font-medium px-4 py-2 rounded-lg text-sm transition-colors"
         >
           + New Brand
         </button>
@@ -81,7 +81,7 @@ export default function BrandsPage() {
       {brands.length === 0 ? (
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
           <p className="text-gray-400 text-sm font-medium">No brands yet.</p>
-          <button onClick={() => setShowCreate(true)} className="mt-4 bg-white hover:bg-gray-100 text-gray-950 px-4 py-2 rounded-lg text-sm transition-colors">
+          <button onClick={() => setShowCreate(true)} className="mt-4 bg-gray-100 hover:bg-gray-100 text-gray-900 px-4 py-2 rounded-lg text-sm transition-colors">
             Add your first brand
           </button>
         </div>
@@ -101,7 +101,7 @@ export default function BrandsPage() {
                   <>
                     <Image src={brand.logo_url} alt={brand.name} fill className="object-cover" />
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                      <span className="text-white text-xs font-medium">Change</span>
+                      <span className="text-gray-100 text-xs font-medium">Change</span>
                     </div>
                   </>
                 ) : uploadingId === brand.id ? (
@@ -266,7 +266,7 @@ function CreateBrandDrawer({
             <input
               value={tagline} onChange={(e) => setTagline(e.target.value)}
               placeholder="Sports Nutrition · India"
-              className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-indigo-500"
+              className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-gray-100 placeholder-gray-600 text-sm focus:outline-none focus:border-indigo-500"
             />
             <p className="text-gray-700 text-xs mt-1.5">Or pick industry tags below — they&apos;ll be used as tagline</p>
           </div>
@@ -281,7 +281,7 @@ function CreateBrandDrawer({
                   className={`px-3 py-1.5 rounded-full text-xs capitalize transition-colors ${
                     tags.includes(t)
                       ? 'bg-indigo-600 text-white'
-                      : 'bg-gray-800 text-gray-400 hover:text-white'
+                      : 'bg-gray-800 text-gray-400 hover:text-gray-100'
                   }`}
                 >
                   {t}

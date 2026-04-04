@@ -46,14 +46,14 @@ export default function CampaignTabs({
             onClick={() => setActiveTab(tab.key)}
             className={`flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium whitespace-nowrap transition-colors border-b-2 -mb-px ${
               activeTab === tab.key
-                ? 'border-white text-white'
+                ? 'border-gray-100 text-gray-100'
                 : 'border-transparent text-gray-400 hover:text-gray-300'
             }`}
           >
             {tab.label}
             {tab.count !== undefined && tab.count > 0 && (
               <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                activeTab === tab.key ? 'bg-gray-700 text-white' : 'bg-gray-800 text-gray-500'
+                activeTab === tab.key ? 'bg-gray-700 text-gray-100' : 'bg-gray-800 text-gray-500'
               }`}>
                 {tab.count}
               </span>
@@ -100,7 +100,7 @@ export default function CampaignTabs({
           <div className="mt-6">
             <Link
               href={`/admin/campaigns/${campaign.id}/edit`}
-              className="inline-flex items-center gap-1.5 text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-gray-100 px-4 py-2 rounded-lg transition-colors"
             >
               <Pencil className="w-3.5 h-3.5" /> Edit Campaign
             </Link>
@@ -137,7 +137,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <p className="text-gray-400 text-xs mb-0.5">{label}</p>
-      <p className="text-white text-sm font-medium">{value}</p>
+      <p className="text-gray-100 text-sm font-medium">{value}</p>
     </div>
   )
 }

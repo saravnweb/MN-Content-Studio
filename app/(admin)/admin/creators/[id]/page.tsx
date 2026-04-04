@@ -29,7 +29,7 @@ export default async function CreatorDetailPage({ params }: { params: { id: stri
         </p>
         <Link 
           href="/admin/creators" 
-          className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2.5 px-6 rounded-xl transition-all flex items-center gap-2"
+          className="bg-gray-800 hover:bg-gray-700 text-gray-100 font-bold py-2.5 px-6 rounded-xl transition-all flex items-center gap-2"
         >
           <ChevronLeft className="w-4 h-4" /> Back to Creators
         </Link>
@@ -59,7 +59,7 @@ export default async function CreatorDetailPage({ params }: { params: { id: stri
       <div className="mb-8">
         <Link 
           href="/admin/creators" 
-          className="text-gray-500 hover:text-white transition-colors flex items-center gap-2 text-sm font-bold group"
+          className="text-gray-500 hover:text-gray-100 transition-colors flex items-center gap-2 text-sm font-bold group"
         >
           <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> 
           Back to Creators

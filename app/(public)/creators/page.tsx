@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function ForCreatorsPage() {
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-gray-950 text-white selection:bg-indigo-500/30">
       <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur border-b border-gray-800 px-4 py-3 flex items-center justify-between">
         <BrandLogo withLink={true} size={28} textClassName="font-bold text-base tracking-tight text-gray-100" />
         <Link href="/" className="text-sm text-gray-400 hover:text-gray-100 transition-colors">Back to Home</Link>

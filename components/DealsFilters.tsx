@@ -4,6 +4,7 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useState, useEffect, useCallback, useTransition } from 'react'
 import Link from 'next/link'
 import { NICHES } from '@/lib/constants'
+import { ListFilter } from 'lucide-react'
 
 const PLATFORMS = [
   { value: '', label: 'All' },
@@ -165,7 +166,7 @@ export default function DealsFilters({ totalCount, filteredCount, bookmarkCount,
               ? 'bg-indigo-500/10 border-indigo-500 text-indigo-400'
               : 'bg-gray-900 border-gray-800 text-gray-400'
           }`}>
-          <span aria-hidden="true">⚙</span>
+          <ListFilter className="w-5 h-5" aria-hidden="true" />
           {activeFilterCount > 0 && (
             <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full text-[9px] font-bold text-white flex items-center justify-center bg-indigo-500" aria-hidden="true">
               {activeFilterCount}
@@ -303,7 +304,7 @@ function TabBtn({ label, active, href }: { label: string; active: boolean; href:
 
 function ActiveChip({ label, onRemove, removeLabel }: { label: string; onRemove: () => void; removeLabel: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium capitalize bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium capitalize bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/20">
       {label}
       <button onClick={onRemove} aria-label={removeLabel} className="opacity-60 hover:opacity-100 leading-none">
         <span aria-hidden="true">✕</span>

@@ -104,7 +104,7 @@ export default function BrandSignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-gray-950 text-white selection:bg-indigo-500/30">
       <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur border-b border-gray-800 px-4 py-3 flex items-center justify-between">
         <BrandLogo withLink={true} size={28} textClassName="font-bold text-base tracking-tight text-gray-100" />
         <Link href="/brands" className="text-sm text-gray-400 hover:text-gray-100 transition-colors">Back</Link>
@@ -125,8 +125,9 @@ export default function BrandSignupPage() {
 
           {/* Company + Contact row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Field label="Brand / Company name" required>
+            <Field id="company_name" label="Brand / Company name" required>
               <input
+                id="company_name"
                 type="text"
                 value={form.company_name}
                 onChange={e => set('company_name', e.target.value)}
@@ -135,8 +136,9 @@ export default function BrandSignupPage() {
                 className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-sm text-gray-100 placeholder-gray-500 outline-none transition-colors"
               />
             </Field>
-            <Field label="Your name" required>
+            <Field id="contact_name" label="Your name" required>
               <input
+                id="contact_name"
                 type="text"
                 value={form.contact_name}
                 onChange={e => set('contact_name', e.target.value)}
@@ -149,8 +151,9 @@ export default function BrandSignupPage() {
 
           {/* Email + Phone row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Field label="Work email" required>
+            <Field id="email" label="Work email" required>
               <input
+                id="email"
                 type="email"
                 value={form.email}
                 onChange={e => set('email', e.target.value)}
@@ -159,8 +162,9 @@ export default function BrandSignupPage() {
                 className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-sm text-gray-100 placeholder-gray-500 outline-none transition-colors"
               />
             </Field>
-            <Field label="Phone" hint="optional">
+            <Field id="phone" label="Phone" hint="optional">
               <input
+                id="phone"
                 type="tel"
                 value={form.phone}
                 onChange={e => set('phone', e.target.value)}
@@ -171,8 +175,9 @@ export default function BrandSignupPage() {
           </div>
 
           {/* Niche */}
-          <Field label="Product niche">
+          <Field id="niche" label="Product niche">
             <select
+              id="niche"
               value={form.niche}
               onChange={e => set('niche', e.target.value)}
               className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 pr-10 text-sm text-gray-100 outline-none transition-colors"
@@ -217,8 +222,9 @@ export default function BrandSignupPage() {
 
           {/* Budget + Timeline row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Field label="Budget range">
+            <Field id="budget" label="Budget range">
               <select
+                id="budget"
                 value={form.budget_range}
                 onChange={e => set('budget_range', e.target.value)}
                 className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 pr-10 text-sm text-gray-100 outline-none transition-colors"
@@ -227,8 +233,9 @@ export default function BrandSignupPage() {
                 {BUDGET_RANGES.map(b => <option key={b} value={b}>{b}</option>)}
               </select>
             </Field>
-            <Field label="Timeline">
+            <Field id="timeline" label="Timeline">
               <select
+                id="timeline"
                 value={form.timeline}
                 onChange={e => set('timeline', e.target.value)}
                 className="w-full bg-gray-900 border border-gray-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 pr-10 text-sm text-gray-100 outline-none transition-colors"
@@ -261,7 +268,8 @@ export default function BrandSignupPage() {
   )
 }
 
-function Field({ label, hint, required, children }: {
+function Field({ id, label, hint, required, children }: {
+  id?: string
   label: string
   hint?: string
   required?: boolean
@@ -269,7 +277,7 @@ function Field({ label, hint, required, children }: {
 }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-400 mb-1.5">
+      <label htmlFor={id} className="block text-xs font-medium text-gray-400 mb-1.5">
         {label}
         {required && <span className="text-indigo-400 ml-0.5">*</span>}
         {hint && <span className="text-gray-600 ml-1">({hint})</span>}

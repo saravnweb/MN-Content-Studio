@@ -110,7 +110,7 @@ function VideoCard({ video, onClick }: { video: FeaturedVideo; onClick: () => vo
         ) : (
           /* Placeholder */
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-950 to-violet-950">
-            <span className="text-4xl font-bold text-white/20 select-none">
+            <span className="text-4xl font-bold text-gray-100/20 select-none">
               {video.avatar_initials}
             </span>
           </div>
@@ -121,8 +121,8 @@ function VideoCard({ video, onClick }: { video: FeaturedVideo; onClick: () => vo
         
         {/* Play Icon - Premium Style */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-xl scale-90 group-hover:scale-110 transition-all duration-500">
-            <Play className="w-6 h-6 text-white fill-white ml-1" />
+          <div className="w-14 h-14 rounded-full bg-gray-100/10 backdrop-blur-md flex items-center justify-center border border-gray-100/20 shadow-xl scale-90 group-hover:scale-110 transition-all duration-500">
+            <Play className="w-6 h-6 text-gray-100 fill-white ml-1" />
           </div>
         </div>
 
@@ -141,9 +141,9 @@ function VideoCard({ video, onClick }: { video: FeaturedVideo; onClick: () => vo
         <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 group-hover:translate-y-0 transition-transform">
           <p className="text-label text-indigo-400 mb-1">{video.brand_name || 'Showcase Content'}</p>
           <div className="flex items-center justify-between gap-2">
-            <p className="text-card-title text-white truncate">{video.creator_name}</p>
+            <p className="text-card-title text-gray-100 truncate">{video.creator_name}</p>
             {video.creator_niche && (
-              <span className="text-badge bg-white/10 backdrop-blur-sm text-white border border-white/10 px-2 py-0.5 rounded-full font-bold">
+              <span className="text-badge bg-gray-100/10 backdrop-blur-sm text-gray-100 border border-gray-100/10 px-2 py-0.5 rounded-full font-bold">
                 {video.creator_niche}
               </span>
             )}
@@ -171,16 +171,16 @@ function VideoModal({ video, onClose }: { video: FeaturedVideo; onClose: () => v
       */}
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 sm:top-8 sm:right-8 text-white transition-all p-4 hover:scale-110 z-[110] group"
+        className="absolute top-4 right-4 sm:top-8 sm:right-8 text-gray-100 transition-all p-4 hover:scale-110 z-[110] group"
         aria-label="Close modal"
       >
-        <div className="bg-white/10 group-hover:bg-white/20 p-2.5 rounded-full backdrop-blur-xl border border-white/20 shadow-2xl transition-all">
+        <div className="bg-gray-100/10 group-hover:bg-gray-100/20 p-2.5 rounded-full backdrop-blur-xl border border-gray-100/20 shadow-2xl transition-all">
           <X size={28} />
         </div>
       </button>
 
       <div
-        className={`relative w-full bg-black rounded-3xl overflow-hidden shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)] border border-white/10 ${
+        className={`relative w-full bg-black rounded-3xl overflow-hidden shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)] border border-gray-100/10 ${
           isVertical ? "max-w-md aspect-[9/16]" : "max-w-5xl aspect-video"
         }`}
         onClick={e => e.stopPropagation()}
@@ -217,8 +217,8 @@ function VideoModal({ video, onClose }: { video: FeaturedVideo; onClose: () => v
 
       {/* Proof Banner */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center hidden sm:block">
-        <p className="text-label text-white/30 tracking-[0.2em] mb-2">Authentic Social Proof</p>
-        <p className="text-white/50 text-xs tracking-wide">Direct {video.platform === 'instagram' ? 'Instagram Reel' : 'YouTube Video'} Feed</p>
+        <p className="text-label text-gray-100/30 tracking-[0.2em] mb-2">Authentic Social Proof</p>
+        <p className="text-gray-100/50 text-xs tracking-wide">Direct {video.platform === 'instagram' ? 'Instagram Reel' : 'YouTube Video'} Feed</p>
       </div>
     </div>
   )

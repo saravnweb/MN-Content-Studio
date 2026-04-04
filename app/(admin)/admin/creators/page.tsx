@@ -170,9 +170,9 @@ export default function CreatorsPage() {
         <h2 className="text-2xl font-bold text-gray-100">Creators</h2>
         <p className="text-gray-400 text-sm mt-0.5">
           {activeFilterCount > 0 || search ? (
-            <><span className="text-white font-semibold">{filtered.length}</span> of <span className="text-white">{creators.length}</span> registered</>
+            <><span className="text-gray-100 font-semibold">{filtered.length}</span> of <span className="text-gray-100">{creators.length}</span> registered</>
           ) : (
-            <><span className="text-white font-semibold">{creators.length}</span> registered</>
+            <><span className="text-gray-100 font-semibold">{creators.length}</span> registered</>
           )}
         </p>
       </div>
@@ -186,7 +186,7 @@ export default function CreatorsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name or username…"
-            className="w-full bg-gray-900 border border-gray-800 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-600 transition-colors"
+            className="w-full bg-gray-900 border border-gray-800 rounded-xl pl-9 pr-4 py-2.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-gray-600 transition-colors"
           />
         </div>
         <button
@@ -251,11 +251,12 @@ export default function CreatorsPage() {
             </FilterSection>
 
             {/* Sort By */}
-            <FilterSection label="Sort By">
+            <FilterSection label="Sort By" id="sort-by">
               <select 
+                id="sort-by"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-gray-500 transition-colors appearance-none cursor-pointer"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-gray-100 focus:outline-none focus:border-gray-500 transition-colors appearance-none cursor-pointer"
               >
                 {SORT_OPTIONS.map(o => (
                   <option key={o.value} value={o.value}>{o.label}</option>
@@ -346,7 +347,7 @@ export default function CreatorsPage() {
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
-                      <p className={`font-semibold text-sm truncate transition-colors ${hasName ? 'text-gray-100 group-hover:text-white' : 'text-gray-400 italic'}`}>
+                      <p className={`font-semibold text-sm truncate transition-colors ${hasName ? 'text-gray-100 group-hover:text-gray-100' : 'text-gray-400 italic'}`}>
                         {c.full_name ?? 'No name provided'}
                       </p>
                       <p className="text-gray-400 text-[11px] shrink-0 mt-0.5">
@@ -420,7 +421,7 @@ export default function CreatorsPage() {
                             e.stopPropagation();
                             window.location.href = `tel:${c.phone}`;
                           }}
-                          className="flex items-center gap-1 text-[11px] text-gray-400 bg-gray-800 hover:bg-gray-700 hover:text-white px-2.5 py-0.5 rounded-full transition-colors cursor-pointer"
+                          className="flex items-center gap-1 text-[11px] text-gray-400 bg-gray-800 hover:bg-gray-700 hover:text-gray-100 px-2.5 py-0.5 rounded-full transition-colors cursor-pointer"
                         >
                           <Phone className="w-3 h-3" /> {c.phone}
                         </button>
@@ -449,10 +450,10 @@ export default function CreatorsPage() {
   )
 }
 
-function FilterSection({ label, children }: { label: string; children: React.ReactNode }) {
+function FilterSection({ id, label, children }: { id?: string; label: string; children: React.ReactNode }) {
   return (
     <div className="space-y-2.5">
-      <label className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">{label}</label>
+      <label htmlFor={id} className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">{label}</label>
       {children}
     </div>
   )

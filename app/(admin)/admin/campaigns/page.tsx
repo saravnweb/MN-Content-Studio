@@ -81,11 +81,11 @@ export default function CampaignsPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-white">Campaigns</h2>
+          <h2 className="text-2xl font-bold text-gray-100">Campaigns</h2>
           <p className="text-gray-400 text-sm mt-1">{campaigns.length} total</p>
         </div>
         <Link href="/admin/campaigns/new"
-          className="bg-white hover:bg-gray-100 text-gray-950 font-medium px-4 py-2 rounded-lg text-sm transition-colors">
+          className="bg-gray-100 hover:bg-gray-100 text-gray-900 font-medium px-4 py-2 rounded-lg text-sm transition-colors">
           + New Campaign
         </Link>
       </div>
@@ -97,14 +97,14 @@ export default function CampaignsPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by title or brand…"
-          className="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
+          className="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
         />
         <div className="flex gap-1.5">
           {STATUS_FILTERS.map((f) => (
             <button key={f} onClick={() => setStatusFilter(f)}
               className={`px-3 py-2 rounded-lg text-xs font-medium capitalize transition-colors ${
                 statusFilter === f
-                  ? 'bg-gray-700 text-white border border-gray-600'
+                  ? 'bg-gray-700 text-gray-100 border border-gray-600'
                   : 'bg-gray-900 text-gray-400 border border-gray-800 hover:text-gray-300'
               }`}>
               {f}
@@ -116,7 +116,7 @@ export default function CampaignsPage() {
       {!campaigns.length ? (
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center">
           <p className="text-gray-400 font-medium">No campaigns yet</p>
-          <Link href="/admin/campaigns/new" className="inline-block mt-4 bg-white hover:bg-gray-100 text-gray-950 px-4 py-2 rounded-lg text-sm transition-colors">
+          <Link href="/admin/campaigns/new" className="inline-block mt-4 bg-gray-100 hover:bg-gray-100 text-gray-900 px-4 py-2 rounded-lg text-sm transition-colors">
             Create Campaign
           </Link>
         </div>
@@ -130,7 +130,7 @@ export default function CampaignsPage() {
             <div key={c.id} className="flex items-center justify-between px-6 py-4 hover:bg-gray-800/50 transition-colors group">
               <Link href={`/admin/campaigns/${c.id}`} className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <p className="text-white font-medium text-sm">{c.title}</p>
+                  <p className="text-gray-100 font-medium text-sm">{c.title}</p>
                   <StatusPill status={c.status} />
                 </div>
                 <p className="text-gray-400 text-xs mt-0.5">

@@ -52,11 +52,11 @@ export default function CreatorProfileUI({
       {/* Header Info */}
       <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-6">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-2xl font-bold text-white shadow-xl shadow-indigo-500/20">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-2xl font-bold text-gray-100 shadow-xl shadow-indigo-500/20">
             {creator.full_name?.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2) ?? '??'}
           </div>
           <div>
-            <h1 className="text-3xl font-extrabold text-white tracking-tight font-heading">
+            <h1 className="text-3xl font-extrabold text-gray-100 tracking-tight font-heading">
               {creator.full_name ?? '—'}
             </h1>
             <div className="flex items-center gap-3 mt-1.5 text-gray-400">
@@ -88,7 +88,7 @@ export default function CreatorProfileUI({
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-6 py-4 text-sm font-bold transition-all relative ${
-                isActive ? 'text-white' : 'text-gray-500 hover:text-gray-300'
+                isActive ? 'text-gray-100' : 'text-gray-500 hover:text-gray-300'
               }`}
             >
               <Icon className={`w-4 h-4 ${isActive ? 'text-indigo-400' : ''}`} />
@@ -212,7 +212,7 @@ export default function CreatorProfileUI({
                         <Megaphone className="w-5 h-5 text-gray-400 group-hover:text-indigo-400 transition-colors" />
                       </div>
                       <div className="min-w-0">
-                        <h4 className="text-white font-bold truncate group-hover:text-indigo-300 transition-colors">{app.campaign?.title}</h4>
+                        <h4 className="text-gray-100 font-bold truncate group-hover:text-indigo-300 transition-colors">{app.campaign?.title}</h4>
                         <p className="text-meta mt-0.5">{app.campaign?.brand_name} • {new Date(app.created_at).toLocaleDateString('en-IN')}</p>
                       </div>
                     </div>
@@ -228,7 +228,7 @@ export default function CreatorProfileUI({
                             />
                         </div>
                        )}
-                       <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-white transition-all transform group-hover:translate-x-1" />
+                       <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-100 transition-all transform group-hover:translate-x-1" />
                     </div>
                   </Link>
                 ))}
@@ -290,7 +290,7 @@ export default function CreatorProfileUI({
                           <span className="text-label">UPI Details</span>
                         </div>
                         <div className="bg-black/20 rounded-xl p-3 border border-gray-800">
-                          <p className="text-xs font-mono text-white select-all break-all">{creator.upi_id}</p>
+                          <p className="text-xs font-mono text-gray-100 select-all break-all">{creator.upi_id}</p>
                         </div>
                       </div>
                     )}
@@ -323,7 +323,7 @@ export default function CreatorProfileUI({
                     <tbody className="divide-y divide-gray-800/50">
                       {applications.filter(a => a.payout_status === 'paid').map((app) => (
                         <tr key={app.id} className="text-meta text-gray-300 hover:bg-gray-900/50 transition-colors">
-                          <td className="px-6 py-4 font-bold text-white max-w-[150px] truncate">{app.campaign?.title}</td>
+                          <td className="px-6 py-4 font-bold text-gray-100 max-w-[150px] truncate">{app.campaign?.title}</td>
                           <td className="px-6 py-4 font-mono text-xs text-gray-500">{app.payout_ref || '—'}</td>
                           <td className="px-6 py-4">{app.payout_date ? new Date(app.payout_date).toLocaleDateString('en-IN') : '—'}</td>
                           <td className="px-6 py-4 text-right font-black text-emerald-400">₹{app.payout_amount?.toLocaleString('en-IN') || 0}</td>
@@ -357,7 +357,7 @@ function InfoItem({ icon: Icon, label, value, color }: { icon: any; label: strin
         <Icon className="w-3.5 h-3.5" />
         <span className="text-label">{label}</span>
       </div>
-      <p className="text-lg font-bold text-white truncate">{value}</p>
+      <p className="text-lg font-bold text-gray-100 truncate">{value}</p>
     </div>
   )
 }
@@ -405,7 +405,7 @@ function ContactItem({ href, icon: Icon, label, subtext, hoverColor }: { href: s
           <Icon className="w-5 h-5 text-gray-500 group-hover:text-current transition-colors" />
         </div>
         <div>
-          <p className="text-xs font-bold text-white group-hover:text-current transition-colors">{label}</p>
+          <p className="text-xs font-bold text-gray-100 group-hover:text-current transition-colors">{label}</p>
           <p className="text-meta mt-0.5">{subtext}</p>
         </div>
       </div>

@@ -42,7 +42,7 @@ function CreatorCard({ name, niche, platform, followers, rating, initial, bg }: 
   return (
     <div className="w-56 shrink-0 bg-gray-900 border border-gray-800/60 rounded-2xl p-4 mx-2 shadow-sm">
       <div className="flex items-center gap-3 mb-3">
-        <div className={`w-10 h-10 rounded-full ${bg} flex items-center justify-center text-sm font-bold text-white shrink-0 shadow-inner`}>
+        <div className={`w-10 h-10 rounded-full ${bg} flex items-center justify-center text-sm font-bold text-gray-100 shrink-0 shadow-inner`}>
           {initial}
         </div>
         <div className="min-w-0">
