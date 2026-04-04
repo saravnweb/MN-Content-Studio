@@ -116,34 +116,38 @@ function VideoCard({ video, onClick }: { video: FeaturedVideo; onClick: () => vo
           </div>
         )}
 
-        {/* Glassmorphism overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+        {/* Modern Gradient Overlay — stronger at bottom for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10" />
         
         {/* Play Icon - Premium Style */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-14 h-14 rounded-full bg-gray-100/10 backdrop-blur-md flex items-center justify-center border border-gray-100/20 shadow-xl scale-90 group-hover:scale-110 transition-all duration-500">
-            <Play className="w-6 h-6 text-gray-100 fill-white ml-1" />
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-2xl scale-90 group-hover:scale-110 transition-all duration-500">
+            <Play className="w-6 h-6 text-white fill-white ml-1" />
           </div>
         </div>
 
         {/* Platform Badge */}
-        <div className="absolute top-3 right-3 z-10">
+        <div className="absolute top-3 right-3 z-20">
           <div className={`p-2 rounded-full backdrop-blur-md border shadow-lg ${
             video.platform === 'instagram' 
-              ? "bg-pink-500/20 border-pink-500/30 text-pink-400" 
-              : "bg-red-500/20 border-red-500/30 text-red-400"
+              ? "bg-pink-500/40 border-pink-500/50 text-white" 
+              : "bg-red-600/40 border-red-600/50 text-white"
           }`}>
             {video.platform === 'instagram' ? <InstagramIcon className="w-3.5 h-3.5" /> : <YoutubeIcon className="w-3.5 h-3.5" />}
           </div>
         </div>
 
         {/* Creator Info Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 group-hover:translate-y-0 transition-transform">
-          <p className="text-label text-indigo-400 mb-1">{video.brand_name || 'Showcase Content'}</p>
-          <div className="flex items-center justify-between gap-2">
-            <p className="text-card-title text-gray-100 truncate">{video.creator_name}</p>
+        <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-20">
+          <p className="text-[11px] font-extrabold uppercase tracking-[0.15em] text-indigo-400 mb-1.5 drop-shadow-lg">
+            {video.brand_name || 'Showcase Content'}
+          </p>
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-base font-bold text-white truncate drop-shadow-lg leading-none">
+              {video.creator_name}
+            </p>
             {video.creator_niche && (
-              <span className="text-badge bg-gray-100/10 backdrop-blur-sm text-gray-100 border border-gray-100/10 px-2 py-0.5 rounded-full font-bold">
+              <span className="text-[10px] font-black bg-white/20 backdrop-blur-xl text-white border border-white/30 px-2.5 py-1 rounded-md uppercase tracking-wider shadow-sm flex-shrink-0">
                 {video.creator_niche}
               </span>
             )}
