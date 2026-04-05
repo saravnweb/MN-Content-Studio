@@ -4,7 +4,7 @@ import WhatsAppCTA from '@/components/WhatsAppCTA'
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-gray-950 text-white selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-gray-950 text-gray-100 selection:bg-indigo-500/30">
       <header className="sticky top-0 z-30 bg-gray-950/80 backdrop-blur border-b border-gray-800 px-4 py-3 flex items-center justify-between">
         <Link href="/" className="font-bold text-base tracking-tight text-gray-100">MW Content Studio</Link>
         <Link href="/" className="text-sm text-gray-400 hover:text-gray-100 transition-colors">Back to Home</Link>
@@ -16,7 +16,7 @@ export default function PrivacyPage() {
           <p className="text-sm text-gray-400 italic">Last Updated: March 2026</p>
         </div>
 
-        <div className="space-y-8 prose prose-invert prose-sm max-w-none prose-p:text-gray-400 prose-headings:text-gray-100 prose-strong:text-indigo-400">
+        <div className="space-y-8 text-sm text-gray-400 [&_h2]:text-gray-100 [&_h2]:mb-3 [&_strong]:text-indigo-400">
           <section>
             <h2 className="text-xl font-semibold">1. We Collect Only What&apos;s Needed</h2>
             <p>

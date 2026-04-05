@@ -32,6 +32,8 @@ interface CampaignFormProps {
     status: 'active' | 'paused' | 'closed'
     image_url: string | null
     video_url: string | null
+    image_urls?: string[] | null
+    video_urls?: string[] | null
     brand_name: string
     brand_logo_url: string | null
     visibility?: 'public' | 'all_creators' | 'selected_creators'
@@ -73,9 +75,30 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
   const [status, setStatus] = useState<'active' | 'paused' | 'closed'>(initial?.status ?? 'active')
 
   // Media
-  const [bannerFile, setBannerFile] = useState<File | null>(null)
-  const [bannerPreview, setBannerPreview] = useState<string | null>(initial?.image_url ?? null)
-  const [uploadingBanner, setUploadingBanner] = useState(false)
+  const [bannerFiles, setBannerFiles] = useState<File[]>([])
+  const [bannerPreviews, setBannerPreviews] = useState<string[]>(() => {
+    const urls: string[] = []
+    if (initial?.image_urls && initial.image_urls.length > 0) {
+      urls.push(...initial.image_urls)
+    } else if (initial?.image_url) {
+      urls.push(initial.image_url)
+    }
+    return urls
+  })
+
+  const [videoFiles, setVideoFiles] = useState<File[]>([])
+  const [videoPreviews, setVideoPreviews] = useState<string[]>(() => {
+    const urls: string[] = []
+    if (initial?.video_urls && initial.video_urls.length > 0) {
+      urls.push(...initial.video_urls)
+    } else if (initial?.video_url) {
+      urls.push(initial.video_url)
+    }
+    return urls
+  })
+
+  const [uploadingMedia, setUploadingMedia] = useState(false)
+  const videoFileRef = useRef<HTMLInputElement>(null)
 
   // Visibility
   const [visibility, setVisibility] = useState<'public' | 'all_creators' | 'selected_creators'>(initial?.visibility ?? 'public')
@@ -116,10 +139,31 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
   }
 
   function onBannerChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file) return
-    setBannerFile(file)
-    setBannerPreview(URL.createObjectURL(file))
+    const files = Array.from(e.target.files ?? [])
+    if (files.length === 0) return
+    setBannerFiles(prev => [...prev, ...files])
+    const newPreviews = files.map(f => URL.createObjectURL(f))
+    setBannerPreviews(prev => [...prev, ...newPreviews])
+  }
+
+  function onVideoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? [])
+    if (files.length === 0) return
+    setVideoFiles(prev => [...prev, ...files])
+    const newPreviews = files.map(f => URL.createObjectURL(f))
+    setVideoPreviews(prev => [...prev, ...newPreviews])
+  }
+
+  function removeBanner(idx: number) {
+    setBannerPreviews(prev => prev.filter((_, i) => i !== idx))
+    // We only need to remove from bannerFiles if it's a new file (not from initial)
+    // For simplicity, we'll just track that we want to keep specific URLs 
+    // but the actual upload happens for the Files we have.
+    // If a preview starts with blob: or is a URL, it matters.
+  }
+
+  function removeVideo(idx: number) {
+    setVideoPreviews(prev => prev.filter((_, i) => i !== idx))
   }
 
   async function saveBrand() {
@@ -143,15 +187,30 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
     setNewBrandLogoFile(null); setNewBrandLogoPreview(null); setSavingBrand(false)
   }
 
-  async function uploadBanner(): Promise<string | null> {
-    if (!bannerFile) return initial?.image_url ?? null
-    setUploadingBanner(true)
-    const ext = bannerFile.name.split('.').pop()
-    const path = `campaign-banners/${Date.now()}.${ext}`
-    const { error } = await supabase.storage.from('campaign-assets').upload(path, bannerFile, { upsert: true })
-    setUploadingBanner(false)
-    if (error) return null
-    return supabase.storage.from('campaign-assets').getPublicUrl(path).data.publicUrl
+  async function uploadMedia(files: File[], previews: string[], folder: string): Promise<string[]> {
+    if (files.length === 0 && previews.length === 0) return []
+    
+    setUploadingMedia(true)
+    const existingUrls = previews.filter(p => !p.startsWith('blob:'))
+    
+    // We need to figure out which File corresponds to which blob preview
+    // Actually simpler: just upload all current Files and combine with existingUrls
+    
+    const uploadPromises = files.map(async (file) => {
+      const ext = file.name.split('.').pop()
+      const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+      const { error } = await supabase.storage.from('campaign-assets').upload(path, file, { upsert: true })
+      if (error) {
+        console.error('Upload error:', error)
+        return null
+      }
+      return supabase.storage.from('campaign-assets').getPublicUrl(path).data.publicUrl
+    })
+
+    const uploadedUrls = await Promise.all(uploadPromises)
+    setUploadingMedia(false)
+    
+    return [...existingUrls, ...uploadedUrls.filter((u): u is string => u !== null)]
   }
 
   async function handleSubmit(e: React.FormEvent, publishStatus: 'active' | 'paused') {
@@ -166,7 +225,9 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
     setError('')
 
     startTransition(async () => {
-      const image_url = await uploadBanner()
+      const image_urls = await uploadMedia(bannerFiles, bannerPreviews, 'campaign-banners')
+      const video_urls = await uploadMedia(videoFiles, videoPreviews, 'campaign-videos')
+      
       const payload = {
         title: title.trim(),
         brand_name: selectedBrand!.name,
@@ -180,7 +241,10 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
         deadline: deadline || null,
         slots_total: parseInt(slotsTotal) || 5,
         status: publishStatus || status,
-        image_url,
+        image_url: image_urls[0] || null,
+        video_url: video_urls[0] || null,
+        image_urls,
+        video_urls,
         visibility,
         visible_to: visibility === 'selected_creators' ? visibleTo : [],
         target_niches: visibility === 'all_creators' ? (targetNiches.length > 0 ? targetNiches : selectedNiches) : [],
@@ -294,27 +358,77 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
             <input value={deliverables} onChange={(e) => setDeliverables(e.target.value)}
               placeholder="e.g. 1 YouTube video + 2 Instagram Reels" className={inputCls} />
           </Field>
-          <Field label="Campaign Banner Image">
-            <div
-              onClick={() => bannerFileRef.current?.click()}
-              className="relative cursor-pointer border-2 border-dashed border-gray-700 hover:border-indigo-500 rounded-xl overflow-hidden transition-colors"
-              style={{ minHeight: '120px' }}>
-              {bannerPreview ? (
-                <NextImage src={bannerPreview} alt="Banner" fill className="object-cover" />
-              ) : (
-                <div className="flex flex-col items-center justify-center py-10 gap-2">
-                  <ImageIcon className="w-8 h-8 text-gray-400" />
-                  <p className="text-gray-400 text-sm">Click to upload banner</p>
-                  <p className="text-gray-400 text-xs">Recommended: 1200×400px</p>
-                </div>
-              )}
-              {bannerPreview && (
-                <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity">
-                  <p className="text-gray-100 text-sm font-medium">Change Image</p>
-                </div>
-              )}
+          <Field label="Campaign Media (Images & Videos)">
+            <div className="space-y-4">
+              {/* Image Grid */}
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {bannerPreviews.map((url, i) => (
+                  <div key={i} className="relative aspect-video rounded-xl overflow-hidden border border-gray-700 bg-gray-800 group">
+                    <NextImage src={url} alt={`Preview ${i}`} fill className="object-cover" />
+                    <button
+                      type="button"
+                      onClick={() => removeBanner(i)}
+                      className="absolute top-2 right-2 w-7 h-7 bg-black/60 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
+                    >
+                      ✕
+                    </button>
+                    {i === 0 && (
+                      <span className="absolute bottom-2 left-2 px-1.5 py-0.5 bg-indigo-600/80 backdrop-blur-sm text-[10px] font-bold text-white rounded">
+                        BANNER
+                      </span>
+                    )}
+                  </div>
+                ))}
+                
+                {/* Upload Image Button */}
+                <button
+                  type="button"
+                  onClick={() => bannerFileRef.current?.click()}
+                  className="aspect-video rounded-xl border-2 border-dashed border-gray-700 hover:border-indigo-500 hover:bg-indigo-500/5 flex flex-col items-center justify-center gap-1.5 transition-all"
+                >
+                  <ImageIcon className="w-5 h-5 text-gray-400" />
+                  <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wider">Add Image</span>
+                </button>
+              </div>
+
+              {/* Video Grid */}
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {videoPreviews.map((url, i) => (
+                  <div key={i} className="relative aspect-video rounded-xl overflow-hidden border border-gray-700 bg-gray-800 group">
+                    <video src={url} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                      <Play className="w-6 h-6 text-white/50" />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeVideo(i)}
+                      className="absolute top-2 right-2 w-7 h-7 bg-black/60 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
+                    >
+                      ✕
+                    </button>
+                    {i === 0 && (
+                      <span className="absolute bottom-2 left-2 px-1.5 py-0.5 bg-emerald-600/80 backdrop-blur-sm text-[10px] font-bold text-white rounded">
+                        MAIN VIDEO
+                      </span>
+                    )}
+                  </div>
+                ))}
+                
+                {/* Upload Video Button */}
+                <button
+                  type="button"
+                  onClick={() => videoFileRef.current?.click()}
+                  className="aspect-video rounded-xl border-2 border-dashed border-gray-700 hover:border-emerald-500 hover:bg-emerald-500/5 flex flex-col items-center justify-center gap-1.5 transition-all"
+                >
+                  <Play className="w-5 h-5 text-gray-400" />
+                  <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wider">Add Video</span>
+                </button>
+              </div>
             </div>
-            <input ref={bannerFileRef} type="file" accept="image/*" onChange={onBannerChange} className="hidden" />
+            
+            <input ref={bannerFileRef} type="file" accept="image/*" multiple onChange={onBannerChange} className="hidden" />
+            <input ref={videoFileRef} type="file" accept="video/*" multiple onChange={onVideoChange} className="hidden" />
+            <p className="text-gray-500 text-[10px] mt-2">First image will be used as campaign banner. Max 10 files recommended.</p>
           </Field>
         </div>
 
@@ -580,10 +694,10 @@ export default function CampaignForm({ initial }: CampaignFormProps) {
               Save Draft
             </button>
           )}
-          <button type="submit" disabled={isPending || uploadingBanner}
+          <button type="submit" disabled={isPending || uploadingMedia}
             className="flex-1 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-semibold py-3 rounded-xl text-sm transition-all shadow-lg shadow-indigo-900/30 active:scale-[0.99]">
-            {isPending || uploadingBanner
-              ? (uploadingBanner ? 'Uploading…' : 'Saving…')
+            {isPending || uploadingMedia
+              ? (uploadingMedia ? 'Uploading…' : 'Saving…')
               : isEdit
                 ? 'Save Changes'
                 : status === 'paused' ? 'Save as Draft' : 'Publish Campaign'}

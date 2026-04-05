@@ -44,11 +44,22 @@ export default async function DealDetailPage({ params }: { params: { id: string 
       <div className="rounded-2xl overflow-hidden border mb-4 shadow-sm"
         style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)' }}>
 
-        {campaign.image_url && (
-          <div className="h-36 w-full relative overflow-hidden">
-            <Image src={campaign.image_url} alt={campaign.title} fill priority className="object-cover" />
-          </div>
-        )}
+        {/* Banner Images Grid */}
+        <div className="flex flex-col gap-1 border-b" style={{ borderColor: 'var(--color-border)' }}>
+          {(campaign.image_urls && campaign.image_urls.length > 0) ? (
+            <div className={`grid gap-1 ${campaign.image_urls.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+              {campaign.image_urls.map((url: string, i: number) => (
+                <div key={i} className={`relative overflow-hidden ${campaign.image_urls.length === 1 ? 'h-48' : 'h-36'}`}>
+                  <Image src={url} alt={campaign.title} fill priority={i === 0} className="object-cover" />
+                </div>
+              ))}
+            </div>
+          ) : campaign.image_url ? (
+            <div className="h-48 w-full relative overflow-hidden">
+              <Image src={campaign.image_url} alt={campaign.title} fill priority className="object-cover" />
+            </div>
+          ) : null}
+        </div>
 
         <div className="px-4 pt-4 pb-5">
           {/* Brand Logo + Name */}
@@ -137,11 +148,25 @@ export default async function DealDetailPage({ params }: { params: { id: string 
         </p>
       </div>
 
-      {/* ── Video preview ── */}
-      {campaign.video_url && (
-        <div className="rounded-2xl border overflow-hidden mb-4"
-          style={{ borderColor: 'var(--color-border)' }}>
-          <video src={campaign.video_url} controls className="w-full max-h-64 object-cover" />
+      {/* ── Video previews ── */}
+      {((campaign.video_urls && campaign.video_urls.length > 0) || campaign.video_url) && (
+        <div className="space-y-3 mb-4">
+          <p className="text-xs font-bold uppercase tracking-wider px-2" style={{ color: 'var(--color-text-muted)' }}>Campaign Videos</p>
+          {(campaign.video_urls && campaign.video_urls.length > 0) ? (
+            <div className="flex flex-col gap-3">
+              {campaign.video_urls.map((url: string, i: number) => (
+                <div key={i} className="rounded-2xl border overflow-hidden"
+                  style={{ borderColor: 'var(--color-border)' }}>
+                  <video src={url} controls className="w-full max-h-80 object-cover" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border overflow-hidden"
+              style={{ borderColor: 'var(--color-border)' }}>
+              <video src={campaign.video_url} controls className="w-full max-h-80 object-cover" />
+            </div>
+          )}
         </div>
       )}
 

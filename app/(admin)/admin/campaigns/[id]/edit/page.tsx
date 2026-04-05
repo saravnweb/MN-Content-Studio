@@ -38,6 +38,8 @@ export default async function EditCampaignPage({ params }: { params: { id: strin
           status: campaign.status,
           image_url: campaign.image_url,
           video_url: campaign.video_url,
+          image_urls: campaign.image_urls,
+          video_urls: campaign.video_urls,
           brand_name: campaign.brand_name,
           brand_logo_url: campaign.brand_logo_url,
           visibility: campaign.visibility ?? 'public',
